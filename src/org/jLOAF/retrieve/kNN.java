@@ -1,6 +1,7 @@
 package org.jLOAF.retrieve;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.jLOAF.casebase.Case;
@@ -19,23 +20,18 @@ public class kNN implements Retrieval {
 	
 	@Override
 	public List<Case> retrieve(Input i) {
-		//FIXME so it works with k>1
-		double[] bestSim = new double[1];
-		bestSim[0] = -1;
-		Case[] bestCases = new Case[1];
-		bestCases[0] = null;
+		Distance [] dist = new Distance[cb.getSize()];
+		
+		int count =0;
 		
 		for(Case c: cb.getCases()){
-			double sim = i.similarity(c.getInput());
-			//FIXME for k > 1
-			if(sim > bestSim[0]){
-				bestSim[0] = sim;
-				bestCases[0] = c;
-			}
+			dist[count] = new Distance(i.similarity(c.getInput()),c);
 		}
 		
+		Arrays.sort(dist);
+		
 		List<Case> best = new ArrayList<Case>();
-		best.add(bestCases[0]);
+		for(int ii=0;ii<k;ii++) best.add(dist[ii].getCase());
 		
 		return best;
 	}
