@@ -28,14 +28,14 @@ public class SimpleKNN implements Reasoning {
 	}
 	
 	public Action mostLikelyAction(List<Case> nn){
-		Hashtable<Action, Integer> nnactions = new Hashtable<Action, Integer>();
+		Hashtable<String, Integer> nnactions = new Hashtable<String, Integer>();
 		
 		for(int i =0;i<nn.size();i++){
-			if(!nnactions.containsKey(nn.get(i).getAction())){//hashtable to account for number of times an action is chosen
-				nnactions.put(nn.get(i).getAction(), 1);
+			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
+				nnactions.put(nn.get(i).getAction().getName(), 1);
 			}else{
-				int value = (int) nnactions.get(nn.get(i).getAction());
-				nnactions.put(nn.get(i).getAction(), value+1);
+				int value = (int) nnactions.get(nn.get(i).getAction().getName());
+				nnactions.put(nn.get(i).getAction().getName(), value+1);
 			}
 		}
 		return max(nnactions);
@@ -46,22 +46,22 @@ public class SimpleKNN implements Reasoning {
 	 * Calculates the msot likely action given a matrix of actions and counts
 	 * 
 	 * **/
-	public Action max(Hashtable<Action, Integer> h){
-		Enumeration<Action> actions;
+	public Action max(Hashtable<String, Integer> h){
+		Enumeration<String> actions;
 		
 		actions = h.keys();
 		int max = 0;
-		Action action = null;
+		String action = "";
 		
 		while(actions.hasMoreElements()){
-			Action val = (Action) actions.nextElement();
+			String val = (String) actions.nextElement();
 			if((int) h.get(val)>max){
 				max = (int) h.get(val);
 				action = val;
 			}
 		}
 		
-		return action;
+		return new Action(action);
 	}
 
 }

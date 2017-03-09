@@ -10,6 +10,7 @@ public class GenericAgent extends Agent {
 	
 	public GenericAgent(CaseBase cb){
 		super(null,null,null,cb);
+		
 		this.setR(new SimpleKNN(5,cb));	
 	}
 }
