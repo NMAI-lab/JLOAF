@@ -10,6 +10,7 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.atomic.Equality;
+import org.jLOAF.sim.atomic.PercentDifference;
 
 public class Simulation {
 
@@ -51,14 +52,14 @@ public class Simulation {
 		//CaseBase cb = CaseBase.load("Left_1.cb");
 		//CaseBase tb = CaseBase.load("Right_1.cb");
 		//set similarity strategy
-		AtomicInput.setClassStrategy(new Equality());
+		AtomicInput.setClassStrategy(new PercentDifference());
 		
 		//testcase
 		Input i6 = new AtomicInput("test", new Feature(1.5));
 		Action a6 = new Action("down");
 		Case c6 = new Case(i6,a6);
 		
-		Agent a = new GenericAgent(cb);
+		Agent a = new GenericAgent(cb, 3);
 		Action predicted = a.getR().selectAction(c6.getInput());
 		System.out.println("Action Predicted: " + predicted.getName() +", and the correct action is " + a6.getName() + ".");
 	}
