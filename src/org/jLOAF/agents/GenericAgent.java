@@ -8,9 +8,9 @@ import org.jLOAF.reasoning.SimpleKNN;
 
 public class GenericAgent extends Agent {
 	
-	public GenericAgent(CaseBase cb){
+	public GenericAgent(CaseBase cb, int k){
 		super(null,null,null,cb);
 		
-		this.setR(new SimpleKNN(5,cb));	
+		this.setR(new SimpleKNN(k,cb));	
 	}
 }
