@@ -51,6 +51,7 @@ public class Simulation {
 		
 		//CaseBase cb = CaseBase.load("Left_1.cb");
 		//CaseBase tb = CaseBase.load("Right_1.cb");
+		
 		//set similarity strategy
 		AtomicInput.setClassStrategy(new PercentDifference());
 		
