@@ -12,10 +12,12 @@ public class kNN implements Retrieval {
 
 	private int k;
 	private CaseBase cb;
+	private Distance [] dist_closest;
 	
 	public kNN(int k, CaseBase cb){
 		this.cb = cb;
 		this.k = k;
+		this.dist_closest = new Distance [k];
 	}
 	
 	@Override
@@ -35,12 +37,21 @@ public class kNN implements Retrieval {
 		Arrays.sort(dist);
 		
 		//could use a sorting algorithm to sort an arraylist of cases in order
+		//add 
+		for(int ji=0;ji<k;ji++){
+			dist_closest[ji] = dist[ji];
+		}
 		
 		//gets the k closest neighbours
 		List<Case> best = new ArrayList<Case>();
 		for(int ii=0;ii<k;ii++) best.add(dist[ii].getCase());
 		
 		return best;
+	}
+	
+	public Distance [] getDist(){
+		
+		return dist_closest;
 	}
 
 }

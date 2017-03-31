@@ -9,7 +9,10 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.reasoning.SimpleKNN;
+import org.jLOAF.reasoning.WeightedKNN;
 import org.jLOAF.sim.atomic.Equality;
+import org.jLOAF.sim.atomic.EuclideanDistance;
 import org.jLOAF.sim.atomic.PercentDifference;
 
 public class Simulation {
@@ -53,14 +56,18 @@ public class Simulation {
 		//CaseBase tb = CaseBase.load("Right_1.cb");
 		
 		//set similarity strategy
-		AtomicInput.setClassStrategy(new PercentDifference());
+		AtomicInput.setClassStrategy(new EuclideanDistance());
 		
 		//testcase
 		Input i6 = new AtomicInput("test", new Feature(1.5));
 		Action a6 = new Action("down");
 		Case c6 = new Case(i6,a6);
 		
-		Agent a = new GenericAgent(cb, 3);
+		//create generic agent
+		int k = 3;
+		Agent a = new GenericAgent(cb);
+		a.setR(new WeightedKNN(k,cb));
+		
 		Action predicted = a.getR().selectAction(c6.getInput());
 		System.out.println("Action Predicted: " + predicted.getName() +", and the correct action is " + a6.getName() + ".");
 	}

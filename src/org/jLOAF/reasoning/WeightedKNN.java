@@ -13,11 +13,11 @@ import org.jLOAF.retrieve.Distance;
 import org.jLOAF.retrieve.Retrieval;
 import org.jLOAF.retrieve.kNN;
 
-public class SimpleKNN implements Reasoning {
+public class WeightedKNN implements Reasoning {
 
 	private Retrieval ret;
 	
-	public SimpleKNN(int k, CaseBase cb){
+	public WeightedKNN(int k, CaseBase cb){
 		ret = new kNN(k, cb);
 	}
 	
@@ -29,14 +29,15 @@ public class SimpleKNN implements Reasoning {
 	}
 	
 	public Action mostLikelyAction(List<Case> nn){
-		Hashtable<String, Integer> nnactions = new Hashtable<String, Integer>();
+		Hashtable<String, Double> nnactions = new Hashtable<String, Double>();
+		Distance [] dist_closest = ret.getDist();
 		
 		for(int i =0;i<nn.size();i++){
 			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
-				nnactions.put(nn.get(i).getAction().getName(), 1);
+				nnactions.put(nn.get(i).getAction().getName(), 1.0/Math.pow(dist_closest[i].getDistance(),2));
 			}else{
 				double value = nnactions.get(nn.get(i).getAction().getName());
-				nnactions.put(nn.get(i).getAction().getName(), (int) (value+1));
+				nnactions.put(nn.get(i).getAction().getName(), value+(1.0/Math.pow(dist_closest[i].getDistance(),2)));
 			}
 		}
 		return max(nnactions);
@@ -49,7 +50,7 @@ public class SimpleKNN implements Reasoning {
 	 * **/
 	
 	//need to implement a weighted knn with distance 
-	public Action max(Hashtable<String, Integer> h){
+	public Action max(Hashtable<String, Double> h){
 		Enumeration<String> actions;
 		
 		actions = h.keys();
