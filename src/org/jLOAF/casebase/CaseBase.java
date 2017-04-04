@@ -26,6 +26,7 @@ public class CaseBase implements Serializable{
 	public void add(Case c){
 		this.cb.add(c);
 	}
+	
 
 	public int getSize(){
 		return this.cb.size();
@@ -78,5 +79,9 @@ public class CaseBase implements Serializable{
 			System.out.println("Error saving CaseBase:" + e.toString());
 		}
 	
+	}
+	
+	public static void saveAsTrace(CaseBase casebase, String filename){
+		
 	}
 }
