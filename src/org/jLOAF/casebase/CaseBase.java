@@ -82,6 +82,9 @@ public class CaseBase implements Serializable{
 	}
 	
 	public static void saveAsTrace(CaseBase casebase, String filename){
-		
+		if(filename == null || casebase == null){
+			throw new IllegalArgumentException("A null value was given for the file name");
+		}
+		//why is the casebase a collection? no idea. 
 	}
 }
