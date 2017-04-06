@@ -1,5 +1,6 @@
 package org.jLOAF.reasoning;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.inputs.complex.Matrix;
 import org.jLOAF.retrieve.BNetRemoteDiscrete;
 
 
@@ -22,7 +24,7 @@ public class BayesianNetwork implements Reasoning {
 		this.actions = actions;
 	}
 	
-	public BayesianNetwork(ArrayList<CaseBase> cbs,String filename, int Xsize){
+	public BayesianNetwork(ArrayList<CaseBase> cbs,String filename, int Xsize) throws IOException{
 		int case_num = 0;
 		List<String> traces = new ArrayList<String>();
 		//takes a collection of cases and then converts each CaseBase into a trace file 

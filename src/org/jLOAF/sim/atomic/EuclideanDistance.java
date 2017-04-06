@@ -20,7 +20,7 @@ public class EuclideanDistance implements SimilarityMetricStrategy {
 		
 		if(denom==0) return 0.0;
 		
-		return num/denom;
+		return 1-num/denom;
 	}
 
 }

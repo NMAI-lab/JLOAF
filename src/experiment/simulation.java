@@ -1,6 +1,8 @@
 package experiment;
 
 
+import java.io.IOException;
+
 import org.jLOAF.Agent;
 import org.jLOAF.action.Action;
 import org.jLOAF.agents.GenericAgent;
@@ -17,7 +19,7 @@ import org.jLOAF.sim.atomic.PercentDifference;
 
 public class Simulation {
 
-	public static void main(String [] args){
+	public static void main(String [] args) throws IOException{
 		//create a casebase and testbase
 		Feature f1 = new Feature(1.0);
 		Feature f2 = new Feature(2.0);
@@ -51,11 +53,10 @@ public class Simulation {
 		cb.add(c4);
 		cb.add(c5);
 		
-		
 		//CaseBase cb = CaseBase.load("Left_1.cb");
 		//CaseBase tb = CaseBase.load("Right_1.cb");
 		
-		CaseBase.save(cb, "what.txt");
+		CaseBase.save(cb, "casebase1.txt");
 		
 		//set similarity strategy
 		AtomicInput.setClassStrategy(new EuclideanDistance());
@@ -64,6 +65,9 @@ public class Simulation {
 		Input i6 = new AtomicInput("test", new Feature(1.5));
 		Action a6 = new Action("down");
 		Case c6 = new Case(i6,a6);
+		
+		//use the casebase to trace converter
+		CaseBase.saveAsTrace(cb, "trace1.txt");
 		
 		//create generic agent
 		int k = 3;

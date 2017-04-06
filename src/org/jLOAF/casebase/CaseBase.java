@@ -1,25 +1,33 @@
 package org.jLOAF.casebase;
 
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+import org.jLOAF.action.Action;
+import org.jLOAF.inputs.AtomicInput;
+import org.jLOAF.inputs.ComplexInput;
+import org.jLOAF.inputs.Input;
 
 public class CaseBase implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private Collection<Case> cb;
+	private ArrayList<Case> cb;
 	
 	public CaseBase(){
 		this.cb = new ArrayList<Case>();
 	}
 	
-	public Collection<Case> getCases(){
+	public ArrayList<Case> getCases(){
 		return this.cb;
 	}
 	
@@ -81,10 +89,60 @@ public class CaseBase implements Serializable{
 	
 	}
 	
-	public static void saveAsTrace(CaseBase casebase, String filename){
+	public static void saveAsTrace(CaseBase casebase, String filename) throws IOException{
 		if(filename == null || casebase == null){
 			throw new IllegalArgumentException("A null value was given for the file name");
 		}
-		//why is the casebase a collection? no idea. 
+		
+		List<Double> input;
+		String action;
+		FileWriter f1 = null;
+		try {
+			f1 = new FileWriter(filename);
+			
+			for(Case cb: casebase.getCases()){
+				Input i = cb.getInput();
+				Action a = cb.getAction();
+				input = convert(i);
+				
+				for(Double val: input){
+					f1.write(String.valueOf(val));
+					f1.write(",");
+				}
+				
+				action = a.getName();
+				f1.write(action);
+				f1.write("\r\n");
+			}
+			
+			f1.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static List<Double> convert(Input i) {
+		// takes an input and reads it. Assumes its made up of complexInputs which is made up of complex or atomic inputs. 
+		List<Double> input = new ArrayList<Double>();
+		Input result;
+		
+		if (i instanceof ComplexInput){
+			ComplexInput c_input = ((ComplexInput) i);
+			for (String key: (c_input.getChildNames())){
+				result = c_input.get(key);
+				if(result instanceof AtomicInput){
+					input.add(((AtomicInput) result).getFeature().getValue());
+				}else if(result instanceof ComplexInput){
+					//if its the case that there is a nested complexInput then it will go through the function again.  
+					input = convert(result);
+				}
+			}
+		}
+		//if it's simply one atomic Input then it converts it. 
+		if (i instanceof AtomicInput){
+			input.add(((AtomicInput) i).getFeature().getValue());
+		}
+		return input;
 	}
 }

@@ -34,10 +34,10 @@ public class WeightedKNN implements Reasoning {
 		
 		for(int i =0;i<nn.size();i++){
 			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
-				nnactions.put(nn.get(i).getAction().getName(), 1.0/Math.pow(dist_closest[i].getDistance(),2));
+				nnactions.put(nn.get(i).getAction().getName(), 1.0/Math.pow(dist_closest[nn.size()-i-1].getDistance(),2));
 			}else{
 				double value = nnactions.get(nn.get(i).getAction().getName());
-				nnactions.put(nn.get(i).getAction().getName(), value+(1.0/Math.pow(dist_closest[i].getDistance(),2)));
+				nnactions.put(nn.get(i).getAction().getName(), value+(1.0/Math.pow(dist_closest[nn.size()-i-1].getDistance(),2)));
 			}
 		}
 		return max(nnactions);
