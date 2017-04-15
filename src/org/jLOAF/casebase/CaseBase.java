@@ -89,13 +89,14 @@ public class CaseBase implements Serializable{
 	
 	}
 	
-	public static void saveAsTrace(CaseBase casebase, String filename) throws IOException{
+	public static void saveAsTrace(CaseBase casebase, String filename, List<String> actions) throws IOException{
 		if(filename == null || casebase == null){
 			throw new IllegalArgumentException("A null value was given for the file name");
 		}
 		
 		List<Double> input;
 		String action;
+		int action_num;
 		FileWriter f1 = null;
 		try {
 			f1 = new FileWriter(filename);
@@ -111,7 +112,8 @@ public class CaseBase implements Serializable{
 				}
 				
 				action = a.getName();
-				f1.write(action);
+				action_num = getActionNum(action, actions);
+				f1.write(String.valueOf(action_num));
 				f1.write("\r\n");
 			}
 			
@@ -122,6 +124,10 @@ public class CaseBase implements Serializable{
 		}
 	}
 	
+	private static int getActionNum(String action, List<String> actions) {
+		return actions.indexOf(action);
+	}
+
 	private static List<Double> convert(Input i) {
 		// takes an input and reads it. Assumes its made up of complexInputs which is made up of complex or atomic inputs. 
 		List<Double> input = new ArrayList<Double>();

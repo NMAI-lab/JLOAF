@@ -2,6 +2,8 @@ package experiment;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.jLOAF.Agent;
 import org.jLOAF.action.Action;
@@ -66,8 +68,12 @@ public class Simulation {
 		Action a6 = new Action("down");
 		Case c6 = new Case(i6,a6);
 		
+		List<String> actions = new ArrayList<String>();
+		actions.add("down");
+		actions.add("up");
+		
 		//use the casebase to trace converter
-		CaseBase.saveAsTrace(cb, "trace1.txt");
+		CaseBase.saveAsTrace(cb, "trace1.txt", actions);
 		
 		//create generic agent
 		int k = 3;

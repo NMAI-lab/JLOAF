@@ -27,10 +27,11 @@ public class BayesianNetwork implements Reasoning {
 	public BayesianNetwork(ArrayList<CaseBase> cbs,String filename, int Xsize) throws IOException{
 		int case_num = 0;
 		List<String> traces = new ArrayList<String>();
+		List<String> actions = new ArrayList<String>();
 		//takes a collection of cases and then converts each CaseBase into a trace file 
 		for(CaseBase cb: cbs){
 			filename+=String.valueOf(case_num);
-			CaseBase.saveAsTrace(cb, filename);
+			CaseBase.saveAsTrace(cb, filename, actions);
 			traces.add(filename);
 			case_num++;
 		}
