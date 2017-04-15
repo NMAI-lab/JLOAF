@@ -4,7 +4,7 @@ import org.jLOAF.casebase.CaseBase;
 
 public abstract class Agent {
 
-	private Reasoning r;
+	protected Reasoning r;
 	protected MotorControl mc;
 	protected Perception p;
 	protected CaseBase cb;
