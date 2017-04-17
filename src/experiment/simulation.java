@@ -15,7 +15,7 @@ import org.jLOAF.sim.atomic.Equality;
 import org.jLOAF.sim.atomic.EuclideanDistance;
 import org.jLOAF.sim.atomic.PercentDifference;
 
-public class Simulation {
+public class simulation {
 
 	public static void main(String [] args){
 		//create a casebase and testbase
