@@ -1,5 +1,6 @@
 package org.jLOAF.reasoning;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -30,6 +31,8 @@ public class SimpleKNN implements Reasoning {
 	
 	public Action mostLikelyAction(List<Case> nn){
 		Hashtable<String, Integer> nnactions = new Hashtable<String, Integer>();
+		String max_action;
+		List<Action> a = new ArrayList<Action>();
 		
 		for(int i =0;i<nn.size();i++){
 			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
@@ -39,17 +42,25 @@ public class SimpleKNN implements Reasoning {
 				nnactions.put(nn.get(i).getAction().getName(), (int) (value+1));
 			}
 		}
-		return max(nnactions);
+		max_action = max(nnactions);
+		//run through all the cases and only select the first action with that name, as it will be the closest in terms of distance
+		for(Case c: nn){
+			if(c.getAction().getName().equals(max_action)){
+				a.add(c.getAction());
+				break;
+			}
+		}
+		
+		return a.get(0);
 	}
 	
 	/**
 	 * Sacha 2017 Mar
-	 * Calculates the msot likely action given a matrix of actions and counts
+	 * Calculates the most likely action given a matrix of actions and counts
 	 * 
 	 * **/
 	
-	//need to implement a weighted knn with distance 
-	public Action max(Hashtable<String, Integer> h){
+	public String max(Hashtable<String, Integer> h){
 		Enumeration<String> actions;
 		
 		actions = h.keys();
@@ -64,7 +75,7 @@ public class SimpleKNN implements Reasoning {
 			}
 		}
 		
-		return new Action(action);
+		return action;
 	}
 
 }
