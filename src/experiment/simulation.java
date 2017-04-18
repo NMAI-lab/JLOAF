@@ -56,7 +56,7 @@ public class simulation {
 		//CaseBase tb = CaseBase.load("Right_1.cb");
 		
 		//set similarity strategy
-		AtomicInput.setClassStrategy(new EuclideanDistance());
+		AtomicInput.setClassStrategy(new Equality());
 		
 		//testcase
 		Input i6 = new AtomicInput("test", new Feature(1.5));
@@ -64,9 +64,9 @@ public class simulation {
 		Case c6 = new Case(i6,a6);
 		
 		//create generic agent
-		int k = 3;
+		int k = 5;
 		Agent a = new GenericAgent(cb);
-		a.setR(new WeightedKNN(k,cb));
+		a.setR(new SimpleKNN(k,cb));
 		
 		Action predicted = a.getR().selectAction(c6.getInput());
 		System.out.println("Action Predicted: " + predicted.getName() +", and the correct action is " + a6.getName() + ".");
