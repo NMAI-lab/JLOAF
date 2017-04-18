@@ -23,4 +23,8 @@ public abstract class Agent {
 	public void setR(Reasoning r) {
 		this.r = r;
 	}
+	
+	public Perception getP(){
+		return p;
+	}
 }
