@@ -11,7 +11,7 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
 
 public class PercentDifference implements SimilarityMetricStrategy {
 	/* Checks the percent difference between the two atomic values and returns that in the range 
-	 * of 0 and 1.
+	 * of 0 and 1. The higher the better
 	 * 
 	 * **/
 	

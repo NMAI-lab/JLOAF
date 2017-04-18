@@ -31,7 +31,7 @@ public class Distance implements Comparable<Distance>  {
 		if(this.distance==compare){
 			return 0;
 		}else{
-			return this.distance < compare ? 1: -1;
+			return this.distance < compare ? -1: 1;
 		}
 	}
 	

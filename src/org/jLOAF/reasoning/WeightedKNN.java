@@ -1,5 +1,6 @@
 package org.jLOAF.reasoning;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -31,6 +32,8 @@ public class WeightedKNN implements Reasoning {
 	public Action mostLikelyAction(List<Case> nn){
 		Hashtable<String, Double> nnactions = new Hashtable<String, Double>();
 		Distance [] dist_closest = ret.getDist();
+		String max_action;
+		List<Action> a = new ArrayList<Action>();
 		
 		for(int i =0;i<nn.size();i++){
 			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
@@ -40,7 +43,19 @@ public class WeightedKNN implements Reasoning {
 				nnactions.put(nn.get(i).getAction().getName(), value+(1.0/Math.pow(dist_closest[i].getDistance(),2)));
 			}
 		}
-		return max(nnactions);
+		max_action =  max(nnactions);
+		
+		//run through all the cases and only select the first action with that name, as it will be the closest in terms of distance
+		for(Case c: nn){
+			if(c.getAction().getName().equals(max_action)){
+				a.add(c.getAction());
+				break;
+			}
+		}
+		if(a.size()==0){
+			System.out.println("failing");
+		}
+		return a.get(0);
 	}
 	
 	/**
@@ -50,7 +65,7 @@ public class WeightedKNN implements Reasoning {
 	 * **/
 	
 	//need to implement a weighted knn with distance 
-	public Action max(Hashtable<String, Double> h){
+	public String max(Hashtable<String, Double> h){
 		Enumeration<String> actions;
 		
 		actions = h.keys();
@@ -65,7 +80,7 @@ public class WeightedKNN implements Reasoning {
 			}
 		}
 		
-		return new Action(action);
+		return action;
 	}
 
 }
