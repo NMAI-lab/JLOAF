@@ -34,13 +34,19 @@ public class WeightedKNN implements Reasoning {
 		Distance [] dist_closest = ret.getDist();
 		String max_action;
 		List<Action> a = new ArrayList<Action>();
+		double weight;
 		
 		for(int i =0;i<nn.size();i++){
+			//calculate weight
+			weight = Math.pow(dist_closest[i].getDistance(),2);
+			//ensure no division by zero
+			if(weight ==0.0) weight =1;
+			
 			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
-				nnactions.put(nn.get(i).getAction().getName(), 1.0/Math.pow(dist_closest[i].getDistance(),2));
+				nnactions.put(nn.get(i).getAction().getName(), 1.0/weight);
 			}else{
 				double value = nnactions.get(nn.get(i).getAction().getName());
-				nnactions.put(nn.get(i).getAction().getName(), value+(1.0/Math.pow(dist_closest[i].getDistance(),2)));
+				nnactions.put(nn.get(i).getAction().getName(), value+(1.0/weight));
 			}
 		}
 		System.out.println(nnactions);
