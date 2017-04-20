@@ -26,6 +26,7 @@ public class Mean implements SimilarityMetricStrategy {
 		if(!keys.equals(keys2)){
 			//System.out.println("Mean.similarity(...):Likely a problem since not same features.");
 			//not the best way to do this atm
+			//how to deal with 
 			return 1000;
 		}
 		

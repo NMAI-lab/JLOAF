@@ -42,6 +42,7 @@ public class SimpleKNN implements Reasoning {
 				nnactions.put(nn.get(i).getAction().getName(), (int) (value+1));
 			}
 		}
+		System.out.println(nnactions);
 		max_action = max(nnactions);
 		//run through all the cases and only select the first action with that name, as it will be the closest in terms of distance
 		for(Case c: nn){
