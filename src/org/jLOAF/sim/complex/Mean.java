@@ -31,14 +31,15 @@ public class Mean implements SimilarityMetricStrategy {
 //		}
 		
 		double total = 0;
-		
+		double penalty = 100;
+		//dealing with mismatched sets with a penalty for not having a paired element
 		if (keys.size()>=keys2.size()){
 			for(String s: keys){
 				if (cplx2.get(s)!=null){
 					total += cplx1.get(s).similarity(cplx2.get(s));
 				}else{
 					//penalty
-					total +=10;
+					total +=penalty;
 				}	
 			}
 		}else if(keys.size()<keys2.size()){
@@ -47,7 +48,7 @@ public class Mean implements SimilarityMetricStrategy {
 					total += cplx2.get(s).similarity(cplx1.get(s));
 				}else{
 					//penalty
-					total +=10;
+					total +=penalty;
 				}		
 			}
 		}
@@ -56,8 +57,12 @@ public class Mean implements SimilarityMetricStrategy {
 			//if they cannot see anything they are in a similar situation?
 			return 0.0;
 		}
-		
-		return total/keys.size();
+		//only divide by largest set
+		if(keys.size()>=keys2.size()){
+			return total/keys.size();
+		}else{
+			return total/keys2.size();
+		}
 		
 	}
 
