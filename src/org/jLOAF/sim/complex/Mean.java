@@ -23,23 +23,40 @@ public class Mean implements SimilarityMetricStrategy {
 		Set<String> keys = cplx1.getChildNames();
 		Set<String> keys2 = cplx2.getChildNames();
 		
-		if(!keys.equals(keys2)){
-			//System.out.println("Mean.similarity(...):Likely a problem since not same features.");
-			//not the best way to do this atm
-			//how to deal with 
-			return 1000;
-		}
+//		if(!keys.equals(keys2)){
+//			//System.out.println("Mean.similarity(...):Likely a problem since not same features.");
+//			//not the best way to do this atm
+//			//how to deal with 
+//			return 1000;
+//		}
 		
 		double total = 0;
 		
-		for(String s: keys){
-			total += cplx1.get(s).similarity(cplx2.get(s));
+		if (keys.size()>=keys2.size()){
+			for(String s: keys){
+				if (cplx2.get(s)!=null){
+					total += cplx1.get(s).similarity(cplx2.get(s));
+				}else{
+					//penalty
+					total +=10;
+				}	
+			}
+		}else if(keys.size()<keys2.size()){
+			for(String s: keys2){
+				if (cplx1.get(s)!=null){
+					total += cplx2.get(s).similarity(cplx1.get(s));
+				}else{
+					//penalty
+					total +=10;
+				}		
+			}
 		}
 		
 		if(keys.size()==0 && keys2.size()==0){
 			//if they cannot see anything they are in a similar situation?
 			return 0.0;
 		}
+		
 		return total/keys.size();
 		
 	}
