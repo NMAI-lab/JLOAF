@@ -1,4 +1,4 @@
-package org.jLOAF.sim.complex;
+package org.jLOAF.util;
 /**
  * Hungarian Algorithm is a combinatorial optimization algorithm that solves the assignment problem in polynomial time. Link: http://en.wikipedia.org/wiki/Hungarian_algorithm
  * Originally Coded by Amir El Bawab, modified by Ethan J. Eldridge for double matrix 
@@ -244,5 +244,11 @@ public class HungarianDouble {
 			System.out.println();
 		}
 		System.out.println();
+	}
+	
+	public static void main(String [] args){
+		double [][] matrix = {{13.0,4.0,7.0,6.0},{1.0,11.0,5.0,4.0},{6.0,7.0,2.0,8.0},{1.0,3.0,5.0,9.0}};
+		HungarianDouble hd = new HungarianDouble(matrix);
+		System.out.println(hd.getTotal());
 	}
 }

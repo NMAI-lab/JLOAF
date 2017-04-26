@@ -31,7 +31,7 @@ public class Mean implements SimilarityMetricStrategy {
 //		}
 		
 		double total = 0;
-		double penalty = 100;
+		double penalty = 0;
 		//dealing with mismatched sets with a penalty for not having a paired element
 		if (keys.size()>=keys2.size()){
 			for(String s: keys){

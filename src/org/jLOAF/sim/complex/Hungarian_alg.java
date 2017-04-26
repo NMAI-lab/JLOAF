@@ -5,6 +5,7 @@ import java.util.Set;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.SimilarityMetricStrategy;
+import org.jLOAF.util.HungarianDouble;
 
 /***
  * Sacha Gunaratne 2017 May
@@ -45,6 +46,7 @@ public class Hungarian_alg implements SimilarityMetricStrategy {
 				sim_matrix[row][col] = cplx1.get(s).similarity(cplx2.get(s1));
 				col++;
 			}
+			col=0;
 			row++;
 		}
 		
