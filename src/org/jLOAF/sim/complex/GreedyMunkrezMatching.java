@@ -34,6 +34,7 @@ public class GreedyMunkrezMatching implements SimilarityMetricStrategy {
 			}
 		}
 		
+		//sort ascending order because we are looking for largest sim
 		Collections.sort(allPairs);
 		
 		double total_sim =0.0;

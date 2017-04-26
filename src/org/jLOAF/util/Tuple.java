@@ -32,7 +32,7 @@ public class Tuple implements Comparable<Tuple> {
 		if(this.sim==compare){
 			return 0;
 		}else{
-			return this.sim < compare ? -1: 1;
+			return this.sim < compare ? 1: -1;
 		}	}
 
 }

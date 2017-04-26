@@ -6,7 +6,7 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
 
 public class EuclideanDistance implements SimilarityMetricStrategy {
 	//calculates the Euclidean distance between objects - can only be used with weighted knn
-	//the smaller the better
+	//the larger the better
 	@Override
 	public double similarity(Input i1, Input i2) {
 		if(!(i1 instanceof AtomicInput) || !(i2 instanceof AtomicInput)){
@@ -19,9 +19,9 @@ public class EuclideanDistance implements SimilarityMetricStrategy {
 		//double denom = val1+val2;
 		double num = Math.abs(val1-val2);
 		
-		//if(denom==0) return 0.0;
+		if(num==0) return 0.0;
 		
-		return num;
+		return 1/num;
 	}
 
 }

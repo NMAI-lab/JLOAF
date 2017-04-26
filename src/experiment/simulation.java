@@ -56,7 +56,7 @@ public class simulation {
 		//CaseBase tb = CaseBase.load("Right_1.cb");
 		
 		//set similarity strategy
-		AtomicInput.setClassStrategy(new Equality());
+		AtomicInput.setClassStrategy(new PercentDifference());
 		
 		//testcase
 		Input i6 = new AtomicInput("test", new Feature(1.5));

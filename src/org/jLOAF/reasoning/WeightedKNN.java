@@ -43,10 +43,10 @@ public class WeightedKNN implements Reasoning {
 			if(weight ==0.0) weight =1;
 			
 			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
-				nnactions.put(nn.get(i).getAction().getName(), 1.0/weight);
+				nnactions.put(nn.get(i).getAction().getName(), 1.0*weight);
 			}else{
 				double value = nnactions.get(nn.get(i).getAction().getName());
-				nnactions.put(nn.get(i).getAction().getName(), value+(1.0/weight));
+				nnactions.put(nn.get(i).getAction().getName(), value+(1.0*weight));
 			}
 		}
 		System.out.println(nnactions);
