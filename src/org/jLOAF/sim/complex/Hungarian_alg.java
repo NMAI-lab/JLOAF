@@ -5,12 +5,13 @@ import java.util.Set;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.SimilarityMetricStrategy;
+
 /***
  * Sacha Gunaratne 2017 May
  * 
  * Uses the hungarian matching algorithm to calculate a minimum dist matching between two sets 
  * the sets can be of the same size or not. 
- * 
+ * This is an assignment problem
  * ***/
 
 public class Hungarian_alg implements SimilarityMetricStrategy {
@@ -48,9 +49,12 @@ public class Hungarian_alg implements SimilarityMetricStrategy {
 		}
 		
 		//run Hungarian matching algorithm to calculate minimum dist 
-		
-		
-		return 0;
+		return getMinSim(sim_matrix);
+	}
+	
+	public double getMinSim(double [][] matrix){
+		HungarianDouble hd = new HungarianDouble(matrix);
+		return hd.getTotal();
 	}
 
 }
