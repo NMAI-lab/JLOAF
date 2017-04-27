@@ -24,7 +24,7 @@ public class Mean implements SimilarityMetricStrategy {
 		Set<String> keys2 = cplx2.getChildNames();
 		
 		double total = 0;
-		double penalty = 0;
+		double penalty = -10;
 		//dealing with mismatched sets with a penalty for not having a paired element
 		if (keys.size()>=keys2.size()){
 			for(String s: keys){
