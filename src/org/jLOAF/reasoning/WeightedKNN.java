@@ -40,7 +40,7 @@ public class WeightedKNN implements Reasoning {
 			//calculate weight
 			weight = Math.pow(dist_closest[i].getDistance(),2);
 			//ensure no division by zero
-			if(weight ==0.0) weight =1;
+			if(weight==0.0) weight =1;
 			
 			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
 				nnactions.put(nn.get(i).getAction().getName(), 1.0*weight);
