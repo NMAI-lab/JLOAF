@@ -19,7 +19,7 @@ public class EuclideanDistance implements SimilarityMetricStrategy {
 		//double denom = val1+val2;
 		double num = Math.abs(val1-val2);
 		
-		if(num==0) return 0.0;
+		if(num==0) return 1.0;
 		
 		return 1/num;
 	}
