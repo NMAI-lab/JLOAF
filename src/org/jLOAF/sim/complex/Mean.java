@@ -26,7 +26,7 @@ public class Mean implements SimilarityMetricStrategy {
 		double total = 0;
 		double penalty = -10;
 		//dealing with mismatched sets with a penalty for not having a paired element
-		if (keys.size()>=keys2.size()){
+//		if (keys.size()>=keys2.size()){
 			for(String s: keys){
 				if (cplx2.get(s)!=null){
 					total += cplx1.get(s).similarity(cplx2.get(s));
@@ -35,16 +35,16 @@ public class Mean implements SimilarityMetricStrategy {
 					total +=penalty;
 				}	
 			}
-		}else if(keys.size()<keys2.size()){
-			for(String s: keys2){
-				if (cplx1.get(s)!=null){
-					total += cplx2.get(s).similarity(cplx1.get(s));
-				}else{
-					//penalty
-					total +=penalty;
-				}		
-			}
-		}
+//		}else if(keys.size()<keys2.size()){
+//			for(String s: keys2){
+//				if (cplx1.get(s)!=null){
+//					total += cplx2.get(s).similarity(cplx1.get(s));
+//				}else{
+//					//penalty
+//					total +=penalty;
+//				}		
+//			}
+//		}
 		
 		if(keys.size()==0 && keys2.size()==0){
 			//if they cannot see anything they are in a similar situation?
