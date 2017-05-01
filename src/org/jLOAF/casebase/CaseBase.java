@@ -9,6 +9,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.jLOAF.Reasoning;
+import org.jLOAF.reasoning.WeightedKNN;
+
 public class CaseBase implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -29,6 +32,10 @@ public class CaseBase implements Serializable{
 
 	public int getSize(){
 		return this.cb.size();
+	}
+	
+	public void remove(Case c){
+		cb.remove(c);
 	}
 	
 	public static CaseBase load(String filename) {
@@ -78,5 +85,31 @@ public class CaseBase implements Serializable{
 			System.out.println("Error saving CaseBase:" + e.toString());
 		}
 	
+	}
+	
+	/***
+	 * preprocess the casebase by only adding a case into the casebase if the prediction of the action using the current casebase is wrong
+	 * return the new casebase
+	 * sacha gunaratne 2017 may
+	 * ***/
+	public static CaseBase preProcess(CaseBase cb){
+		CaseBase cnew = new CaseBase();
+		Reasoning r;
+		int count = 0;
+		int k = 1;
+		
+		for (Case c: cb.getCases()){
+			if(count>0){
+				cnew.add(c);
+				if(count>0&&count<7)k=count;
+				r = new WeightedKNN(k,cnew);
+				if(r.selectAction(c.getInput()).equals(c.getAction())) {cnew.remove(c);count++;}
+			}
+			else{
+				cnew.add(c);
+				count++;
+			}
+		}
+		return cnew;
 	}
 }
