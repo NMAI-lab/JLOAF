@@ -8,8 +8,12 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 import org.jLOAF.Reasoning;
+import org.jLOAF.inputs.AtomicInput;
+import org.jLOAF.inputs.ComplexInput;
+import org.jLOAF.inputs.Input;
 import org.jLOAF.reasoning.WeightedKNN;
 
 public class CaseBase implements Serializable{
@@ -111,5 +115,38 @@ public class CaseBase implements Serializable{
 			}
 		}
 		return cnew;
+	}
+	
+	public static CaseBase normalize(CaseBase cb){
+		CaseBase cnew = new CaseBase();
+		Input in;
+		Input in2;
+		double val;
+		double max = 0;
+		double min =0;
+		double count =0;
+		
+		for(Case c: cb.getCases()){
+			in = c.getInput();
+			if (in instanceof ComplexInput){
+				ComplexInput cmplx = (ComplexInput) in;
+				for(String s: cmplx.getChildNames()){
+					in2 = cmplx.get(s);
+					//not sure what to do here
+				}
+			}else if(in instanceof AtomicInput){
+				AtomicInput atmc = (AtomicInput) in;
+				val = atmc.getFeature().getValue();
+				
+				if(count==0){
+					max=val;min=val;
+				}else{
+					if(val>max) max = val;
+					if(val<min) min = val;
+				}
+				count++;
+			}
+		}
+		return null;
 	}
 }
