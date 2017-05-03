@@ -126,27 +126,90 @@ public class CaseBase implements Serializable{
 		double min =0;
 		double count =0;
 		
+		//gets min and max values 
 		for(Case c: cb.getCases()){
 			in = c.getInput();
-			if (in instanceof ComplexInput){
-				ComplexInput cmplx = (ComplexInput) in;
-				for(String s: cmplx.getChildNames()){
-					in2 = cmplx.get(s);
-					//not sure what to do here
-				}
-			}else if(in instanceof AtomicInput){
-				AtomicInput atmc = (AtomicInput) in;
-				val = atmc.getFeature().getValue();
-				
-				if(count==0){
-					max=val;min=val;
-				}else{
-					if(val>max) max = val;
-					if(val<min) min = val;
-				}
-				count++;
-			}
+			max = getMax(max,count,in);
+			min = getMin(max,count,in);
+			count =1;
 		}
-		return null;
+		
+		
+		return cnew;
+	}
+
+	
+	private static double getMax(double max, double count, Input in){
+		Input in2;
+		double val;
+		double max_new = max;
+		if (in instanceof ComplexInput){
+			ComplexInput cmplx = (ComplexInput) in;
+			for(String s: cmplx.getChildNames()){
+				in2 = cmplx.get(s);
+				if (in2 instanceof ComplexInput){
+					getMax(max_new,count,in2);
+				}
+				if(in2 instanceof AtomicInput){
+					AtomicInput atmc = (AtomicInput) in2;
+					val = atmc.getFeature().getValue();
+					
+					if(count==0){
+						max_new=val;
+					}else{
+						if(val>max_new) max_new = val;
+					}
+					count=1;
+				}
+			}
+		}else if(in instanceof AtomicInput){
+			AtomicInput atmc = (AtomicInput) in;
+			val = atmc.getFeature().getValue();
+			
+			if(count==0){
+				max_new=val;
+			}else{
+				if(val>max_new) max_new = val;
+			}
+			count=1;
+		}
+		return max_new;
+	}
+	
+	private static double getMin(double min, double count, Input in){
+		Input in2;
+		double val;
+		double min_new = min;
+		if (in instanceof ComplexInput){
+			ComplexInput cmplx = (ComplexInput) in;
+			for(String s: cmplx.getChildNames()){
+				in2 = cmplx.get(s);
+				if (in2 instanceof ComplexInput){
+					getMin(min_new,count,in2);
+				}
+				if(in2 instanceof AtomicInput){
+					AtomicInput atmc = (AtomicInput) in2;
+					val = atmc.getFeature().getValue();
+					
+					if(count==0){
+						min_new=val;
+					}else{
+						if(val>min_new) min_new = val;
+					}
+					count=1;
+				}
+			}
+		}else if(in instanceof AtomicInput){
+			AtomicInput atmc = (AtomicInput) in;
+			val = atmc.getFeature().getValue();
+			
+			if(count==0){
+				min_new=val;
+			}else{
+				if(val>min_new) min_new = val;
+			}
+			count=1;
+		}
+		return min_new;
 	}
 }
