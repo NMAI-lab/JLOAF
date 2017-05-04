@@ -8,13 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
 
-import org.jLOAF.Reasoning;
-import org.jLOAF.inputs.AtomicInput;
-import org.jLOAF.inputs.ComplexInput;
-import org.jLOAF.inputs.Input;
-import org.jLOAF.reasoning.WeightedKNN;
 
 public class CaseBase implements Serializable{
 
