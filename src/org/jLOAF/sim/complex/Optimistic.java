@@ -8,6 +8,7 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
 
 /***
  * Returns the most optimistic estimate for the similarity. (The max similarity)
+ * Sacha Gunaratne 2017
  * ***/
 public class Optimistic implements SimilarityMetricStrategy {
 

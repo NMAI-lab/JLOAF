@@ -8,6 +8,7 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
 /***
  * This defines similarity of two sets by the following equation - A Intersecton B /AUB
  * Compares the names of each feature in the sets.
+ * Sacha Gunaratne 2017
  * ***/
 public class Jacard implements SimilarityMetricStrategy {
 
