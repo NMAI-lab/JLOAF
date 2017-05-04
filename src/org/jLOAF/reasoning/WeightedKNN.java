@@ -49,7 +49,7 @@ public class WeightedKNN implements Reasoning {
 				nnactions.put(nn.get(i).getAction().getName(), value+(1.0*weight));
 			}
 		}
-		System.out.println(nnactions);
+		//System.out.println(nnactions);
 		max_action =  max(nnactions);
 		
 		//run through all the cases and only select the first action with that name, as it will be the closest in terms of distance
