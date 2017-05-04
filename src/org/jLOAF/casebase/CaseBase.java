@@ -64,10 +64,9 @@ public class CaseBase implements Serializable{
 			//if there was a file problem we return null
 			System.out.println("Error loading CaseBase:" + e.getMessage());
 			return null;
-		}
-			
+		}	
 	}
-
+	
 	public static void save(CaseBase casebase, String filename) {
 		//test the parameters
 		if(filename == null || casebase == null){
