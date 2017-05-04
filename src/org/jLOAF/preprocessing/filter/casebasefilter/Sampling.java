@@ -18,11 +18,13 @@ public class Sampling implements CaseBaseFilter {
 		Reasoning r;
 		int count = 0;
 		int k = 1;
+		int max_k = 7;
 		
 		for (Case c: initial.getCases()){
 			if(count>0){
 				cnew.add(c);
-				if(count>0&&count<7)k=count;
+				//max k = 7
+				if(count>0&&count<max_k)k=count;
 				r = new WeightedKNN(k,cnew);
 				if(r.selectAction(c.getInput()).equals(c.getAction())) {cnew.remove(c);count++;}
 			}
