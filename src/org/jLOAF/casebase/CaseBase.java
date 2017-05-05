@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 public class CaseBase implements Serializable{
@@ -26,6 +27,27 @@ public class CaseBase implements Serializable{
 	
 	public void add(Case c){
 		this.cb.add(c);
+	}
+	
+	/***
+	 * Adds a new casebase to the current casebase
+	 * Sacha Gunaratne 2017 May
+	 * **/
+	
+	private void addCaseBase(CaseBase cbnew){
+		for(Case c: cbnew.getCases()){
+			cb.add(c);
+		}
+	}
+	
+	/***
+	 * Adds a list of new casebases to the current casebase
+	 * Sacha Gunaratne 2017 May
+	 * **/
+	public void addListOfCaseBases(List<CaseBase> cblist){
+		for(CaseBase cnew: cblist){
+			this.addCaseBase(cnew);
+		}
 	}
 
 	public int getSize(){
