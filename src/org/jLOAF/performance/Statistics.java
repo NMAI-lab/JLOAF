@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.jLOAF.performance.StatisticsBundle;
 import org.jLOAF.Agent;
 import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
@@ -229,6 +230,44 @@ public class Statistics {
 			return 0.0f;
 		}
 		return sumF1/num;
+	}
+	
+	/** Returns all of the statistics as a StatisticsBundle.
+	 * 
+	 * @return a StatisticsBundle
+	 * 
+	 * @author Michael W. Floyd
+	 * @since 0.5
+	 */
+	public StatisticsBundle getStatisticsBundle(){
+		List<String> expected = new ArrayList<String>(this.confusion_matrix.keySet());
+		
+		//f1global, accuracy + precision/recall/f1 for all actions
+		int numStats = 2 + expected.size()*3;
+		
+		float[] stats = new float[numStats];
+		String[] labels = new String[numStats];
+		
+		stats[0] = this.getGlobalF1();
+		labels[0] = "Global F1";
+		stats[1] = this.getClassificationAccuracy();
+		labels[1] = "Classification Accuracy";
+		
+		int index = 2;
+		for(String nextAct: expected){
+			stats[index] = this.getF1(nextAct);
+			labels[index] = "F1 " + nextAct;
+			index++;
+			stats[index] = this.getPrecision(nextAct);
+			labels[index] = "Precision " + nextAct;
+			index++;
+			stats[index] = this.getRecall(nextAct);
+			labels[index] = "Recall " + nextAct;
+			index++;
+		}
+		
+		StatisticsBundle bndl = new StatisticsBundle(stats,labels);
+		return bndl;
 	}
 
 }
