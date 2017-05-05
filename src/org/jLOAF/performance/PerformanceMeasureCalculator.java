@@ -53,12 +53,14 @@ public class PerformanceMeasureCalculator {
 		for(int i =0;i<len;i++){
 			sumdeviationquared[i] = (float) Math.pow((double)sumdeviationquared[i],0.5);
 		}
-		
-		System.out.format("|%15s|%10.4s|%10.4s| \n", "P. Measure","Mean","St.Dev" );
+		System.out.format("%45s \n", "_________________________________________________");
+		System.out.format("|%25s|%10s|%10s| \n", "P. Measure","Mean","St.Dev" );
+		System.out.format("|%45s| \n", "-----------------------------------------------");
 		for(int i=0;i<len;i++){
 			//String s = labels[i]+ ": "+ mean[i] + " \u00B1 " +sumdeviationquared[i];
-			System.out.format("|%15s|%10.4f|%10.4f| \n", labels[i],mean[i],sumdeviationquared[i]);
+			System.out.format("|%25s|%10.4f|%10.4f| \n", labels[i],mean[i],sumdeviationquared[i]);
 		}
+		System.out.format("|%45s| \n", "_______________________________________________");
 	
 	}
 	
