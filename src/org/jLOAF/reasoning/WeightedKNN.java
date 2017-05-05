@@ -66,9 +66,10 @@ public class WeightedKNN implements Reasoning {
 	}
 	
 	/**
-	 * Sacha 2017 Mar
-	 * Calculates the msot likely action given a matrix of actions and counts
 	 * 
+	 * Calculates the msot likely action given a matrix of actions and counts
+	 * @author Sacha gunaratne
+	 * @since May 2017
 	 * **/
 	
 	//need to implement a weighted knn with distance 

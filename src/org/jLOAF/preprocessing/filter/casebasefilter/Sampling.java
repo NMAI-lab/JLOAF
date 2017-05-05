@@ -10,7 +10,8 @@ public class Sampling implements CaseBaseFilter {
 	/***
 	 * preprocess the casebase by only adding a case into the casebase if the prediction of the action using the current casebase is wrong
 	 * return the new casebase
-	 * sacha gunaratne 2017 may
+	 * @author sacha gunaratne 
+	 * @since 2017 may
 	 * ***/
 	@Override
 	public CaseBase filter(CaseBase initial) {
