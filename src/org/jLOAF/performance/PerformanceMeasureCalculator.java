@@ -3,6 +3,8 @@ package org.jLOAF.performance;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jLOAF.util.CsvWriter;
+
 public class PerformanceMeasureCalculator {
 	
 	/***
@@ -10,21 +12,45 @@ public class PerformanceMeasureCalculator {
 	 * @author Sacha Gunaratne 
 	 * @since 2017 May
 	 * ***/
-	public void CalculateAllStats(List<StatisticsBundle> AllStats){
-		//get data
-		int len = AllStats.get(0).getAllStatistics().length;
-		String [] labels = AllStats.get(0).getLabels();
-		int num_bndls = AllStats.size();
+	private int num_bndls;
+	private int len;
+	private String[] labels;
+	List<StatisticsBundle> AllStats;
+	
+	public PerformanceMeasureCalculator(List<StatisticsBundle> AllStats){
+		this.len = AllStats.get(0).getAllStatistics().length;
+		this.labels = AllStats.get(0).getLabels();
+		this.num_bndls = AllStats.size();
+		this.AllStats = AllStats;
+	}
+	
+	public void CalculateAllStats(){
 		
 		//variable defintion
 		float [][] stats = new float[num_bndls][len];
 		float [] mean = new float[len];
 		float [] sumdeviationquared = new float[len];
 		
-		//calculate totals
+		mean = calcMean(AllStats);
+		stats =  calcMatrix(AllStats);
+		sumdeviationquared = calcStDev(mean, stats);
+		
+		System.out.format("%45s \n", "_________________________________________________");
+		System.out.format("|%25s|%10s|%10s| \n", "Performance Measure","Mean","St.Dev" );
+		System.out.format("|%45s| \n", "-----------------------------------------------");
+		for(int i=0;i<len;i++){
+			//String s = labels[i]+ ": "+ mean[i] + " \u00B1 " +sumdeviationquared[i];
+			System.out.format("|%25s|%10.4f|%10.4f| \n", labels[i],mean[i],sumdeviationquared[i]);
+		}
+		System.out.format("|%45s| \n", "_______________________________________________");
+	
+	}
+	
+	public float [] calcMean(List<StatisticsBundle> AllStats){
+		float [] mean = new float[len];
+		
 		for(int j=0;j<num_bndls;j++){
 			for(int i=0;i<len;i++){
-				stats[j][i] = AllStats.get(j).getAllStatistics()[i];
 				mean[i]+= AllStats.get(j).getAllStatistics()[i];
 			}
 		}
@@ -32,6 +58,13 @@ public class PerformanceMeasureCalculator {
 		for(int i =0;i<len;i++){
 			mean[i] = mean[i]/(float) num_bndls;
 		}
+		
+		return mean;
+	}
+	
+	public float [] calcStDev(float[]mean,float[][] stats){
+		float sumdeviationquared[] = new float [len];
+		
 		//calculate deviationsquared
 		for(int j=0;j<num_bndls;j++){
 			for(int i=0;i<len;i++){
@@ -48,21 +81,33 @@ public class PerformanceMeasureCalculator {
 		for(int i =0;i<len;i++){
 			sumdeviationquared[i] = sumdeviationquared[i]/(float) num_bndls;
 		}
-		
+
 		//calculate sqrt
 		for(int i =0;i<len;i++){
 			sumdeviationquared[i] = (float) Math.pow((double)sumdeviationquared[i],0.5);
 		}
-		System.out.format("%45s \n", "_________________________________________________");
-		System.out.format("|%25s|%10s|%10s| \n", "P. Measure","Mean","St.Dev" );
-		System.out.format("|%45s| \n", "-----------------------------------------------");
-		for(int i=0;i<len;i++){
-			//String s = labels[i]+ ": "+ mean[i] + " \u00B1 " +sumdeviationquared[i];
-			System.out.format("|%25s|%10.4f|%10.4f| \n", labels[i],mean[i],sumdeviationquared[i]);
-		}
-		System.out.format("|%45s| \n", "_______________________________________________");
-	
+		return sumdeviationquared;
 	}
+	
+	/***
+	 * Puts all the 1-D matrices of statistics into a 2-D matrix so that they can be used to calculate standard deviation
+	 * @author sacha
+	 * @since may 5th 2017
+	 * ***/
+	public float[][] calcMatrix(List<StatisticsBundle> AllStats){
+		
+		float matrix [][] = new float[num_bndls][len];
+		
+		int len = AllStats.get(0).getAllStatistics().length;
+		int num_bndls = AllStats.size(); 
+		for(int j=0;j<num_bndls;j++){
+			for(int i=0;i<len;i++){
+				matrix[j][i] = AllStats.get(j).getAllStatistics()[i];
+			}
+		}
+		return matrix;
+	}
+	
 	
 	public static void main(String a[]){
 		//little test
@@ -78,8 +123,12 @@ public class PerformanceMeasureCalculator {
 		li.add(bdnl1);
 		li.add(bdnl2);
 		
-		PerformanceMeasureCalculator pmc = new PerformanceMeasureCalculator();
-		pmc.CalculateAllStats(li);
+		PerformanceMeasureCalculator pmc = new PerformanceMeasureCalculator(li);
+		pmc.CalculateAllStats();
+		
+		CsvWriter writer = new CsvWriter();
+		writer.writeCalculatedStats("Sample.csv", pmc.labels, pmc.calcMean(li), pmc.calcStDev(pmc.calcMean(li), pmc.calcMatrix(li)));
+		writer.writeRawStats("rawStats.csv", pmc.labels, pmc.calcMatrix(li));
 		
 	}
 	
