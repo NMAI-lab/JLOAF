@@ -52,8 +52,8 @@ public class simulation {
 		cb.add(c5);
 		
 		
-		@SuppressWarnings("unused")
-		CaseBase cb2 = CaseBase.load("data/Left_1.cb");
+		
+		//CaseBase cb2 = CaseBase.load("data/Left_1.cb");
 		//CaseBase tb = CaseBase.load("Right_1.cb");
 		
 		//set similarity strategy
@@ -65,7 +65,7 @@ public class simulation {
 		Case c6 = new Case(i6,a6);
 		
 		//create generic agent
-		int k = 5;
+		int k = 3;
 		Agent a = new GenericAgent(cb);
 		a.setR(new SimpleKNN(k,cb));
 		
