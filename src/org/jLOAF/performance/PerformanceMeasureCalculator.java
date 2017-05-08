@@ -24,6 +24,10 @@ public class PerformanceMeasureCalculator {
 		this.AllStats = AllStats;
 	}
 	
+	public String[] getLabels(){
+		return labels;
+	}
+	
 	public void CalculateAllStats(){
 		
 		//variable defintion
@@ -31,8 +35,8 @@ public class PerformanceMeasureCalculator {
 		float [] mean = new float[len];
 		float [] sumdeviationquared = new float[len];
 		
-		mean = calcMean(AllStats);
-		stats =  calcMatrix(AllStats);
+		mean = calcMean();
+		stats =  calcMatrix();
 		sumdeviationquared = calcStDev(mean, stats);
 		
 		System.out.format("%45s \n", "_________________________________________________");
@@ -46,7 +50,7 @@ public class PerformanceMeasureCalculator {
 	
 	}
 	
-	public float [] calcMean(List<StatisticsBundle> AllStats){
+	public float [] calcMean(){
 		float [] mean = new float[len];
 		
 		for(int j=0;j<num_bndls;j++){
@@ -94,7 +98,7 @@ public class PerformanceMeasureCalculator {
 	 * @author sacha
 	 * @since may 5th 2017
 	 * ***/
-	public float[][] calcMatrix(List<StatisticsBundle> AllStats){
+	public float[][] calcMatrix(){
 		
 		float matrix [][] = new float[num_bndls][len];
 		
@@ -127,8 +131,8 @@ public class PerformanceMeasureCalculator {
 		pmc.CalculateAllStats();
 		
 		CsvWriter writer = new CsvWriter();
-		writer.writeCalculatedStats("Sample.csv", pmc.labels, pmc.calcMean(li), pmc.calcStDev(pmc.calcMean(li), pmc.calcMatrix(li)));
-		writer.writeRawStats("rawStats.csv", pmc.labels, pmc.calcMatrix(li));
+		writer.writeCalculatedStats("Sample.csv", pmc.labels, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+		writer.writeRawStats("rawStats.csv", pmc.labels, pmc.calcMatrix());
 		
 	}
 	
