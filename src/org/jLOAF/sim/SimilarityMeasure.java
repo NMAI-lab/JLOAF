@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.jLOAF.weights.Weights;
+import org.jLOAF.weights.SimilarityWeights;
 
 public abstract class SimilarityMeasure {
 	
 	protected HashMap<String,Double> similarities;
-	protected Weights feat_weights;
+	protected SimilarityWeights feat_weights;
 	
-	public SimilarityMeasure(Weights featureweights){
+	public SimilarityMeasure(SimilarityWeights featureweights){
 		similarities = new HashMap<String, Double>();
 		feat_weights = featureweights;
 	}

@@ -6,7 +6,7 @@ import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.SimilarityMeasure;
 import org.jLOAF.sim.SimilarityMetricStrategy;
-import org.jLOAF.weights.Weights;
+import org.jLOAF.weights.SimilarityWeights;
 
 /***
  * This method calculates the weighted mean based on the weights of each feature.
@@ -14,7 +14,7 @@ import org.jLOAF.weights.Weights;
  * 
  * ***/
 public class WeightedMean extends SimilarityMeasure implements SimilarityMetricStrategy {
-	public WeightedMean(Weights featureweights) {
+	public WeightedMean(SimilarityWeights featureweights) {
 		super(featureweights);
 	}
 
