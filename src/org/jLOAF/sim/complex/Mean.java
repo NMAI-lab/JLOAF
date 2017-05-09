@@ -1,13 +1,11 @@
 package org.jLOAF.sim.complex;
 
-import java.util.HashMap;
-import java.util.Set;
 
+import java.util.Set;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
-import org.jLOAF.sim.SimilarityMeasure;
 import org.jLOAF.sim.SimilarityMetricStrategy;
-import org.jLOAF.weights.Weights;
+
 
 public class Mean implements SimilarityMetricStrategy {
 
