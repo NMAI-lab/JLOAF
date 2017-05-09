@@ -1,10 +1,13 @@
 package org.jLOAF.sim.complex;
 
+import java.util.HashMap;
 import java.util.Set;
 
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.SimilarityMeasure;
 import org.jLOAF.sim.SimilarityMetricStrategy;
+import org.jLOAF.weights.Weights;
 
 public class Mean implements SimilarityMetricStrategy {
 
@@ -22,6 +25,11 @@ public class Mean implements SimilarityMetricStrategy {
 		
 		Set<String> keys = cplx1.getChildNames();
 		Set<String> keys2 = cplx2.getChildNames();
+		
+		if(keys.size()==0 && keys2.size()==0){
+			//if they cannot see anything they are in a similar situation?
+			return 1.0;
+		}
 		
 		double total = 0;
 		double penalty = -10;
@@ -44,11 +52,6 @@ public class Mean implements SimilarityMetricStrategy {
 					total +=penalty;
 				}		
 			}
-		}
-		
-		if(keys.size()==0 && keys2.size()==0){
-			//if they cannot see anything they are in a similar situation?
-			return 0.0;
 		}
 		
 		
