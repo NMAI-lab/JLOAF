@@ -26,6 +26,11 @@ public class GreedyMunkrezMatching implements SimilarityMetricStrategy {
 		Set<String> keys = cplx1.getChildNames();
 		Set<String> keys2 = cplx2.getChildNames();
 		
+		if(keys.size()==0 && keys2.size()==0){
+			//if they cannot see anything they are in a similar situation?
+			return 1.0;
+		}
+		
 		List<Tuple> allPairs = new ArrayList<Tuple>();
 		
 		for (String s: keys){
