@@ -1,12 +1,15 @@
 package experiment;
 
 
+import java.util.Set;
+
 import org.jLOAF.Agent;
 import org.jLOAF.action.Action;
 import org.jLOAF.agents.GenericAgent;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.AtomicInput;
+import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.reasoning.SimpleKNN;
