@@ -17,8 +17,9 @@ public abstract class SimilarityMeasure {
 	}
 	
 	/***
-	 * Calculates the weighted similarity based the features weights
-	 * adds to the total and divides by the size of the keyset()
+	 * Calculates the weighted similarity based on the features weights.
+	 * Adds to the total and divides by the size of the keyset()
+	 * @author michael floyd
 	 * 	 * ***/
 	public double calculateWeightedSimilarity(){
 		double totalDistance = 0.0;
