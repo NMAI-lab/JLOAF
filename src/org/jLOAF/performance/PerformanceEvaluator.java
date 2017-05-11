@@ -50,7 +50,13 @@ public abstract class PerformanceEvaluator {
 		CaseBase tb = null;
 		CaseBase cb = new CaseBase();;
 		
+		long startTime = System.currentTimeMillis();
+		
 		String[]cbname = createArrayOfCasebaseNames(filenames);
+		
+		long endTime = System.currentTimeMillis();
+		
+		System.out.println("Time Taken to load casebases: " + (endTime - startTime)/1000.0 + " seconds");
 		
 		//adds all casebases to masterlist
 		for(String s: cbname){
@@ -62,6 +68,7 @@ public abstract class PerformanceEvaluator {
 		
 		
 		//loop over all casebases
+		long totalTime = System.currentTimeMillis();
 		for(int ii=0;ii<listOfCaseBases.size();ii++){
 			//temp list
 			tempList.addAll(listOfCaseBases);
@@ -78,23 +85,34 @@ public abstract class PerformanceEvaluator {
 			
 			//start testing 
 			System.out.println("Cycle: "+ ignore + " - Starting testing...");
+			startTime = System.currentTimeMillis();
+			
 			for(Case test: tb.getCases()){
 				stats_module.predictedCorrectActionName(test);
 			}
 			
-			System.out.println("Testing complete");
+			endTime = System.currentTimeMillis();
+		
+			System.out.println("Testing complete in: "+ (endTime - startTime)/(1000.0*60.0) + " min");
 			//adds current stats bundle to main list
 			AllStats.add(stats_module.getStatisticsBundle());
 
 			ignore++;
 		}
 		
+		long finalTime = System.currentTimeMillis();
+		System.out.println("Total testing time: "+ (finalTime - totalTime)/(1000.0*60.0) + " min");
+		
 		//calculate all stats
+		System.out.println("Calculating stats...");
 		PerformanceMeasureCalculator pmc = new PerformanceMeasureCalculator(AllStats);
 		pmc.CalculateAllStats();
+		System.out.println("Done");
 		
+		System.out.println("Writing stats to file...");
 		//writes calculated stats into a csv file
 		CsvWriter writer = new CsvWriter();
 		writer.writeCalculatedStats("Sample.csv", pmc.getLabels(), pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+		System.out.println("Done");
 	}
 }
