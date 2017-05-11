@@ -1,5 +1,6 @@
 package org.jLOAF.performance;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.jLOAF.Agent;
@@ -14,6 +15,13 @@ import org.jLOAF.util.CsvWriter;
  * @author sachagunaratne
  * ***/
 public abstract class PerformanceEvaluator {
+	
+	/***
+	 * Converts a string[] of log filenames into a string[] of casebase names
+	 * After converting each log into casebase using LogFile2CaseBase methods
+	 * @throws IOException 
+	 * ***/
+	public abstract String[] createArrayOfCasebaseNames(String [] filenames) throws IOException;
 	
 	/***
 	 * 
@@ -33,13 +41,16 @@ public abstract class PerformanceEvaluator {
 	/***
 	 * Evaluates performance using leave one out method using multiple casebases
 	 * and prints out performance data as well as saves to a csv
+	 * @throws IOException 
 	 * ***/
-	public void PerformanceEvaluatorMethod(String matchType, String []cbname){
+	public void PerformanceEvaluatorMethod(String matchType, String []filenames) throws IOException{
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
 		CaseBase tb = null;
 		CaseBase cb = new CaseBase();;
+		
+		String[]cbname = createArrayOfCasebaseNames(filenames);
 		
 		//adds all casebases to masterlist
 		for(String s: cbname){
