@@ -6,11 +6,34 @@ import org.jLOAF.Agent;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.util.CsvWriter;
-
+/***
+ * Abstract class that can be extended and used to test performance
+ * Steps:
+ * implement the abstract trainAgent method and make sure to change return typ from Agent to the subclassed Agent type
+ * A sample implementation is provided in the comments below it
+ * @author sachagunaratne
+ * ***/
 public abstract class PerformanceEvaluator {
 	
+	/***
+	 * 
+	 * Sample implementation:
+	 * 
+	 * in this setup the RobocupAgent is a subclass of Agent
+	 *  
+	 * public RoboCupAgent(String matchType, CaseBase cb){
+	 *    RoboCupAgent agent = new RoboCupAgent(cb)
+	 *    agent.setSim(matchType);
+	 *    return agent;
+	 * }
+	 * 
+	 * ***/
 	public abstract Agent trainAgent(String matchType,CaseBase cb);
 	
+	/***
+	 * Evaluates performance using leave one out method using multiple casebases
+	 * and prints out performance data as well as saves to a csv
+	 * ***/
 	public void PerformanceEvaluatorMethod(String matchType, String []cbname){
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
