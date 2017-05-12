@@ -1,139 +1,130 @@
 package org.jLOAF.performance;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.jLOAF.util.CsvWriter;
 
 public class PerformanceMeasureCalculator {
-	
-	/***
-	 * Takes a list of statistics bundles and prints a list of mean and standard deviation values for each label
-	 * @author Sacha Gunaratne 
-	 * @since 2017 May
-	 * ***/
-	private int num_bndls;
-	private int len;
-	private String[] labels;
-	List<StatisticsBundle> AllStats;
-	
-	public PerformanceMeasureCalculator(List<StatisticsBundle> AllStats){
-		this.len = AllStats.get(0).getAllStatistics().length;
-		this.labels = AllStats.get(0).getLabels();
-		this.num_bndls = AllStats.size();
+	List<HashMap<String, Float>> AllStats;
+	int numMaps;
+	public PerformanceMeasureCalculator(List<HashMap<String, Float>> AllStats){
 		this.AllStats = AllStats;
-	}
-	
-	public String[] getLabels(){
-		return labels;
+		numMaps = AllStats.size();
 	}
 	
 	public void CalculateAllStats(){
-		
-		//variable defintion
-		float [][] stats = new float[num_bndls][len];
-		float [] mean = new float[len];
-		float [] sumdeviationquared = new float[len];
-		
-		mean = calcMean();
-		stats =  calcMatrix();
-		sumdeviationquared = calcStDev(mean, stats);
+		HashMap<String, Float> mean = calcMean();
+		HashMap<String, HashMap<String, Float>> matrix = calcMatrix();
+		HashMap<String, Float> sumdeviationquared = calcStDev(mean,matrix);
 		
 		System.out.format("%45s \n", "_________________________________________________");
 		System.out.format("|%25s|%10s|%10s| \n", "Performance Measure","Mean","St.Dev" );
 		System.out.format("|%45s| \n", "-----------------------------------------------");
-		for(int i=0;i<len;i++){
+		for(String feature: mean.keySet()){
 			//String s = labels[i]+ ": "+ mean[i] + " \u00B1 " +sumdeviationquared[i];
-			System.out.format("|%25s|%10.4f|%10.4f| \n", labels[i],mean[i],sumdeviationquared[i]);
+			System.out.format("|%25s|%10.4f|%10.4f| \n", feature,mean.get(feature),sumdeviationquared.get(feature));
 		}
 		System.out.format("|%45s| \n", "_______________________________________________");
-	
 	}
 	
-	public float [] calcMean(){
-		float [] mean = new float[len];
-		
-		for(int j=0;j<num_bndls;j++){
-			for(int i=0;i<len;i++){
-				mean[i]+= AllStats.get(j).getAllStatistics()[i];
+	public HashMap<String, Float> calcMean(){
+		HashMap<String, Float> mean = new HashMap<String, Float>();
+		for(HashMap<String, Float> stats: AllStats){
+			Set<String> keys = stats.keySet();
+			for(String s:keys){
+				if(!mean.containsKey(s)){
+					mean.put(s,0.0f);
+				}
+				float val = mean.get(s).floatValue();
+				mean.put(s,val+stats.get(s).floatValue());
 			}
 		}
-		//calculate mean
-		for(int i =0;i<len;i++){
-			mean[i] = mean[i]/(float) num_bndls;
+		
+		
+		Set<String> measures = mean.keySet();
+		
+		for(String s: measures){
+			float val = mean.get(s).floatValue();
+			mean.put(s, val/numMaps);
 		}
 		
 		return mean;
 	}
 	
-	public float [] calcStDev(float[]mean,float[][] stats){
-		float sumdeviationquared[] = new float [len];
-		
-		//calculate deviationsquared
-		for(int j=0;j<num_bndls;j++){
-			for(int i=0;i<len;i++){
-				stats[j][i] = (stats[j][i]-mean[i])*(stats[j][i]-mean[i]);
-			}
-		}
-		//calculate sumdeviationsquared
-		for(int j=0;j<num_bndls;j++){
-			for(int i=0;i<len;i++){
-				sumdeviationquared[i] += stats[j][i];
-			}
-		}
-		//calculate division
-		for(int i =0;i<len;i++){
-			sumdeviationquared[i] = sumdeviationquared[i]/(float) num_bndls;
-		}
-
-		//calculate sqrt
-		for(int i =0;i<len;i++){
-			sumdeviationquared[i] = (float) Math.pow((double)sumdeviationquared[i],0.5);
-		}
-		return sumdeviationquared;
-	}
-	
-	/***
-	 * Puts all the 1-D matrices of statistics into a 2-D matrix so that they can be used to calculate standard deviation
-	 * @author sacha
-	 * @since may 5th 2017
-	 * ***/
-	public float[][] calcMatrix(){
-		
-		float matrix [][] = new float[num_bndls][len];
-		
-		int len = AllStats.get(0).getAllStatistics().length;
-		int num_bndls = AllStats.size(); 
-		for(int j=0;j<num_bndls;j++){
-			for(int i=0;i<len;i++){
-				matrix[j][i] = AllStats.get(j).getAllStatistics()[i];
-			}
+	public HashMap<String, HashMap<String, Float>> calcMatrix(){
+		HashMap<String, HashMap<String, Float>> matrix = new HashMap<String, HashMap<String, Float>>();
+		int count = 0;
+		for(HashMap<String, Float> stats: AllStats){
+				matrix.put(String.valueOf(count),stats);
+				count++;
 		}
 		return matrix;
 	}
 	
+	public HashMap<String, Float> calcStDev(HashMap<String, Float> mean, HashMap<String, HashMap<String, Float>> matrix){
+		HashMap<String, Float> tempfeatures = new HashMap<String, Float>();
+		HashMap<String, HashMap<String, Float>> indexnum = new HashMap<String, HashMap<String, Float>>();
+		
+		//calculate deviationsquared
+		for(String index: matrix.keySet()){
+			for(String feature: matrix.get(index).keySet()){
+				float val = (matrix.get(index).get(feature).floatValue()-mean.get(feature).floatValue())*(matrix.get(index).get(feature).floatValue()-mean.get(feature).floatValue());
+				tempfeatures.put(feature, val);
+			}
+			indexnum.put(index, tempfeatures);
+		}
+		
+		HashMap<String, Float> tempfeatures2 = new HashMap<String, Float>();
+		
+		//calculate sumdeviationsquared
+		for(String index:indexnum.keySet()){
+			for(String feature: indexnum.get(index).keySet()){		
+				if(!tempfeatures.containsKey(feature)){tempfeatures.put(feature,0.0f);}
+				float val = tempfeatures.get(feature).floatValue()+indexnum.get(index).get(feature).floatValue();
+				tempfeatures2.put(feature, val);
+			}
+		}
+		
+		//calculate division
+		for(String feature:tempfeatures2.keySet()){
+			float val = tempfeatures2.get(feature).floatValue()/(float) (numMaps);
+			tempfeatures2.put(feature, val);
+		}
+		
+		//calculate sqrt
+		for(String feature:tempfeatures2.keySet()){
+			float val = (float) Math.pow(tempfeatures.get(feature).doubleValue(), 0.5);
+			tempfeatures2.put(feature, val);
+		}
+		
+		return tempfeatures2;
+	}
 	
 	public static void main(String a[]){
 		//little test
-		float [] stats1 = {(float) 0.695,(float) 0.781};
-		String [] labels1 = {"height","width"};
-		StatisticsBundle bdnl1 = new StatisticsBundle(stats1,labels1);
 		
-		float [] stats2 = {(float) 0.875,(float) 0.762};
-		String [] labels2 = {"height","width"};
-		StatisticsBundle bdnl2 = new StatisticsBundle(stats2,labels2);
+		HashMap<String, Float> stats1 = new HashMap<String, Float>();
+		stats1.put("height", 0.695f);
+		stats1.put("width", 0.781f);
 		
-		ArrayList<StatisticsBundle> li = new ArrayList<StatisticsBundle>();
-		li.add(bdnl1);
-		li.add(bdnl2);
+		HashMap<String, Float> stats2 = new HashMap<String, Float>();
+		stats2.put("height", 0.875f);
+		stats2.put("width", 0.762f);
+		
+		ArrayList<HashMap<String, Float>> li = new ArrayList<HashMap<String, Float>>();
+		li.add(stats1);
+		li.add(stats2);
 		
 		PerformanceMeasureCalculator pmc = new PerformanceMeasureCalculator(li);
 		pmc.CalculateAllStats();
 		
 		CsvWriter writer = new CsvWriter();
-		writer.writeCalculatedStats("Sample.csv", pmc.labels, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
-		writer.writeRawStats("rawStats.csv", pmc.labels, pmc.calcMatrix());
+		writer.writeCalculatedStats("Sample.csv", pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+	//	writer.writeRawStats("rawStats.csv", pmc.labels, pmc.calcMatrix());
 		
 	}
-	
 }

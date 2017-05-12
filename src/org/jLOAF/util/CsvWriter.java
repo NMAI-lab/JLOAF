@@ -3,10 +3,11 @@ package org.jLOAF.util;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 public class CsvWriter {
-
-	public void writeCalculatedStats(String filename, String [] labels, float[] mean, float[] stdev){
+	
+	public void writeCalculatedStats(String filename, HashMap<String, Float> mean, HashMap<String, Float> stdev){
 		try {
 			FileWriter fw = new FileWriter(filename);
 			PrintWriter out = new PrintWriter(fw);
@@ -18,12 +19,12 @@ public class CsvWriter {
 			sb.append("Standard Deviation");
 			sb.append('\n');
 				
-			for(int i=0;i<labels.length;i++){
-				sb.append(labels[i]);
+			for(String feature:mean.keySet()){
+				sb.append(feature);
 				sb.append(",");
-				sb.append(mean[i]);
+				sb.append(mean.get(feature));
 				sb.append(",");
-				sb.append(stdev[i]);
+				sb.append(stdev.get(feature));
 				sb.append('\n');
 			}
 			out.write(sb.toString());
