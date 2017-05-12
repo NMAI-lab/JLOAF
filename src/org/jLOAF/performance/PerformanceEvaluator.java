@@ -2,6 +2,7 @@ package org.jLOAF.performance;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.jLOAF.Agent;
 import org.jLOAF.casebase.Case;
@@ -64,7 +65,7 @@ public abstract class PerformanceEvaluator {
 		}
 		
 		//creates main stats bundle list
-		ArrayList<StatisticsBundle>AllStats = new ArrayList<StatisticsBundle>();
+		ArrayList<HashMap<String, Float>>AllStats = new ArrayList<HashMap<String, Float>>();
 		
 		
 		//loop over all casebases
@@ -95,7 +96,7 @@ public abstract class PerformanceEvaluator {
 		
 			System.out.println("Testing complete in: "+ (endTime - startTime)/(1000.0*60.0) + " min");
 			//adds current stats bundle to main list
-			AllStats.add(stats_module.getStatisticsBundle());
+			AllStats.add(stats_module.getStatisticsHashMap());
 
 			ignore++;
 		}
@@ -112,7 +113,7 @@ public abstract class PerformanceEvaluator {
 		System.out.println("Writing stats to file...");
 		//writes calculated stats into a csv file
 		CsvWriter writer = new CsvWriter();
-		writer.writeCalculatedStats("Sample.csv", pmc.getLabels(), pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+		writer.writeCalculatedStats("Sample.csv", pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
 		System.out.println("Done");
 	}
 }
