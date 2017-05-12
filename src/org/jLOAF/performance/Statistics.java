@@ -24,7 +24,7 @@ public class Statistics {
 	 * ***/
 	public Statistics(Agent agent){
 		this.agent = agent;
-		this.confusion_matrix= new HashMap<String, HashMap<String, Integer>>();
+		this.confusion_matrix= new HashMap  <String, HashMap<String, Integer>>();
 	}
 	
 	/***
@@ -268,6 +268,27 @@ public class Statistics {
 		
 		StatisticsBundle bndl = new StatisticsBundle(stats,labels);
 		return bndl;
+	}
+	/***
+	 * Returns all the performance measures inside a HashMap
+	 * @author sachagunaratne
+	 * @return HashMap
+	 * ***/
+	public HashMap<String, Float> getStatisticsHashMap(){
+		HashMap<String, Float> Allstats = new HashMap<String, Float>();
+		List<String> expected = new ArrayList<String>(this.confusion_matrix.keySet());
+		
+		Allstats.put("Global F1", this.getGlobalF1());
+		Allstats.put("Classification Accuracy", this.getClassificationAccuracy());
+		
+		for(String nextAct: expected){
+			Allstats.put("F1 "+ nextAct, this.getF1(nextAct));
+			Allstats.put("Precision "+ nextAct, this.getPrecision(nextAct));
+			Allstats.put("Recall "+ nextAct, this.getRecall(nextAct));
+		}
+	
+		return Allstats;
+		
 	}
 
 }
