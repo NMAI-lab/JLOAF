@@ -33,7 +33,7 @@ public class Statistics {
 	 * ***/
 	public void predictedCorrectActionName(Case input){
 		Action correctAction = input.getAction();
-		Action predictedAction = agent.getR().selectAction(input.getInput());
+		Action predictedAction = agent.run(input.getInput());
 		addPair2ConfusionMatrix(correctAction.getName(),predictedAction.getName());
 	}
 	

@@ -4,6 +4,7 @@
  */
 package org.jLOAF.inputs;
 
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
 public class AtomicInput extends Input {
@@ -53,7 +54,7 @@ public class AtomicInput extends Input {
 		}
 	}
 	
-	public static void setClassStrategy(SimilarityMetricStrategy s){
+	public static void setClassStrategy(AtomicSimilarityMetricStrategy s){
 		AtomicInput.s_simstrategy = s;
 	}
 

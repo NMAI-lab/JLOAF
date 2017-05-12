@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.util.HungarianDouble;
 
@@ -15,7 +16,7 @@ import org.jLOAF.util.HungarianDouble;
  * This is an assignment problem
  * ***/
 
-public class Hungarian_alg implements SimilarityMetricStrategy {
+public class Hungarian_alg extends ComplexSimilarityMetricStrategy {
 
 	@Override
 	public double similarity(Input i1, Input i2) {

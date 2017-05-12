@@ -4,10 +4,11 @@ package org.jLOAF.sim.complex;
 import java.util.Set;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
 
-public class Mean implements SimilarityMetricStrategy {
+public class Mean extends ComplexSimilarityMetricStrategy {
 
 	@Override
 	public double similarity(Input i1, Input i2) {

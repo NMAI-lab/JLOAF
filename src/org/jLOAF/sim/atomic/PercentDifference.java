@@ -7,9 +7,10 @@ package org.jLOAF.sim.atomic;
 
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
-public class PercentDifference implements SimilarityMetricStrategy {
+public class PercentDifference extends AtomicSimilarityMetricStrategy {
 	/* Checks the percent difference between the two atomic values and returns that in the range 
 	 * of 0 and 1. The higher the better
 	 * 

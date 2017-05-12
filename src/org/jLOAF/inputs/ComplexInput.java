@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
 public class ComplexInput extends Input {
@@ -59,7 +60,7 @@ public class ComplexInput extends Input {
 		}
 	}
 
-	public static void setClassStrategy(SimilarityMetricStrategy s){
+	public static void setClassStrategy(ComplexSimilarityMetricStrategy s){
 		ComplexInput.s_simstrategy = s;
 	}
 	

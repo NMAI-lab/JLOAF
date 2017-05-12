@@ -8,10 +8,11 @@ import java.util.Set;
 
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.util.*;
 
-public class GreedyMunkrezMatching implements SimilarityMetricStrategy {
+public class GreedyMunkrezMatching extends ComplexSimilarityMetricStrategy {
 
 	@Override
 	public double similarity(Input i1, Input i2) {

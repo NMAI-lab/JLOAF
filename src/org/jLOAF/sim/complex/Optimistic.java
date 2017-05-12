@@ -4,13 +4,14 @@ import java.util.Set;
 
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
 /***
  * Returns the most optimistic estimate for the similarity. (The max similarity)
  * Sacha Gunaratne 2017
  * ***/
-public class Optimistic implements SimilarityMetricStrategy {
+public class Optimistic extends ComplexSimilarityMetricStrategy {
 
 	@Override
 	public double similarity(Input i1, Input i2) {

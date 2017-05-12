@@ -1,6 +1,8 @@
 package org.jLOAF;
 
+import org.jLOAF.action.Action;
 import org.jLOAF.casebase.CaseBase;
+import org.jLOAF.inputs.Input;
 
 public abstract class Agent {
 
@@ -23,4 +25,12 @@ public abstract class Agent {
 	public void setR(Reasoning r) {
 		this.r = r;
 	}
+	/***
+	 * Define implementation using r.selectAction(input) but output specifically the subclassed action type
+	 * 
+	 * ***/
+	public abstract Action run(Input input);
+	
+	public abstract void train(CaseBase casebase);
+
 }

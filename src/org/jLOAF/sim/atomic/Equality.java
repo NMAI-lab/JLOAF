@@ -8,9 +8,10 @@ package org.jLOAF.sim.atomic;
 
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
-public class Equality implements SimilarityMetricStrategy {
+public class Equality extends AtomicSimilarityMetricStrategy {
 
 	/** The similarity is bound between 0.0 and 1.0. If the
 	 * feature values are the same the similarity is 1.0, 

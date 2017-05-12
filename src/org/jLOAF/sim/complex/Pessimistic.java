@@ -4,12 +4,13 @@ import java.util.Set;
 
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
 /***
  * Returns the most pessimistic estimate for the similarity. (The min similarity)
  * ***/
-public class Pessimistic implements SimilarityMetricStrategy {
+public class Pessimistic extends ComplexSimilarityMetricStrategy {
 	@Override
 	public double similarity(Input i1, Input i2) {
 		

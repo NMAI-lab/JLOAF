@@ -1,10 +1,13 @@
 package org.jLOAF.sim.complex;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
-import org.jLOAF.sim.SimilarityMeasure;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.weights.SimilarityWeights;
 
@@ -13,9 +16,14 @@ import org.jLOAF.weights.SimilarityWeights;
  * The weights are applied to the similarity between each feature and added to the total.
  * 
  * ***/
-public class WeightedMean extends SimilarityMeasure implements SimilarityMetricStrategy {
+public class WeightedMean extends ComplexSimilarityMetricStrategy {
+	
+	protected HashMap<String,Double> similarities;
+	protected SimilarityWeights feat_weights;
+	
 	public WeightedMean(SimilarityWeights featureweights) {
-		super(featureweights);
+		similarities = new HashMap<String, Double>();
+		feat_weights = featureweights;
 	}
 
 	@Override
@@ -53,5 +61,26 @@ public class WeightedMean extends SimilarityMeasure implements SimilarityMetricS
 			}
 		}
 		return calculateWeightedSimilarity();
+	}
+	
+	/***
+	 * Calculates the weighted similarity based on the features weights.
+	 * Adds to the total and divides by the size of the keyset()
+	 * @author michael floyd
+	 * 	 * ***/
+	public double calculateWeightedSimilarity(){
+		double totalDistance = 0.0;
+		
+		List<String> featureTypes = new ArrayList<String>(similarities.keySet());
+		for(String currentFeature : featureTypes){
+			double featureDistance = similarities.get(currentFeature);
+				
+			//apply the weight
+			double currentWeight = this.feat_weights.getWeight(currentFeature);
+			totalDistance += featureDistance*currentWeight;
+		}
+		
+		return totalDistance/similarities.keySet().size();
+		
 	}
 }

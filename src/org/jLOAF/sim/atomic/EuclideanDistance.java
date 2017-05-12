@@ -2,9 +2,10 @@ package org.jLOAF.sim.atomic;
 
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
-public class EuclideanDistance implements SimilarityMetricStrategy {
+public class EuclideanDistance extends AtomicSimilarityMetricStrategy {
 	//calculates the Euclidean distance between objects - can only be used with weighted knn
 	//the larger the better , can be used for any type of value
 	@Override
