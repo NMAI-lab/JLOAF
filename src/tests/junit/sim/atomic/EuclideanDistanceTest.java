@@ -20,6 +20,6 @@ public class EuclideanDistanceTest {
 		AtomicInput i1 = new AtomicInput("h1",new Feature(2.6));
 		AtomicInput i2 = new AtomicInput("h2",new Feature(1.2));
 		EuclideanDistance e = new EuclideanDistance();
-		assertEquals(e.similarity(i1, i2),0.714,0.01);
+		assertEquals(e.similarity(i1, i2),0.416,0.01);
 	}
 }
