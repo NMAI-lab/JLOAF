@@ -38,6 +38,11 @@ public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 			return 1.0;
 		}
 		
+		if(keys.size()==0 || keys2.size()==0){
+			//if they cannot see anything they are in a similar situation?
+			return 0.0;
+		}
+		
 		//create a similarity matrix
 		int row = 0;
 		int col = 0;
@@ -63,8 +68,8 @@ public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 		}
 		
 		
-		//double sigma = 1.0/(keys2.size()+1);
-		double sigma = 0.01;
+		double sigma = 1.0/(keys2.size()+1);
+		//double sigma = 0.01;
 		
 		//start loop
 		while(!bidders.isEmpty()){
@@ -73,6 +78,9 @@ public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 			//gets the good that maximizes wij-pj
 			int good = argmax(similarities,price, bidder);
 			
+			if(bidder==-1 ||good == -1){
+				System.out.println("hi");
+			}
 			if(similarities[bidder][good]-price[good]>=0){
 				//adds current owner to queue if it exists
 				if(owner[good]!=0){
@@ -87,15 +95,18 @@ public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 		}
 		
 		double total=0;
-		
+		int counter = 0;
 		//get the total similarity based on matching
 		for(int i=0;i<owner.length;i++){
-			total += similarities[owner[i]-1][i];
+			if(owner[i]!=0){
+				total += similarities[owner[i]-1][i];
+				counter++;
+			}
 		}
 		
 		if(keys.size()==0) return 1.0;
 		
-		return total/keys.size();
+		return total/counter;
 	}
 	/***
 	 * gets the index that maximizes the w[bidder,good]-price[good]
@@ -104,7 +115,7 @@ public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 	private int argmax(double[][] similarities, double[] price, int bidder) {
 		double max=0;
 		int pos =0;
-		for(int i=0;i<similarities[0].length;i++){
+		for(int i=0;i<price.length;i++){
 			if(max<similarities[bidder][i]-price[i]){max = similarities[bidder][i]-price[i];pos = i;}
 		}
 		return pos;
