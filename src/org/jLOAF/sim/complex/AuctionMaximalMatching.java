@@ -2,13 +2,22 @@ package org.jLOAF.sim.complex;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
 
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 
+
+/***
+ * Uses the Auction algorithm to solve the assignment problem.
+ * https://agtb.wordpress.com/2009/07/13/auction-algorithm-for-bipartite-matching/
+ * Followed along with this tutorial
+ * @author sachagunaratne
+ * ***/
 public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 
 	@Override
@@ -33,116 +42,70 @@ public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 		int row = 0;
 		int col = 0;
 		double [][] similarities = new double [keys.size()][keys2.size()];
-		String [] buyers = new String[keys.size()];
-		String [] objects = new String[keys2.size()];
 		
 		for(String s1: keys){
-			buyers[row] = s1;
 			for(String s2: keys2){
 				similarities[row][col] = cplx1.get(s1).similarity(cplx2.get(s2));
-				objects[col] = s2;
 				col++;
 			}
+			col=0;
 			row++;
 		}
-		//setup
-		double [] price = new double [keys2.size()];
-		int [] ji;
-		double [] vi;
-		double [] ui;
-		double eta = 5;
-		double [] buyerBid;
 		
-		List<String> buyersList = new ArrayList<String>(keys);
-		List<String> objectsList = new ArrayList<String>(keys2);
-		List<String> assignments = new ArrayList<String>();
+		//create price, owner and bidders
+		double [] price = new double [keys2.size()];
+		int [] owner = new int [keys2.size()];
+		Queue<Integer> bidders = new LinkedList<Integer>();
+		
+		//offset so we can do the check later
+		for(int i=1;i<=keys.size();i++){
+			bidders.add(i);
+		}
+		
+		
+		//double sigma = 1.0/(keys2.size()+1);
+		double sigma = 0.01;
 		
 		//start loop
-		//phase 1
-		//calculate step 1: maximize
-		ji = argmax(similarities,price);
-		vi = max(similarities, price);
-		ui = maxWithout(similarities, price,ji);
-		
-		//step 2: calculate bids
-		buyerBid = getBids(similarities,ui,ji,eta);
-		
-		//phase 2
-		//step 3: calculate the new prices
-		for(int i=0;i<ji.length;i++){
-			if(ji[i]==i){price[ji[i]]=setMaxPrice(buyerBid,ji, i);}
-		}
-		//step 4:remove maximum bidder from bidder set and add to assignment set
-		int maxBidder = getMaxBidder(vi);
-		int maxBidItem = ji[maxBidder];
-		
-		buyersList.remove(buyers[maxBidder]);
-		assignments.add(buyers[maxBidder] + " " + objects[maxBidItem]);
-		
-		return 0;
-	}
-	
-	private int getMaxBidder(double[] vi) {
-		double max =0;
-		int pos=0;
-		for(int i=0;i<vi.length;i++){
-			if(max<vi[i]){max=vi[i];pos=i;}
-		}
-		return pos;
-	}
-
-	/**
-	 * sets the price to the max of the set of bidders on object j
-	 * ****/
-	private double setMaxPrice(double[] buyerBid, int[] ji, int index) {
-		double max=0;
-		int val = ji[index];
-		for(int i=0;i<buyerBid.length;i++){
-			if(ji[i]==val){
-				if(max<buyerBid[i]){max = buyerBid[i];}
+		while(!bidders.isEmpty()){
+			//get bidders from queue
+			int bidder = bidders.poll()-1;
+			//gets the good that maximizes wij-pj
+			int good = argmax(similarities,price, bidder);
+			
+			if(similarities[bidder][good]-price[good]>=0){
+				//adds current owner to queue if it exists
+				if(owner[good]!=0){
+					bidders.add(owner[good]);
+				}
+				//sets ownder of good to current bidder
+				owner[good]=bidder+1;
+				//sets price of good to update price
+				price[good] = price[good]+sigma;
 			}
-		}
-		return max;
-	}
-
-	private double[] getBids(double[][] similarities, double[] ui, int[] ji, double eta) {
-		double [] bids = new double [ui.length];
-		for(int i=0;i<ui.length;i++){
-			bids[i] = similarities[i][ji[i]]-ui[i]+eta;
 			
 		}
-		return null;
-	}
-
-	private double[] maxWithout(double[][] similarities, double[] price, int [] ji) {
-		double[] max=new double [similarities.length];
-		for(int i=0;i<similarities.length;i++){
-			for(int j=0;j<price.length;j++){
-				if(j!=ji[i]){
-					if(max[i]<similarities[i][j]-price[j]){max[i] = similarities[i][j]-price[j];}
-				}
-			}
+		
+		double total=0;
+		
+		//get the total similarity based on matching
+		for(int i=0;i<owner.length;i++){
+			total += similarities[owner[i]-1][i];
 		}
-		return max;
+		
+		if(keys.size()==0) return 1.0;
+		
+		return total/keys.size();
 	}
-
-	private double[] max(double[][] similarities, double[] price) {
-		double [] max=new double [similarities.length];
-		for(int i=0;i<similarities.length;i++){
-			for(int j=0;j<price.length;j++){
-				if(max[i]<similarities[i][j]-price[j]){max[i] = similarities[i][j]-price[j];}
-			}
-		}
-		return max;
-	}
-
-	private int[] argmax(double[][] similarities, double[] price) {
-		double [] max = new double [similarities.length];
-		int [] pos = new int [similarities.length];
-		for(int i=0;i<similarities.length;i++){
-			for(int j=0;j<price.length;j++){
-				if(max[i]<similarities[i][j]-price[j]){ pos[i] = j; max[i] = similarities[i][j]-price[j];}
-			}
+	/***
+	 * gets the index that maximizes the w[bidder,good]-price[good]
+	 * @author sachagunaratne
+	 * ***/
+	private int argmax(double[][] similarities, double[] price, int bidder) {
+		double max=0;
+		int pos =0;
+		for(int i=0;i<similarities[0].length;i++){
+			if(max<similarities[bidder][i]-price[i]){max = similarities[bidder][i]-price[i];pos = i;}
 		}
 		return pos;
 	}
