@@ -14,6 +14,11 @@ import org.jLOAF.util.*;
 
 public class GreedyMunkrezMatching extends ComplexSimilarityMetricStrategy {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public double similarity(Input i1, Input i2) {
 		

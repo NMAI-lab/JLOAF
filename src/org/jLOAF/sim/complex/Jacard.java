@@ -13,6 +13,13 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
  * ***/
 public class Jacard extends ComplexSimilarityMetricStrategy {
 
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public double similarity(Input i1, Input i2) {
 		if(i1==null || i2 ==null) return 0.0;

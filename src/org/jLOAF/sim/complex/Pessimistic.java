@@ -11,6 +11,13 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
  * Returns the most pessimistic estimate for the similarity. (The min similarity)
  * ***/
 public class Pessimistic extends ComplexSimilarityMetricStrategy {
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public double similarity(Input i1, Input i2) {
 		

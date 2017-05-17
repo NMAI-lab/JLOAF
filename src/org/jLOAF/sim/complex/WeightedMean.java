@@ -18,6 +18,10 @@ import org.jLOAF.weights.SimilarityWeights;
  * ***/
 public class WeightedMean extends ComplexSimilarityMetricStrategy {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected HashMap<String,Double> similarities;
 	protected SimilarityWeights feat_weights;
 	

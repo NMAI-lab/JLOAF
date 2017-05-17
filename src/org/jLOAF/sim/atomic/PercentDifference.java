@@ -16,6 +16,11 @@ public class PercentDifference extends AtomicSimilarityMetricStrategy {
 	 * 
 	 * **/
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public double similarity(Input i1, Input i2) {
 		if(!(i1 instanceof AtomicInput) || !(i2 instanceof AtomicInput)){

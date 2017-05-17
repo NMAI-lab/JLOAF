@@ -10,6 +10,11 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
 
 public class Mean extends ComplexSimilarityMetricStrategy {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public double similarity(Input i1, Input i2) {
 		//null check

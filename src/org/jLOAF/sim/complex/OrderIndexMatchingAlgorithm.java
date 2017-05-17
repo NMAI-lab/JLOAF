@@ -26,6 +26,11 @@ import org.jLOAF.util.InputSorter;
  * 
  */
 public class OrderIndexMatchingAlgorithm extends ComplexSimilarityMetricStrategy {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// an InputSorter object to be used for the sorting of the given input
 	private InputSorter fdcp;
 	/*
