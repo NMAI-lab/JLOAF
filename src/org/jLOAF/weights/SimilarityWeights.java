@@ -10,6 +10,10 @@ package org.jLOAF.weights;
 
 public class SimilarityWeights extends Weights {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/***
 	 * Sets default_weight and instantiates the object
 	 * ***/

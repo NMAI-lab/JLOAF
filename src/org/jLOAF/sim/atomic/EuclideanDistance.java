@@ -6,6 +6,12 @@ import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
 public class EuclideanDistance extends AtomicSimilarityMetricStrategy {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	//calculates the Euclidean distance between objects - can only be used with weighted knn
 	//the larger the better , can be used for any type of value ranges between [0,1]
 	@Override

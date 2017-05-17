@@ -13,8 +13,9 @@ public class ComplexInput extends Input {
 
 	private Map<String,Input> collect;
 	
-	public ComplexInput(String name) {
+	public ComplexInput(String name, SimilarityMetricStrategy sim) {
 		super(name);
+		super.setSimilarityMetric(sim);
 		collect = new HashMap<String,Input>();
 	}
 

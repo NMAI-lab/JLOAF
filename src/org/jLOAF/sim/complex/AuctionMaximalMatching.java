@@ -1,5 +1,6 @@
 package org.jLOAF.sim.complex;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -20,6 +21,10 @@ import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
  * ***/
 public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Override
 	public double similarity(Input i1, Input i2) {
 		

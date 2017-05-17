@@ -13,6 +13,13 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
 
 public class Equality extends AtomicSimilarityMetricStrategy {
 
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** The similarity is bound between 0.0 and 1.0. If the
 	 * feature values are the same the similarity is 1.0, 
 	 * otherwise the similarity is 0.0.

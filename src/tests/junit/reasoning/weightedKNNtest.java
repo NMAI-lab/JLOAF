@@ -10,6 +10,7 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.reasoning.WeightedKNN;
+import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.PercentDifference;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,20 +18,26 @@ import org.junit.Test;
 public class weightedKNNtest {
 	
 	CaseBase cb;
-	
+	SimilarityMetricStrategy sim = new PercentDifference();
 	@Before
 	public void setup(){
+		
 		Feature f1 = new Feature(1.0);
 		Feature f2 = new Feature(2.0);
 		Feature f3 = new Feature(3.0);
 		Feature f4 = new Feature(3.0);
 		Feature f5 = new Feature(8.0);
 		
-		Input i1 = new AtomicInput("1", f1);
-		Input i2 = new AtomicInput("2", f2);
-		Input i3 = new AtomicInput("3", f3);
-		Input i4 = new AtomicInput("4", f4);
-		Input i5 = new AtomicInput("5", f5);
+		Input i1 = new AtomicInput("1", f1,sim);
+	
+		Input i2 = new AtomicInput("2", f2,sim);
+
+		Input i3 = new AtomicInput("3", f3,sim);
+	
+		Input i4 = new AtomicInput("4", f4,sim);
+	
+		Input i5 = new AtomicInput("5", f5,sim);
+	
 			
 		Action a1 = new Action("down");
 		Action a2 = new Action("down");
@@ -58,9 +65,8 @@ public class weightedKNNtest {
 	    public void testWeightedKNN() {
 		 	int k = 5;
 	        Reasoning r = new WeightedKNN(k,cb);
-	        AtomicInput.setClassStrategy(new PercentDifference());
 	        
-	        Input i6 = new AtomicInput("test", new Feature(1.5));
+	        Input i6 = new AtomicInput("test", new Feature(1.5),sim);
 			Action a6 = new Action("down");
 			Case c6 = new Case(i6,a6);
 	        
