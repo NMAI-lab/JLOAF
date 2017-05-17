@@ -43,7 +43,7 @@ if(i1==null || i2 ==null) return 0.0;
 		
 		double intersectionSize = keys.size();
 		
-		return intersectionSize/0.5*(set1Size+set2Size);
+		return intersectionSize/(0.5*(set1Size+set2Size));
 	}
 
 }
