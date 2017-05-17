@@ -12,9 +12,6 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
  * @author Sacha Gunaratne
  * ***/
 public class Jacard extends ComplexSimilarityMetricStrategy {
-
-	
-
 	/**
 	 * 
 	 */
