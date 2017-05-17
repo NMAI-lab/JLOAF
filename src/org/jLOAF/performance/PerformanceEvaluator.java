@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.jLOAF.Agent;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
+import org.jLOAF.preprocessing.filter.casebasefilter.Clustering;
 import org.jLOAF.util.CsvWriter;
 /***
  * Abstract class that can be extended and used to test performance
@@ -37,14 +38,14 @@ public abstract class PerformanceEvaluator {
 	 * }
 	 * 
 	 * ***/
-	public abstract Agent trainAgent(String matchType,CaseBase cb);
+	public abstract Agent  createAgent(String matchType);
 	
 	/***
 	 * Evaluates performance using leave one out method using multiple casebases
 	 * and prints out performance data as well as saves to a csv
 	 * @throws IOException 
 	 * ***/
-	public void PerformanceEvaluatorMethod(String matchType, String []filenames) throws IOException{
+	public void PerformanceEvaluatorMethod(String matchType, String []filenames,boolean withPreprocessing) throws IOException{
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
@@ -64,8 +65,12 @@ public abstract class PerformanceEvaluator {
 			listOfCaseBases.add(CaseBase.load(s));
 		}
 		
+		//end of it
 		//creates main stats bundle list
 		ArrayList<HashMap<String, Float>>AllStats = new ArrayList<HashMap<String, Float>>();
+		Agent agent = createAgent(matchType);
+		
+		
 		
 		
 		//loop over all casebases
@@ -80,8 +85,23 @@ public abstract class PerformanceEvaluator {
 				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
 				else {cb.addListOfCaseBases(tempList);}
 			}
+			
+			if(withPreprocessing){
+				Clustering clustering = new Clustering();
+				System.out.println("performing clustering on the casesbases");
+				long tempTime = System.currentTimeMillis();
+				
+				
+					cb=clustering.filter(cb);
+				
+				
+				tempTime = System.currentTimeMillis() - tempTime;
+				
+				System.out.println("time Taken to cluster is " + tempTime/1000.0 +" seconds");
+			}
+			
 
-			Agent agent = trainAgent(matchType,cb);
+			agent.train(cb);
 			Statistics stats_module = new Statistics(agent);
 			
 			//start testing 
