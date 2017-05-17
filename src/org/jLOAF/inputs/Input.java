@@ -26,7 +26,12 @@ public abstract class Input implements Serializable{
 		return this.name;
 	}
 	
-	public abstract double similarity(Input i);
+	public double similarity(Input i){
+		if(!this.getClass().equals(i.getClass())){
+			throw new IllegalArgumentException("Inputs not of the same class");
+		}
+		return simStrategy.similarity(this, i);
+	}
 	
 	
 	public void setSimilarityMetric(SimilarityMetricStrategy s) {
