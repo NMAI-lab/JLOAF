@@ -12,6 +12,10 @@ import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.util.*;
 
+/***
+ * This was taken from a PHD thesis: https://researchspace.auckland.ac.nz/bitstream/handle/2292/29398/whole.pdf?sequence=2
+ * By: Glen Robertson
+ * ***/
 public class GreedyMunkrezMatching extends ComplexSimilarityMetricStrategy {
 
 	/**
