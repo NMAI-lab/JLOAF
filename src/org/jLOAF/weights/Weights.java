@@ -1,8 +1,13 @@
 package org.jLOAF.weights;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public abstract class Weights {
+public abstract class Weights implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	double default_weight;
 	HashMap<String,Double> weights = new HashMap<String,Double>();
 	
