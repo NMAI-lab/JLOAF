@@ -7,6 +7,8 @@ import java.util.HashMap;
 import org.jLOAF.Agent;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
+import org.jLOAF.preprocessing.filter.CaseBaseFilter;
+import org.jLOAF.preprocessing.filter.Filters;
 import org.jLOAF.preprocessing.filter.casebasefilter.Clustering;
 import org.jLOAF.util.CsvWriter;
 /***
@@ -45,7 +47,7 @@ public abstract class PerformanceEvaluator {
 	 * and prints out performance data as well as saves to a csv
 	 * @throws IOException 
 	 * ***/
-	public void PerformanceEvaluatorMethod(String matchType, String []filenames,boolean withPreprocessing) throws IOException{
+	public void PerformanceEvaluatorMethod(String matchType, String []filenames,String filter) throws IOException{
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
@@ -86,18 +88,18 @@ public abstract class PerformanceEvaluator {
 				else {cb.addListOfCaseBases(tempList);}
 			}
 			
-			if(withPreprocessing){
-				Clustering clustering = new Clustering();
-				System.out.println("performing clustering on the casesbases");
+			if(filter!=null){
+				CaseBaseFilter cbf =Filters.valueOf(filter.toUpperCase()).getFilter();
+				System.out.println("performing Filtering on the casesbases");
 				long tempTime = System.currentTimeMillis();
 				
 				
-					cb=clustering.filter(cb);
+					cb=cbf.filter(cb);
 				
 				
 				tempTime = System.currentTimeMillis() - tempTime;
 				
-				System.out.println("time Taken to cluster is " + tempTime/1000.0 +" seconds");
+				System.out.println("time Taken to Filter is " + tempTime/1000.0 +" seconds");
 			}
 			
 
