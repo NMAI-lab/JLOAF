@@ -39,21 +39,12 @@ public class Optimistic extends ComplexSimilarityMetricStrategy {
 		double sim =0;
 		
 		//dealing with mismatched sets with a penalty for not having a paired element
-		if (keys.size()>=keys2.size()){
 			for(String s: keys){
-				if (cplx2.get(s)!=null){
-					sim = cplx1.get(s).similarity(cplx2.get(s));
+				for(String s1:keys2){
+					sim = cplx1.get(s).similarity(cplx2.get(s1));
 					if(max<sim)max=sim;
 				}
 			}
-		}else if(keys.size()<keys2.size()){
-			for(String s: keys2){
-				if (cplx1.get(s)!=null){
-					sim = cplx2.get(s).similarity(cplx1.get(s));
-					if(max<sim)max=sim;
-				}		
-			}
-		}
 		
 		return max;
 	}
