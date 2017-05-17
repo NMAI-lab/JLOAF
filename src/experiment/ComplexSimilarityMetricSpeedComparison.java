@@ -22,13 +22,6 @@ public class ComplexSimilarityMetricSpeedComparison {
 		AtomicInput dir1 = new AtomicInput("dir", new Feature(-8), sim);
 		AtomicInput dir2 = new AtomicInput("dir", new Feature(14), sim);
 		
-		
-		
-		dist1.setSimilarityMetric(sim);
-		dist2.setSimilarityMetric(sim);
-		dir1.setSimilarityMetric(sim);
-		dir2.setSimilarityMetric(sim);
-		
 		ComplexSimilarityMetricStrategy simMetric1 = new AuctionMaximalMatching();
 		ComplexSimilarityMetricStrategy simMetric2 = new GreedyMunkrezMatching();
 		
@@ -39,8 +32,6 @@ public class ComplexSimilarityMetricSpeedComparison {
 		ComplexInput ball2 = new ComplexInput("ball", simMetric2);
 		ball2.add(dist2);
 		ball2.add(dir2);
-		
-		
 		
 		System.out.println("Starting test...");
 		long time = System.nanoTime();
