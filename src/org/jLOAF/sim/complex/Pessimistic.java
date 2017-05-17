@@ -33,7 +33,7 @@ public class Pessimistic extends ComplexSimilarityMetricStrategy {
 		Set<String> keys = cplx1.getChildNames();
 		Set<String> keys2 = cplx2.getChildNames();
 		
-		double min = 0;
+		double min =1;
 		double sim =0;
 		
 		//dealing with mismatched sets with a penalty for not having a paired element
