@@ -40,14 +40,14 @@ public abstract class PerformanceEvaluator {
 	 * }
 	 * 
 	 * ***/
-	public abstract Agent  createAgent(String matchType);
+	public abstract Agent  createAgent();
 	
 	/***
 	 * Evaluates performance using leave one out method using multiple casebases
 	 * and prints out performance data as well as saves to a csv
 	 * @throws IOException 
 	 * ***/
-	public void PerformanceEvaluatorMethod(String matchType, String []filenames,String filter) throws IOException{
+	public void PerformanceEvaluatorMethod(String []filenames,String filter) throws IOException{
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
@@ -70,7 +70,7 @@ public abstract class PerformanceEvaluator {
 		//end of it
 		//creates main stats bundle list
 		ArrayList<HashMap<String, Float>>AllStats = new ArrayList<HashMap<String, Float>>();
-		Agent agent = createAgent(matchType);
+		Agent agent = createAgent();
 		
 		
 		
