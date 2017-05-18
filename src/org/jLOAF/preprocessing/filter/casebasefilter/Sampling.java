@@ -4,6 +4,7 @@ import org.jLOAF.Reasoning;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
+import org.jLOAF.reasoning.SimpleKNN;
 import org.jLOAF.reasoning.WeightedKNN;
 
 public class Sampling implements CaseBaseFilter {
@@ -23,11 +24,14 @@ public class Sampling implements CaseBaseFilter {
 		
 		for (Case c: initial.getCases()){
 			if(count>0){
-				cnew.add(c);
+				
 				//max k = 7
-				if(count>0&&count<max_k)k=count;
+				if(count>0&&count<max_k){k=count;}
 				r = new WeightedKNN(k,cnew);
-				if(r.selectAction(c.getInput()).equals(c.getAction())) {cnew.remove(c);count++;}
+				if(!(r.selectAction(c.getInput()).getName().equals(c.getAction().getName()))) {
+					cnew.add(c);
+					count++;
+				}
 			}
 			else{
 				cnew.add(c);
