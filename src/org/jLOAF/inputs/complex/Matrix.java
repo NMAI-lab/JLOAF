@@ -13,13 +13,13 @@ public class Matrix extends ComplexInput {
 	private int rows = 0;
 	private int cols = 0;
 	
-	public Matrix(String name, double[][] matrix, SimilarityMetricStrategy sim) {
+	public Matrix(String name, double[][] matrix, SimilarityMetricStrategy sim, SimilarityMetricStrategy atomicSim) {
 		super(name,sim);
 		this.rows = matrix.length;
 		this.cols = matrix[0].length;
 		for(int ii = 0; ii < this.rows; ii++){
 			for(int jj = 0; jj < this.cols; jj++){
-				MatrixCell mc = new MatrixCell(ii+"-"+jj, new Feature(matrix[ii][jj]), sim);
+				MatrixCell mc = new MatrixCell(ii+"-"+jj, new Feature(matrix[ii][jj]), atomicSim);
 				this.add(mc);
 			}
 		}
