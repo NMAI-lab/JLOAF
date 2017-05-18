@@ -146,7 +146,6 @@ public class SamplingTest {
 		CaseBaseFilter filter = new Sampling();
 		
 		CaseBase preprocessed = filter.filter(cb);
-		System.out.println(preprocessed.getSize());
 		assertEquals(preprocessed.getSize(),3);
 	}
 	/***
@@ -181,7 +180,6 @@ public class SamplingTest {
 		CaseBaseFilter filter = new Sampling();
 		
 		CaseBase preprocessed = filter.filter(cb);
-		System.out.println(preprocessed.getSize());
 		assertEquals(preprocessed.getSize(),2);
 	}
 }
