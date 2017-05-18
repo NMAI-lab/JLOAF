@@ -33,7 +33,8 @@ public class PercentDifference extends AtomicSimilarityMetricStrategy {
 		double denom = val1+val2;
 		double num = Math.abs(val1-val2);
 		
-		if(denom==0) return 0.0;
+		if(denom==0 && num!=0) return 0.0;
+		if(denom==0 && num==0) return 1.0;
 		
 		return (1-num/denom);
 	}
