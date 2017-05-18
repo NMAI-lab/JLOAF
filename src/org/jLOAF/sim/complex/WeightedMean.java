@@ -35,7 +35,7 @@ public class WeightedMean extends ComplexSimilarityMetricStrategy {
 		//null check
 		if(i1==null || i2 ==null) return 0.0;
 		
-		if(!(i1 instanceof ComplexInput) || !(i2 instanceof ComplexInput) ){
+		if(!(i1 instanceof ComplexInput) || !(i2 instanceof ComplexInput)){
 			throw new IllegalArgumentException("Mean.similarity(..): Not ComplexInputs");
 		}
 		
