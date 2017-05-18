@@ -207,8 +207,8 @@ public class GreedyMunkrezMatchingTest {
 		flag2.add(dir2);
 		
 		ComplexInput flag5 = new ComplexInput("flag5", simMetric2);
-		flag2.add(dist5);
-		flag2.add(dir5);
+		flag5.add(dist5);
+		flag5.add(dir5);
 		
 		ComplexInput flags = new ComplexInput("flag", simMetric1);
 		flags.add(flag1);
