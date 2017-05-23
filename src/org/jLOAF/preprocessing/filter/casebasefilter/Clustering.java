@@ -36,12 +36,16 @@ public class Clustering implements CaseBaseFilter {
 				Cluster cluster= new Cluster();
 				cluster.addMember(c);
 				clusters.put(c,cluster);
+				
+				
 			}else {
+				
+				
 				boolean hasBeenPut = false;
 				
 				for(Case c1:clusters.keySet()){
 					if(firstTime){
-						//td= c.getInput().similarity(c1.getInput());
+						
 						firstTime=false;
 					}
 					double sim =c.getInput().similarity(c1.getInput());
@@ -72,10 +76,9 @@ public class Clustering implements CaseBaseFilter {
 		
 		casebase.getCases().clear();
 		for(Case c:clusters.keySet()){
-			System.out.println(clusters.get(c).getMembers().size());
 			casebase.add(c);
 		}
-		//System.out.println(clusters.size());
+		
 		clusters.clear();
 		return casebase;
 		

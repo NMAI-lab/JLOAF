@@ -14,32 +14,28 @@ import org.jLOAF.retrieve.Distance;
 import org.jLOAF.retrieve.Retrieval;
 import org.jLOAF.retrieve.kNN;
 
-public class SimpleKNN implements Reasoning {
+public class SimpleKNN extends Reasoning {
 
-	private Retrieval ret;
+	
 	
 	public SimpleKNN(int k, CaseBase cb){
-		ret = new kNN(k, cb);
+		super(new kNN(k, cb));
 	}
+	
+	
 	
 	@Override
-	public Action selectAction(Input i) {
-		List<Case> nn = ret.retrieve(i);
-		
-		return mostLikelyAction(nn);
-	}
-	
 	public Action mostLikelyAction(List<Case> nn){
-		Hashtable<String, Integer> nnactions = new Hashtable<String, Integer>();
+		Hashtable<String, Double> nnactions = new Hashtable<String, Double>();
 		String max_action;
 		List<Action> a = new ArrayList<Action>();
 		
 		for(int i =0;i<nn.size();i++){
 			if(!nnactions.containsKey(nn.get(i).getAction().getName())){//hashtable to account for number of times an action is chosen
-				nnactions.put(nn.get(i).getAction().getName(), 1);
+				nnactions.put(nn.get(i).getAction().getName(), 1.0);
 			}else{
 				double value = nnactions.get(nn.get(i).getAction().getName());
-				nnactions.put(nn.get(i).getAction().getName(), (int) (value+1));
+				nnactions.put(nn.get(i).getAction().getName(), (value+1));
 			}
 		}
 		//System.out.println(nnactions);
@@ -55,28 +51,6 @@ public class SimpleKNN implements Reasoning {
 		return a.get(0);
 	}
 	
-	/**
-	 * Sacha 2017 Mar
-	 * Calculates the most likely action given a matrix of actions and counts
-	 * 
-	 * **/
 	
-	public String max(Hashtable<String, Integer> h){
-		Enumeration<String> actions;
-		
-		actions = h.keys();
-		double max = 0;
-		String action = "";
-		
-		while(actions.hasMoreElements()){
-			String val = (String) actions.nextElement();
-			if( h.get(val)>max){
-				max = h.get(val);
-				action = val;
-			}
-		}
-		
-		return action;
-	}
 
 }
