@@ -44,7 +44,7 @@ public class InputSorter  {
 					@Override
 					public int compare(ComplexInput o1, ComplexInput o2) {
 						double v1=((AtomicInput)o1.get(feature)).getFeature().getValue();
-						double v2=((AtomicInput)o1.get(feature)).getFeature().getValue();
+						double v2=((AtomicInput)o2.get(feature)).getFeature().getValue();
 						if (v1 == v2){
 							 return 0;
 						 }else if(v1 > v2){

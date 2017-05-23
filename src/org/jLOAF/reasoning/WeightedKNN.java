@@ -14,21 +14,16 @@ import org.jLOAF.retrieve.Distance;
 import org.jLOAF.retrieve.Retrieval;
 import org.jLOAF.retrieve.kNN;
 
-public class WeightedKNN implements Reasoning {
+public class WeightedKNN extends Reasoning {
 
-	private Retrieval ret;
+	
 	
 	public WeightedKNN(int k, CaseBase cb){
-		ret = new kNN(k, cb);
+		 super(new kNN(k, cb));
 	}
+	
 	
 	@Override
-	public Action selectAction(Input i) {
-		List<Case> nn = ret.retrieve(i);
-		
-		return mostLikelyAction(nn);
-	}
-	
 	public Action mostLikelyAction(List<Case> nn){
 		Hashtable<String, Double> nnactions = new Hashtable<String, Double>();
 		Distance [] dist_closest = ret.getDist();
@@ -65,30 +60,5 @@ public class WeightedKNN implements Reasoning {
 		return a.get(0);
 	}
 	
-	/**
-	 * 
-	 * Calculates the msot likely action given a matrix of actions and counts
-	 * @author Sacha gunaratne
-	 * @since May 2017
-	 * **/
 	
-	//need to implement a weighted knn with distance 
-	public String max(Hashtable<String, Double> h){
-		Enumeration<String> actions;
-		
-		actions = h.keys();
-		double max = 0;
-		String action = "";
-		
-		while(actions.hasMoreElements()){
-			String val = (String) actions.nextElement();
-			if( h.get(val)>max){
-				max = h.get(val);
-				action = val;
-			}
-		}
-		
-		return action;
-	}
-
 }
