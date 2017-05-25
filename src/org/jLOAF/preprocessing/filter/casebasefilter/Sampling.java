@@ -26,7 +26,7 @@ public class Sampling implements CaseBaseFilter {
 			if(count>0){
 				
 				//max k = 7
-				if(count>0&&count<max_k){k=count;}
+				if(count>0&&count<max_k && count%2==0){k=count;}
 				r = new WeightedKNN(k,cnew);
 				if(!(r.selectAction(c.getInput()).getName().equals(c.getAction().getName()))) {
 					cnew.add(c);
