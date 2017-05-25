@@ -11,6 +11,8 @@ public class Case implements Serializable{
 	
 	private Input in;
 	private Action act;
+
+	private Case linkedToCase;
 	
 	public Case(Input input, Action action){
 		this.in = input;
@@ -23,5 +25,13 @@ public class Case implements Serializable{
 	
 	public Action getAction(){
 		return this.act;
+	}
+
+	public void linkTo(Case linkedToCase) {
+		this.linkedToCase=linkedToCase;
+		
+	}
+	public Case getLinkedToCase(){
+		return linkedToCase;
 	}
 }
