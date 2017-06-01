@@ -71,7 +71,7 @@ public class SamplingTest {
 		
 		cb.add(c1);cb.add(c2);cb.add(c3);
 		
-		CaseBaseFilter filter = new Sampling();
+		CaseBaseFilter filter = new Sampling(null);
 		
 		CaseBase preprocessed = filter.filter(cb);
 		
@@ -143,7 +143,7 @@ public class SamplingTest {
 		
 		cb.add(c1);cb.add(c4);cb.add(c2);cb.add(c3);
 		
-		CaseBaseFilter filter = new Sampling();
+		CaseBaseFilter filter = new Sampling(null);
 		
 		CaseBase preprocessed = filter.filter(cb);
 		assertEquals(preprocessed.getSize(),3);
@@ -177,7 +177,7 @@ public class SamplingTest {
 		
 		cb.add(c1);cb.add(c4);cb.add(c2);cb.add(c3);
 		
-		CaseBaseFilter filter = new Sampling();
+		CaseBaseFilter filter = new Sampling(null);
 		
 		CaseBase preprocessed = filter.filter(cb);
 		assertEquals(preprocessed.getSize(),2);

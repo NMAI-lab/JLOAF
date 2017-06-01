@@ -26,5 +26,21 @@ public class ComplexAction extends Action {
 	public Set<String> getChildNames(){
 		return collect.keySet();
 	}
+	public double similarity(Action action){
+		
+		ComplexAction action1 =((ComplexAction)action);
+		double v=super.similarity(action);
+		if(v==0){
+			return v;
+		}
+		for(String a:collect.keySet()){
+			if(action1.get(a)!=null){
+			v+=collect.get(a).similarity(action1.get(a));
+			}else{
+				v-=0.5;
+			}
+		}
+		return v;
+	}
 	
 }

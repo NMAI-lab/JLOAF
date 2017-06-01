@@ -16,4 +16,12 @@ public class Action implements Serializable{
 		return this.name;
 	}
 
+	public double similarity(Action action) {
+		if(!this.getName().equals(action.getName())){
+			return 0;
+		}
+		return 1;
+	}
+	
+
 }

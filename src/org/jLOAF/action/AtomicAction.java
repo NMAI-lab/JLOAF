@@ -37,4 +37,21 @@ public class AtomicAction extends Action {
 	public List<Feature> getFeatures(){
 		return this.features;
 	}
-}
+	public double similarity(Action action) {
+		
+		AtomicAction action1 = (AtomicAction)action;
+		
+		double v=super.similarity(action);
+		
+		if(v==0){
+			return v;
+		}
+		
+		for(int i=0; i<features.size();i++){
+			v+=Math.abs(features.get(i).getValue()-action1.getFeature(i).getValue());
+		
+		}
+		return v/(features.size()+1);
+	}
+	}
+

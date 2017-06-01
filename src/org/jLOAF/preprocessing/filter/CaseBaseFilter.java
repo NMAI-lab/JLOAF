@@ -2,7 +2,13 @@ package org.jLOAF.preprocessing.filter;
 
 import org.jLOAF.casebase.CaseBase;
 
-public interface CaseBaseFilter {
+public abstract class CaseBaseFilter {
+	
+		protected CaseBaseFilter filter;
+		public CaseBaseFilter(CaseBaseFilter f){
+			filter=f;
+		}
+	
 	/** Given a CaseBase, the method will filter the
 	 * CaseBase based on specific criteria. It will
 	 * then return the filtered CaseBase.
@@ -13,5 +19,7 @@ public interface CaseBaseFilter {
 	 * @author Michael W. Floyd
 	 * @since 0.3
 	 */
-	public CaseBase filter(CaseBase initial);
+	
+	
+	public abstract CaseBase filter(CaseBase initial);
 }

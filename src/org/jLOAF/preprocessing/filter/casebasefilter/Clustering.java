@@ -14,7 +14,7 @@ import org.jLOAF.preprocessing.filter.Cluster;
  * @author Ibrahim Ali Fawaz
  * @since May 2017
  */
-public class Clustering implements CaseBaseFilter {
+public class Clustering extends CaseBaseFilter {
 	
 	private HashMap<Case,Cluster> clusters;
 	private double td =0.95;
@@ -23,13 +23,17 @@ public class Clustering implements CaseBaseFilter {
 	 * Constructor
 	 * 
 	 */
-	public Clustering(){
+	public Clustering(CaseBaseFilter f){
+		super(f);
 		clusters = new HashMap<Case,Cluster>();
 	}
 	
 
 	@Override
 	public CaseBase filter(CaseBase casebase) {
+		if(filter!=null){
+		casebase=filter.filter(casebase);
+		}
 		boolean firstTime=true;
 		for(Case c :casebase.getCases()){
 			if(clusters.size()==0){
