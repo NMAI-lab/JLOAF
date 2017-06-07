@@ -43,7 +43,7 @@ public class ClusteringTest {
 		cb.add(c1);cb.add(c2);
 		cb.add(c4);cb.add(c3);
 		cb.add(c5);
-		clustering = new Clustering();
+		clustering = new Clustering(null);
 		}
 	/*
 	 * in this test we are going to pass five cases that have the exact same inputs to a clustering filter

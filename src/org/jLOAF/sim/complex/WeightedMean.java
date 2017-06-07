@@ -28,6 +28,7 @@ public class WeightedMean extends ComplexSimilarityMetricStrategy {
 	public WeightedMean(SimilarityWeights featureweights) {
 		similarities = new HashMap<String, Double>();
 		feat_weights = featureweights;
+		
 	}
 
 	@Override
@@ -85,6 +86,12 @@ public class WeightedMean extends ComplexSimilarityMetricStrategy {
 		}
 		
 		return totalDistance/similarities.keySet().size();
+		
+	}
+	public void setFeaturesWeights(HashMap<String,Double> featweights){
+		for(String feature:featweights.keySet()){
+		feat_weights.setFeatureWeight(feature, featweights.get(feature));
+		}
 		
 	}
 }

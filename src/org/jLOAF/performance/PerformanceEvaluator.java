@@ -8,8 +8,6 @@ import org.jLOAF.Agent;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
-import org.jLOAF.preprocessing.filter.Filters;
-import org.jLOAF.preprocessing.filter.casebasefilter.Clustering;
 import org.jLOAF.util.CsvWriter;
 /***
  * Abstract class that can be extended and used to test performance
@@ -19,6 +17,9 @@ import org.jLOAF.util.CsvWriter;
  * @author sachagunaratne
  * ***/
 public abstract class PerformanceEvaluator {
+	
+	
+	
 	
 	/***
 	 * Converts a string[] of log filenames into a string[] of casebase names
@@ -47,7 +48,7 @@ public abstract class PerformanceEvaluator {
 	 * and prints out performance data as well as saves to a csv
 	 * @throws IOException 
 	 * ***/
-	public void PerformanceEvaluatorMethod(String []filenames,String filter) throws IOException{
+	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter) throws IOException{
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
@@ -89,12 +90,13 @@ public abstract class PerformanceEvaluator {
 			}
 			
 			if(filter!=null){
-				CaseBaseFilter cbf =Filters.valueOf(filter.toUpperCase()).getFilter();
+				
 				System.out.println("performing Filtering on the casesbases");
 				long tempTime = System.currentTimeMillis();
 				
-				
-					cb=cbf.filter(cb);
+					
+					cb=filter.filter(cb);
+					
 				
 				
 				tempTime = System.currentTimeMillis() - tempTime;

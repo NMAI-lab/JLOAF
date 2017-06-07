@@ -7,7 +7,12 @@ import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.reasoning.SimpleKNN;
 import org.jLOAF.reasoning.WeightedKNN;
 
-public class Sampling implements CaseBaseFilter {
+public class Sampling extends CaseBaseFilter {
+	public Sampling(CaseBaseFilter f) {
+		super(f);
+		
+	}
+
 	/***
 	 * preprocess the casebase by only adding a case into the casebase if the prediction of the action using the current casebase is wrong
 	 * return the new casebase
@@ -16,6 +21,9 @@ public class Sampling implements CaseBaseFilter {
 	 * ***/
 	@Override
 	public CaseBase filter(CaseBase initial) {
+		if(filter!=null){
+			initial=filter.filter(initial);
+		}
 		CaseBase cnew = new CaseBase();
 		Reasoning r;
 		int count = 0;

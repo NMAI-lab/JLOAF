@@ -2,6 +2,7 @@ package org.jLOAF.agents;
 
 import org.jLOAF.Agent;
 import org.jLOAF.action.Action;
+import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.reasoning.SimpleKNN;
@@ -13,7 +14,7 @@ public class GenericAgent extends Agent {
 	}
 
 	@Override
-	public Action run(Input input) {
+	public Action run(Input i) {
 		// TODO Auto-generated method stub
 		return null;
 	}
