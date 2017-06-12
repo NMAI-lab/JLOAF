@@ -11,32 +11,25 @@ public class AtomicAction extends Action {
 
 	protected Feature feat;
 	
-	List<Feature> features;
+	
 
 	public AtomicAction(String name) {
 		super(name);
-		features = new ArrayList<Feature>();
+		
 	}
 
-	public int getNumFeatures(){
-		return this.features.size();
+	public void setFeature(Feature f){
+		feat= f;
+	}
+	public Feature getFeature(){
+		return feat;
 	}
 	
-	public void addFeature(Feature f){
-		this.features.add(f);
-	}
 	
-	public Feature getFeature(int idx){
-		if(idx > features.size() -1){
-			return null;
-		}else{
-			return features.get(idx);
-		}
-	}
 	
-	public List<Feature> getFeatures(){
-		return this.features;
-	}
+	
+	
+	
 	public double similarity(Action action) {
 		
 		AtomicAction action1 = (AtomicAction)action;
@@ -46,12 +39,14 @@ public class AtomicAction extends Action {
 		if(v==0){
 			return v;
 		}
+			double x=feat.getValue();
+			double x1=action1.getFeature().getValue();
 		
-		for(int i=0; i<features.size();i++){
-			v+=Math.abs(features.get(i).getValue()-action1.getFeature(i).getValue());
 		
-		}
-		return v/(features.size()+1);
+			v-=Math.abs(x-x1)/((x+x1)/2);
+		
+		
+		return v;
 	}
 	}
 

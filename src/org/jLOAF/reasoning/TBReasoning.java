@@ -21,56 +21,8 @@ public class TBReasoning extends Reasoning {
 		super(null);
 		this.cb=cb;
 		}
-
-	/*public Action stateRetrieve(Input i,ArrayList<Case> nn,int time){
-		double threshold;
-		if(time == 0){
-			threshold = CPT;
-		}else{
-			threshold = PPT;
-		}
-		
-		ArrayList <Case> possible = new ArrayList<Case>();
-		ArrayList <Action> nnactions = new ArrayList<Action>();
-		double bestSim = -1;
-		Case bestRun = null;
-		int currSize=((StateBasedInput)i).size();
-		for(Case train: nn){
-			
-			double sim=-1;
-			
-			int trainSize=((StateBasedInput)train.getInput()).size();
-			if(time >=currSize || time >= trainSize){
-				sim=-1;
-			}else{
-				sim=((Input)((StateBasedInput) i).get(currSize-1-time)).similarity(((Input)((StateBasedInput) train.getInput()).get(trainSize-1-time)));
-				if(sim > bestSim){
-					bestSim = sim;
-					bestRun = train;
-				}
-				if(sim > threshold){
-					possible.add(train);
-					if(!nnactions.contains(train.getAction())){
-						nnactions.add(train.getAction());
-					}
-				}
-			}
-				
-		}
-			
-		if(bestRun == null){
-			return nn.get(0).getAction();
-		}
-		if(possible.size() == 0){
-			return bestRun.getAction();
-		}else if(nnactions.size() == 1){
-			return nnactions.get(0);
-		}else{
-			return actionRetrieve(i,possible, time+1);
-		}
-	}
-	*/
-	public Action retrieve(Input i, ArrayList<Case> nn, int time) {
+	
+	public Action retrieve(StateBasedInput i, ArrayList<Case> nn, int time) {
 		double threshold = PAT;
 		
 		ArrayList <Case> possible = new ArrayList<Case>();
@@ -78,20 +30,19 @@ public class TBReasoning extends Reasoning {
 		
 		double bestSim = -1;
 		Case bestRun = null;
-		int currSize=((StateBasedInput)i).size();
+		
 		for(Case train: nn){
 		
 			double sim=-1;
 			
-			int trainSize=((StateBasedInput)train.getInput()).size();
-			if(time >=currSize || time >= trainSize){
+			if( i.getInput(time)==null|| ((StateBasedInput)train.getInput()).getInput(time)==null){
 				sim=-1;
 			}else{
 				if(time%2==0){
-					sim=((Input)((StateBasedInput) i).get(currSize-1-time)).similarity(((Input)((StateBasedInput) train.getInput()).get(trainSize-1-time)));
+					sim=i.getInput(time).similarity(((StateBasedInput) train.getInput()).getInput(time));
 					threshold = PPT;
 				}else{
-					sim=((Action)((StateBasedInput) i).get(currSize-1-time)).similarity(((Action)((StateBasedInput) train.getInput()).get(trainSize-1-time)));
+					sim=i.getAction(time).similarity(((StateBasedInput) train.getInput()).getAction(time));
 				}
 				
 				if(sim > bestSim){
@@ -130,7 +81,8 @@ public class TBReasoning extends Reasoning {
 
 	@Override
 	public Action selectAction(Input i){
-		return retrieve(i,new ArrayList<Case>(cb.getCases()),0);
+		StateBasedInput i1=(StateBasedInput)i;
+		return retrieve(i1,new ArrayList<Case>(cb.getCases()),0);
 	}
 	
 	
