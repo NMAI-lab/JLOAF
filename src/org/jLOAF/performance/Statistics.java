@@ -290,5 +290,12 @@ public class Statistics {
 		return Allstats;
 		
 	}
+	/*
+	 * returns the agent on which the evaluation is done
+	 * @return the agent on which the evaluation is done
+	 */
+	public Agent getAgent() {
+		return agent;
+	}
 
 }
