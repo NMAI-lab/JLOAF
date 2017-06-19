@@ -2,13 +2,20 @@ package org.jLOAF.casebase;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+
+import org.jLOAF.action.Action;
+import org.jLOAF.inputs.AtomicInput;
+import org.jLOAF.inputs.ComplexInput;
+import org.jLOAF.inputs.Input;
 
 
 public class CaseBase implements Serializable{
@@ -104,5 +111,134 @@ public class CaseBase implements Serializable{
 			System.out.println("Error saving CaseBase:" + e.toString());
 		}
 	
+	}
+	
+	public static void saveAsTrace(CaseBase casebase, String filename, List<String> actions) throws IOException{
+		if(filename == null ){
+			throw new IllegalArgumentException("A null value was given for the file name");
+		}
+		if(casebase == null){
+			throw new IllegalArgumentException("A null value was given for the casebase ");
+		}
+		
+		HashMap<String, Double> input = new HashMap<String, Double>();
+		String action;
+		double action_num;
+		FileWriter f1 = null;
+		HashMap<String,List<Double>> inputs= new HashMap<String,List<Double>>();
+		try {
+			f1 = new FileWriter(filename);
+			int count = 0;
+			
+			for(Case cb: casebase.getCases()){
+				Input i = cb.getInput();
+				Action a = cb.getAction();
+				input = convert(i);
+				
+				for(String key: input.keySet()){
+					if (!inputs.containsKey(key)){
+						List<Double> temp_list = new ArrayList<Double>();
+						for(int ii=0;ii<count;ii++){
+							temp_list.add(1000.0);
+						}
+						temp_list.add(input.get(key));
+						inputs.put(key,temp_list);
+					}else{
+						List<Double> actual_list = inputs.get(key);
+						for(int ii=actual_list.size();ii<count;ii++){
+							actual_list.add(1000.0);
+						}
+						actual_list.add(input.get(key));
+						inputs.replace(key, actual_list);
+					}
+				}
+					
+				action = a.getName();
+				action_num = getActionNum(action, actions);
+				if(!inputs.containsKey("Action")){
+					List<Double> temp_list = new ArrayList<Double>();
+					temp_list.add(action_num);
+					inputs.put("Action",temp_list);
+				}else{
+					List<Double> actual_list = inputs.get("Action");
+					actual_list.add(action_num);
+					inputs.replace("Action", actual_list);
+				}
+				
+				count++;
+			}
+			//System.out.println("CaseBase size: "+ casebase.getSize());
+			boolean leave = false;
+			for(String keys2: inputs.keySet()){
+				f1.write(keys2);
+				f1.write(",");
+			}
+			f1.write("\n");
+			for(int jj=0;jj<casebase.getSize();jj++){
+				for(String key3: inputs.keySet()){
+					List<Double> results = inputs.get(key3);
+					//System.out.println("Results size: "+ results.size());
+					if(jj==3774){
+						leave = true;
+						break;
+					}
+					double val = results.get(jj);
+					if(val!=1000.0){
+						f1.write(String.valueOf(val));
+					}else{
+						f1.write(".");
+					}
+					f1.write(",");
+				}
+				f1.write("\n");
+				if(leave){break;}
+			}
+			
+			f1.close();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("Completed trace creation!");
+	}
+	
+	private static int getActionNum(String action, List<String> actions) {
+		return actions.indexOf(action);
+	}
+	
+	/***
+	 * Converts a input into a list of double values
+	 * 
+	 * @param Input i
+	 * 
+	 * @author sachagunaratne
+	 * ***/
+	private static HashMap<String, Double> convert(Input i) {
+		// takes an input and reads it. Assumes its made up of complexInputs which is made up of complex or atomic inputs. 
+		HashMap<String, Double> input = new HashMap<String, Double>();
+		Input result;
+		
+		if (i instanceof ComplexInput){
+			ComplexInput c_input = ((ComplexInput) i);
+			HashMap<String, Double> input_temp = null;
+			for (String key: (c_input.getChildNames())){
+				result = c_input.get(key);
+				if(result instanceof AtomicInput){
+					input.put(((AtomicInput) result).getName(),((AtomicInput) result).getFeature().getValue());
+				}else if(result instanceof ComplexInput){
+					//if its the case that there is a nested complexInput then it will go through the function again.  
+					input_temp = convert(result);
+					for (String key2: input_temp.keySet()){
+						input.put(key2,(input_temp.get(key2)));
+					}
+				}
+			}
+		}
+		//if it's simply one atomic Input then it converts it. 
+		if (i instanceof AtomicInput){
+			input.put(((AtomicInput) i).getName(),((AtomicInput) i).getFeature().getValue());
+		}
+		return input;
 	}
 }
