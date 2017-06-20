@@ -113,13 +113,24 @@ public class CaseBase implements Serializable{
 	
 	}
 	
-	public static void saveAsTrace(CaseBase casebase, String filename, List<String> actions) throws IOException{
+	/***
+	 * Converts a casebase into a csv file with all the features
+	 * In the case of missing features it places a template value of 1000.0
+	 * The columns names are places on top of each column
+	 * The actions are converted into numerical values
+	 * 
+	 * @author sachagunaratne
+	 * @since 2017 June
+	 * ***/
+	public static void saveAsTrace(CaseBase casebase, String filename) throws IOException{
 		if(filename == null ){
 			throw new IllegalArgumentException("A null value was given for the file name");
 		}
 		if(casebase == null){
 			throw new IllegalArgumentException("A null value was given for the casebase ");
 		}
+		
+		List<String> actions = CaseBase.getActions(casebase);
 		
 		HashMap<String, Double> input = new HashMap<String, Double>();
 		String action;
@@ -203,6 +214,25 @@ public class CaseBase implements Serializable{
 		System.out.println("Completed trace creation!");
 	}
 	
+	
+	/***
+	 * Takes a casebase and gets the actions and returns a list of them
+	 * @author sachagunaratne
+	 * @param CaseBase
+	 * @since 2017 June
+	 * ***/
+	private static List<String> getActions(CaseBase casebase) {
+		List<String> actions = new ArrayList<String>();
+		String act;
+		for(Case c: casebase.getCases()){
+			act = c.getAction().getName();
+			if (!actions.contains(act)){
+				actions.add(act);
+			}
+		}
+		return actions;
+	}
+
 	private static int getActionNum(String action, List<String> actions) {
 		return actions.indexOf(action);
 	}
