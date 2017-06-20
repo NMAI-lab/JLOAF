@@ -1,37 +1,77 @@
 package org.jLOAF.inputs;
 
-import java.util.ArrayList;
 
+
+import org.jLOAF.action.Action;
+import org.jLOAF.casebase.Case;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
-public class StateBasedInput extends ComplexInput {
+public class StateBasedInput extends Input {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Object> trace;
+	private Input input;
+	private Case c;
 	public StateBasedInput(String name, SimilarityMetricStrategy sim) {
-		super(name, sim);
-		trace= new ArrayList<Object>();
+		super(name);
+		simStrategy=sim;
+	
 		
 	}
 	
+	public Case getCase(){
+		return c;
+	}
 	
-	public void addTrace(Object o){
-		trace.add(o);
+	public Input getInput(){
+		return input;
 	}
-	public void setTrace(ArrayList<Object> trace){
-		this.trace=trace;
+	public void setInput(Input i){
+		input=i;
 	}
-	public ArrayList<Object> getTrace(){
-		return trace;
+	public void setCase(Case c1){
+		c=c1;
 	}
-	public Object get(int index){
-		return trace.get(index);
+	private Case getCase(int indx){
+		Case cc=c;
+			int i=3;
+			while(i<=indx){
+				if(i%2!=0){
+					cc=((StateBasedInput)c.getInput()).getCase();
+				}
+				if(cc==null){
+					return null;
+				}
+				
+			}
+			
+		return cc;
+		
 	}
-	public int size(){
-		return trace.size();
+	
+	public Action getAction(int indx){
+		Case cc=getCase(indx);
+		if(cc==null){
+			return null;
+		}
+		
+		return cc.getAction();
 	}
+	public Input getInput(int indx){
+		if(indx==0){
+			return input;
+		}
+		Case cc=getCase(indx);
+		if(cc==null){
+			return null;
+		}
+		return ((StateBasedInput)cc.getInput()).getInput();
+	}
+	
+	
+	
+	
 
 }
