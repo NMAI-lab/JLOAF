@@ -130,7 +130,7 @@ public class CaseBase implements Serializable{
 			throw new IllegalArgumentException("A null value was given for the casebase ");
 		}
 		
-		List<String> actions = CaseBase.getActions(casebase);
+		List<String> actions = CaseBase.getActionNames(casebase);
 		
 		HashMap<String, Double> input = new HashMap<String, Double>();
 		String action;
@@ -221,7 +221,7 @@ public class CaseBase implements Serializable{
 	 * @param CaseBase
 	 * @since 2017 June
 	 * ***/
-	private static List<String> getActions(CaseBase casebase) {
+	public static List<String> getActionNames(CaseBase casebase) {
 		List<String> actions = new ArrayList<String>();
 		String act;
 		for(Case c: casebase.getCases()){
@@ -232,6 +232,7 @@ public class CaseBase implements Serializable{
 		}
 		return actions;
 	}
+
 
 	private static int getActionNum(String action, List<String> actions) {
 		return actions.indexOf(action);
@@ -244,7 +245,7 @@ public class CaseBase implements Serializable{
 	 * 
 	 * @author sachagunaratne
 	 * ***/
-	private static HashMap<String, Double> convert(Input i) {
+	public static HashMap<String, Double> convert(Input i) {
 		// takes an input and reads it. Assumes its made up of complexInputs which is made up of complex or atomic inputs. 
 		HashMap<String, Double> input = new HashMap<String, Double>();
 		Input result;
