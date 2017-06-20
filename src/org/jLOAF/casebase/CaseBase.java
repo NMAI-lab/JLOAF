@@ -122,7 +122,7 @@ public class CaseBase implements Serializable{
 	 * @author sachagunaratne
 	 * @since 2017 June
 	 * ***/
-	public static void saveAsTrace(CaseBase casebase, String filename) throws IOException{
+	public static void saveAsTrace(CaseBase casebase, String filename, boolean outputColumnNames) throws IOException{
 		if(filename == null ){
 			throw new IllegalArgumentException("A null value was given for the file name");
 		}
@@ -180,9 +180,11 @@ public class CaseBase implements Serializable{
 			}
 			//System.out.println("CaseBase size: "+ casebase.getSize());
 			boolean leave = false;
-			for(String keys2: inputs.keySet()){
-				f1.write(keys2);
-				f1.write(",");
+			if(outputColumnNames){
+				for(String keys2: inputs.keySet()){
+					f1.write(keys2);
+					f1.write(",");
+				}
 			}
 			f1.write("\n");
 			for(int jj=0;jj<casebase.getSize();jj++){

@@ -26,7 +26,7 @@ public class BayesianReasoner extends Reasoning {
 		this.cb = cb;
 		try {
 			actions = CaseBase.getActionNames(cb);
-			CaseBase.saveAsTrace(cb,filename);
+			CaseBase.saveAsTrace(cb,filename, false);
 			int numFeatures = checkNumFeatures();
 			bnet = new BayesianNetworkRemote(filename,numFeatures,1);
 		} catch (IOException e) {
