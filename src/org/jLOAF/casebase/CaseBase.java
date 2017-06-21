@@ -137,6 +137,7 @@ public class CaseBase implements Serializable{
 		double action_num;
 		FileWriter f1 = null;
 		HashMap<String,List<Double>> inputs= new HashMap<String,List<Double>>();
+		List<Double> actions_container= new ArrayList<Double>();
 		try {
 			f1 = new FileWriter(filename);
 			int count = 0;
@@ -166,15 +167,7 @@ public class CaseBase implements Serializable{
 					
 				action = a.getName();
 				action_num = getActionNum(action, actions);
-				if(!inputs.containsKey("Action")){
-					List<Double> temp_list = new ArrayList<Double>();
-					temp_list.add(action_num);
-					inputs.put("Action",temp_list);
-				}else{
-					List<Double> actual_list = inputs.get("Action");
-					actual_list.add(action_num);
-					inputs.replace("Action", actual_list);
-				}
+				actions_container.add(action_num);
 				
 				count++;
 			}
@@ -203,6 +196,9 @@ public class CaseBase implements Serializable{
 					}
 					f1.write(",");
 				}
+				
+				f1.write(String.valueOf(actions_container.get(jj)));
+				
 				f1.write("\n");
 				if(leave){break;}
 			}
