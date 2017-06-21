@@ -17,7 +17,7 @@ import org.jLOAF.matlab.BayesianNetworkRemote;
 
 public class BayesianReasoner extends Reasoning {
 	private CaseBase cb;
-	private String filename = "Bayesian_csv.txt";
+	private String filename = "C:/Users/sachagunaratne/Documents/GitHub/JLOAF-VacuumCleanerBayesian_csv.txt";
 	BayesianNetworkRemote bnet = null;
 	List<String> actions;
 	
@@ -28,6 +28,7 @@ public class BayesianReasoner extends Reasoning {
 			actions = CaseBase.getActionNames(cb);
 			CaseBase.saveAsTrace(cb,filename, false);
 			int numFeatures = checkNumFeatures();
+			System.out.println(numFeatures);
 			bnet = new BayesianNetworkRemote(filename,numFeatures,1);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -60,14 +61,20 @@ public class BayesianReasoner extends Reasoning {
 		return new Action(actions.get(max));
 	}
 	
+	/***
+	 * Calculates the number of features by reading the csv file that was created using CaseBase.SaveAsTrace
+	 * @author sachagunaratne
+	 * ***/
 	private int checkNumFeatures() throws IOException{
-		BufferedReader br;
+		BufferedReader br=null;
 		String[] input = {};
+		String line ="";
 		try {
 			br = new BufferedReader(new FileReader(filename));
-			String line = br.readLine();
-			br.close();
+			line = br.readLine();
 			input = line.split(",");	
+			br.close();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -78,6 +85,7 @@ public class BayesianReasoner extends Reasoning {
 			return input.length-1;
 		}	
 	}
+	
 
 
 }

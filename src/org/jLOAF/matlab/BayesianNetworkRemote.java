@@ -20,12 +20,12 @@ public class BayesianNetworkRemote {
 	        index = nextIndex++;
 	        XSIZE = a_XSIZE;
 	        YSIZE = a_YSIZE;
-	        String matlabCommand = "[bnet" + index + ",bnetengine" + index + "] = learnBNet([";;
-	             matlabCommand+="'" + trace + "';";
+	        String matlabCommand = "[bnet" + index + ",bnetengine" + index + "] = learnBNet([";
+	        matlabCommand+="'" + trace + "';";
 	        
 	        matlabCommand+="]," + XSIZE + "," + YSIZE + ");";
 
-//	        System.out.println(matlabCommand);
+	        //System.out.println(matlabCommand);
 	        
 	        MatlabProxyFactoryOptions options = null;
 	        MatlabProxyFactory factory = null;
