@@ -178,8 +178,9 @@ public class CaseBase implements Serializable{
 					f1.write(keys2);
 					f1.write(",");
 				}
+				f1.write("\n");
 			}
-			f1.write("\n");
+			
 			for(int jj=0;jj<casebase.getSize();jj++){
 				for(String key3: inputs.keySet()){
 					List<Double> results = inputs.get(key3);
@@ -190,7 +191,7 @@ public class CaseBase implements Serializable{
 					}
 					double val = results.get(jj);
 					if(val!=1000.0){
-						f1.write(String.valueOf(val));
+						f1.write(String.valueOf(val+1));
 					}else{
 						f1.write(".");
 					}
