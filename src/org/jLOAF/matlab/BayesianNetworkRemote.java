@@ -40,7 +40,15 @@ public class BayesianNetworkRemote {
 	            e.printStackTrace();
 	        }
 	    }
-	    
+	    /***
+	     * This method calculates the probabilities of each class given some input and a trained model
+	     * 
+	     * @param a list of features as doubles (the current environmental perception)
+	     * 
+	     * @return the proabbility of each class
+	     * 
+	     * @author Santi Ontanon
+	     * ***/
 	    public List<Double> run(List<Double> input) {                
 	        double []ret;
 //	        System.out.println("BNetRemove.run( " + input + " )");
