@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.jLOAF.Reasoning;
 import org.jLOAF.action.Action;
+import org.jLOAF.action.AtomicAction;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
@@ -17,9 +18,9 @@ import org.jLOAF.matlab.BayesianNetworkRemote;
 
 public class BayesianReasoner extends Reasoning {
 	private CaseBase cb;
-	private String filename = "C:/Users/sachagunaratne/Documents/GitHub/JLOAF-VacuumCleanerBayesian_csv.txt";
+	private String filename = "C:/Users/sachagunaratne/Documents/GitHub/JLOAF-VacuumCleaner/Bayesian_csv.txt";
 	BayesianNetworkRemote bnet = null;
-	List<String> actions;
+	List<Action> actions;
 	
 	public BayesianReasoner(CaseBase cb) {
 		super(null);
@@ -28,7 +29,6 @@ public class BayesianReasoner extends Reasoning {
 			actions = CaseBase.getActionNames(cb);
 			CaseBase.saveAsTrace(cb,filename, false);
 			int numFeatures = checkNumFeatures();
-			System.out.println(numFeatures);
 			bnet = new BayesianNetworkRemote(filename,numFeatures,1);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -49,7 +49,7 @@ public class BayesianReasoner extends Reasoning {
 		List<Double> input = new ArrayList<Double>();
 		
 		for(String key: temp.keySet()){
-			input.add(temp.get(key));
+			input.add(temp.get(key)+1.0);
 		}
 		
 		List<Double> output = bnet.run(input);
@@ -57,8 +57,8 @@ public class BayesianReasoner extends Reasoning {
 		int max = 0;
 		for(int ii = 0;ii<output.size();ii++) {
 			if (output.get(ii)>output.get(max)) max = ii;
-		}	
-		return new Action(actions.get(max));
+		}
+		return actions.get(max);
 	}
 	
 	/***
