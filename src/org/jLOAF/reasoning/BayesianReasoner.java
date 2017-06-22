@@ -10,21 +10,18 @@ import java.util.List;
 
 import org.jLOAF.Reasoning;
 import org.jLOAF.action.Action;
-import org.jLOAF.action.AtomicAction;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.matlab.BayesianNetworkRemote;
 
 public class BayesianReasoner extends Reasoning {
-	private CaseBase cb;
 	private String filename = "C:/Users/sachagunaratne/Documents/GitHub/JLOAF-VacuumCleaner/Bayesian_csv.txt";
 	BayesianNetworkRemote bnet = null;
 	List<Action> actions;
 	
 	public BayesianReasoner(CaseBase cb) {
 		super(null);
-		this.cb = cb;
 		try {
 			actions = CaseBase.getActionNames(cb);
 			CaseBase.saveAsTrace(cb,filename, false);
