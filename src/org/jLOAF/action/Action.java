@@ -22,6 +22,5 @@ public class Action implements Serializable{
 		}
 		return 1;
 	}
-	
 
 }

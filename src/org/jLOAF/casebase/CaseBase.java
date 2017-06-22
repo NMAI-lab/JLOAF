@@ -130,7 +130,7 @@ public class CaseBase implements Serializable{
 			throw new IllegalArgumentException("A null value was given for the casebase ");
 		}
 		
-		List<String> actions = CaseBase.getActionNames(casebase);
+		List<Action> actions = CaseBase.getActionNames(casebase);
 		
 		HashMap<String, Double> input = new HashMap<String, Double>();
 		String action;
@@ -167,7 +167,7 @@ public class CaseBase implements Serializable{
 					
 				action = a.getName();
 				action_num = getActionNum(action, actions);
-				actions_container.add(action_num);
+				actions_container.add(action_num+1);
 				
 				count++;
 			}
@@ -185,23 +185,25 @@ public class CaseBase implements Serializable{
 				for(String key3: inputs.keySet()){
 					List<Double> results = inputs.get(key3);
 					//System.out.println("Results size: "+ results.size());
-					if(jj==3774){
-						leave = true;
-						break;
-					}
+//					if(jj==3774){
+//						leave = true;
+//						break;
+//					}
 					double val = results.get(jj);
 					if(val!=1000.0){
-						f1.write(String.valueOf(val+1));
+						val += 1.0;
+						f1.write(String.valueOf(val));
 					}else{
 						f1.write(".");
 					}
 					f1.write(",");
 				}
 				
+				if(leave){break;}
 				f1.write(String.valueOf(actions_container.get(jj)));
 				
 				f1.write("\n");
-				if(leave){break;}
+				
 			}
 			
 			f1.close();
@@ -220,21 +222,32 @@ public class CaseBase implements Serializable{
 	 * @param CaseBase
 	 * @since 2017 June
 	 * ***/
-	public static List<String> getActionNames(CaseBase casebase) {
-		List<String> actions = new ArrayList<String>();
-		String act;
+	public static List<Action> getActionNames(CaseBase casebase) {
+		List<Action> actions = new ArrayList<Action>();
+		Action act;
+		
 		for(Case c: casebase.getCases()){
-			act = c.getAction().getName();
-			if (!actions.contains(act)){
-				actions.add(act);
+			boolean exists = false;
+			act = c.getAction();
+			if(actions.isEmpty()){actions.add(act);}
+			for(Action a:actions){
+				if (a.getName().equals(act.getName())){
+					exists = true;
+				}
 			}
+			if(!exists){actions.add(act);}
 		}
 		return actions;
 	}
 
 
-	private static int getActionNum(String action, List<String> actions) {
-		return actions.indexOf(action);
+	private static int getActionNum(String action, List<Action> actions) {
+		int index =0;
+		for(Action a: actions){
+			if(a.getName().equals(action)){return index;}
+			index++;
+		}
+		return -1;
 	}
 	
 	/***
