@@ -37,7 +37,7 @@ public class FeatureNode {
 	
 	public boolean exists(String w) {
 		// TODO Auto-generated method stub
-		return weights.getWeight(w)!=weights.getDefault_weight();
+		return weights.getWeight(w)!=0;
 	}
 	public FeatureNode remove(String w) {
 		SimilarityWeights newWeights = new SimilarityWeights(1);

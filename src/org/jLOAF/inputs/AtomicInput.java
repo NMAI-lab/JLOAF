@@ -21,5 +21,8 @@ public class AtomicInput extends Input {
 	public Feature getFeature(){
 		return this.feat;
 	}
+	public String toString(){
+		return ""+feat.getValue();
+	}
 
 }

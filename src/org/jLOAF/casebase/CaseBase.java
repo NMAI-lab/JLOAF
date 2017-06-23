@@ -23,9 +23,10 @@ public class CaseBase implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Collection<Case> cb;
-	
+	private Case latest;
 	public CaseBase(){
 		this.cb = new ArrayList<Case>();
+		latest=null;
 	}
 	
 	public Collection<Case> getCases(){
@@ -45,6 +46,14 @@ public class CaseBase implements Serializable{
 		for(Case c: cbnew.getCases()){
 			cb.add(c);
 		}
+	}
+	
+	public void createThenAdd(Input i,Action a){
+		StateBasedInput i1 = new  StateBasedInput(i.getName(),new OrderedSimilarity());
+		i1.setInput(i);
+		i1.setCase(latest);
+		latest=new Case(i1,a);
+		cb.add(latest);
 	}
 	
 	/***

@@ -68,7 +68,7 @@ public class simulation {
 		
 		//create generic agent
 		int k = 3;
-		Agent a = new GenericAgent(cb);
+		Agent a = new GenericAgent();
 		a.setR(new SimpleKNN(k,cb));
 		
 		Action predicted = a.getR().selectAction(c6.getInput());

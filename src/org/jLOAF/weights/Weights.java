@@ -27,7 +27,7 @@ public abstract class Weights implements Serializable {
 	 * ***/
 	public double getWeight(String feat_name){
 		if(feat_name==null) throw new IllegalArgumentException("Null parameter passed as argument");
-		if(weights.get(feat_name)==null) return default_weight;
+		if(weights.get(feat_name)==null) return 0;
 		return weights.get(feat_name);
 	}
 	
