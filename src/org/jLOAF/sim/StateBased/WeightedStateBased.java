@@ -36,7 +36,8 @@ public class WeightedStateBased extends StateBasedSimilarity
 				
 				double similarity = 0;
 				int count=0;
-				int multiplyer;
+				int multiplyer;//hello
+
 				for(int i=0;i<Math.min(sizeSt1, sizeSt2);i=i+2){
 					multiplyer=weight/i+1;
 					if(multiplyer==0){
