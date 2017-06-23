@@ -30,5 +30,12 @@ public class ComplexInput extends Input {
 	public Set<String> getChildNames(){
 		return collect.keySet();
 	}
+	public String toString(){
+		String s ="";
+		for(Input i:collect.values()){
+			s+=i.toString()+",";
+		}
+		return s;
+	}
 	
 }

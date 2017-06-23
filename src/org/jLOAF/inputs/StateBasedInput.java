@@ -14,10 +14,11 @@ public class StateBasedInput extends Input {
 	private static final long serialVersionUID = 1L;
 	private Input input;
 	private Case c;
+	int size;
 	public StateBasedInput(String name, SimilarityMetricStrategy sim) {
 		super(name);
 		simStrategy=sim;
-	
+		size=0;
 		
 	}
 	
@@ -30,9 +31,18 @@ public class StateBasedInput extends Input {
 	}
 	public void setInput(Input i){
 		input=i;
+		size++;
 	}
 	public void setCase(Case c1){
 		c=c1;
+		size++;
+	}
+	public int getSize(){
+		if(c!=null){
+			return size+((StateBasedInput)c.getInput()).getSize();
+		}
+		return size;
+		
 	}
 	private Case getCase(int indx){
 		Case cc=c;
