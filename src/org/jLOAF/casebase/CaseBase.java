@@ -16,6 +16,8 @@ import org.jLOAF.action.Action;
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.inputs.StateBasedInput;
+import org.jLOAF.sim.StateBased.OrderedSimilarity;
 
 
 public class CaseBase implements Serializable{
