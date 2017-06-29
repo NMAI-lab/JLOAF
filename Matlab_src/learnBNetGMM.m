@@ -22,6 +22,9 @@ for i = 1:VARS
 	disc = 1;
 	for j = 1:ncases
 		disc = disc * (round(data(j,i))==data(j,i));
+        if disc == 0
+            break;
+        end
 	end
 	if disc 
 		discrete = [discrete ; i];
@@ -57,7 +60,7 @@ end
 engine = jtree_inf_engine(bnet);
 %engine = likelihood_weighting_inf_engine(bnet); %use if chnodes->dnodes exist
 %engine = var_elim_inf_engine(bnet);
-[bnet,~, engine] = learn_params_em(engine, cases);
+[bnet,~, engine] = learn_params_em(engine, cases, 20, 1e-4);
 %bnet = renormalizeDBNdistributions(bnet);
 %engine = jtree_inf_engine(bnet);
 %engine = likelihood_weighting_inf_engine(bnet);
