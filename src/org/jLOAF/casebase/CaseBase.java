@@ -162,14 +162,14 @@ public class CaseBase implements Serializable{
 					if (!inputs.containsKey(key)){
 						List<Double> temp_list = new ArrayList<Double>();
 						for(int ii=0;ii<count;ii++){
-							temp_list.add(1000.0);
+							temp_list.add(300.0);
 						}
 						temp_list.add(input.get(key));
 						inputs.put(key,temp_list);
 					}else{
 						List<Double> actual_list = inputs.get(key);
 						for(int ii=actual_list.size();ii<count;ii++){
-							actual_list.add(1000.0);
+							actual_list.add(300.0);
 						}
 						actual_list.add(input.get(key));
 						inputs.replace(key, actual_list);
