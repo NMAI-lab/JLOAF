@@ -20,7 +20,7 @@ public class BayesianNetworkRemote {
 	        index = nextIndex++;
 	        XSIZE = a_XSIZE;
 	        YSIZE = a_YSIZE;
-	        String matlabCommand = "[bnet" + index + ",bnetengine" + index + "] = learnBNet([";
+	        String matlabCommand = "[bnet" + index + ",bnetengine" + index + "] = learnBNetGMM([";
 	        matlabCommand+="'" + trace + "';";
 	        
 	        matlabCommand+="]," + XSIZE + "," + YSIZE + ");";
