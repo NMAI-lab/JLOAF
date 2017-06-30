@@ -1,6 +1,7 @@
 package org.jLOAF.weights;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -9,7 +10,7 @@ public abstract class Weights implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	double default_weight;
+	protected final double default_weight=1.0;
 	public double getDefault_weight() {
 		return default_weight;
 	}
@@ -33,5 +34,13 @@ public abstract class Weights implements Serializable {
 	
 	public Set<String> getWeightedItems(){
 		return weights.keySet();
+	}
+
+	public void copyWeights(Weights weights2) {
+		weights.clear();
+		for(String w:weights2.getWeightedItems()){
+			weights.put(w, weights2.getWeight(w));
+		}
+		
 	}
 }

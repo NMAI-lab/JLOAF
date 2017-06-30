@@ -40,11 +40,24 @@ public class FeatureNode {
 		return weights.getWeight(w)!=0;
 	}
 	public FeatureNode remove(String w) {
-		SimilarityWeights newWeights = new SimilarityWeights(1);
+		SimilarityWeights newWeights = new SimilarityWeights();
 		for(String w1:weights.getWeightedItems()){
 			if(!w1.equals(w)){
 				newWeights.setFeatureWeight(w1, weights.getWeight(w1));
 			}
+		}
+		FeatureNode newNode = new FeatureNode();
+		newNode.setWeights(newWeights);
+		return newNode;
+	}
+	public FeatureNode adjustFeature(int i,String w) {
+		SimilarityWeights newWeights = new SimilarityWeights();
+		for(String w1:weights.getWeightedItems()){
+			if(w1.equals(w)){
+				newWeights.setFeatureWeight(w1, weights.getWeight(w1)+i);
+			}
+			newWeights.setFeatureWeight(w1, weights.getWeight(w1));
+			
 		}
 		FeatureNode newNode = new FeatureNode();
 		newNode.setWeights(newWeights);

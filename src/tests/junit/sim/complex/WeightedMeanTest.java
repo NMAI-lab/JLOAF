@@ -16,7 +16,7 @@ public class WeightedMeanTest {
 	
 	 @Before
 	    public void initInputs() {
-		 SimilarityWeights sw = new SimilarityWeights(1.0);
+		 SimilarityWeights sw = new SimilarityWeights();
 		  feature1 = "orange";
 		  feature2="apple";
 		 sw.setFeatureWeight(feature1, 5);
