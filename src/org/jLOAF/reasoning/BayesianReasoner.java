@@ -24,7 +24,7 @@ public class BayesianReasoner extends Reasoning {
 		try {
 			actions = CaseBase.getActionNames(cb);
 			CaseBase.saveAsTrace(cb,output_filename, false);
-			int numFeatures = checkNumFeatures();
+			int numFeatures = checkNumFeatures(output_filename);
 			bnet = new BayesianNetworkRemote(output_filename,numFeatures,1);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -61,7 +61,7 @@ public class BayesianReasoner extends Reasoning {
 	 * Calculates the number of features by reading the csv file that was created using CaseBase.SaveAsTrace
 	 * @author sachagunaratne
 	 * ***/
-	private int checkNumFeatures() throws IOException{
+	private int checkNumFeatures(String filename) throws IOException{
 		BufferedReader br=null;
 		String[] input = {};
 		String line ="";
