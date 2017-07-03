@@ -94,10 +94,8 @@ public abstract class PerformanceEvaluator {
 				System.out.println("performing Filtering on the casesbases");
 				long tempTime = System.currentTimeMillis();
 				
-					
-					cb=filter.filter(cb);
-					
-				
+				cb=filter.filter(cb);
+				tb = filter.filter(tb);
 				
 				tempTime = System.currentTimeMillis() - tempTime;
 				
