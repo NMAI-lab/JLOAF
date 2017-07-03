@@ -211,6 +211,7 @@ public class CaseBase implements Serializable{
 				f1.write("\n");
 			}
 			
+			//writing
 			for(int jj=0;jj<casebase.getSize();jj++){
 				for(String key3: inputs.keySet()){
 					List<Double> results = inputs.get(key3);
