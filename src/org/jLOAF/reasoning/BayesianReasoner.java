@@ -16,17 +16,16 @@ import org.jLOAF.inputs.Input;
 import org.jLOAF.matlab.BayesianNetworkRemote;
 
 public class BayesianReasoner extends Reasoning {
-	private String filename = "C:/Users/sachagunaratne/Documents/GitHub/JLOAF-VacuumCleaner/Bayesian_csv.txt";
 	BayesianNetworkRemote bnet = null;
 	List<Action> actions;
 	
-	public BayesianReasoner(CaseBase cb) {
+	public BayesianReasoner(CaseBase cb, String output_filename) {
 		super(null);
 		try {
 			actions = CaseBase.getActionNames(cb);
-			CaseBase.saveAsTrace(cb,filename, false);
+			CaseBase.saveAsTrace(cb,output_filename, false);
 			int numFeatures = checkNumFeatures();
-			bnet = new BayesianNetworkRemote(filename,numFeatures,1);
+			bnet = new BayesianNetworkRemote(output_filename,numFeatures,1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
