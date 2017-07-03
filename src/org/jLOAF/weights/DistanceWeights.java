@@ -11,9 +11,8 @@ public class DistanceWeights extends Weights {
 	/***
 	 * Sets default_weight and instantiates the object
 	 * ***/
-	public DistanceWeights(double default_weight){
-		if(default_weight<0 || default_weight>1) throw new IllegalArgumentException("defualt weight should be >0 or <1 (inclusive)");
-		this.default_weight =default_weight;
+	public DistanceWeights(){
+		
 	}
 	/***
 	 * Sets weights for each feature by name

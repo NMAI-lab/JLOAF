@@ -37,4 +37,7 @@ public abstract class Input implements Serializable{
 	public void setSimilarityMetric(SimilarityMetricStrategy s) {
 		this.simStrategy = s;
 	}
+	public SimilarityMetricStrategy getSimilarityMetricStrategy(){
+		return simStrategy;
+	}
 }

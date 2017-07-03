@@ -18,6 +18,7 @@ import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.sim.StateBased.OrderedSimilarity;
+import org.jLOAF.weights.SimilarityWeights;
 
 
 public class CaseBase implements Serializable{
@@ -36,6 +37,24 @@ public class CaseBase implements Serializable{
 	}
 	
 	public void add(Case c){
+			Input i = c.getInput();
+					
+			ComplexInput i1 =null;
+				try{
+					 i1= (ComplexInput)i;	
+				}catch(ClassCastException e){
+					cb.add(c);
+					return ;
+				}
+			if(i1.getSimilarityMetricStrategy() instanceof SimilarityWeights){
+					SimilarityWeights sim =(SimilarityWeights)i1.getSimilarityMetricStrategy();
+				for(String w:i1.getChildNames()){
+					if(sim.getWeight(w)==0){
+						sim.setFeatureWeight(w,1);
+					}
+					
+				}
+			}
 		this.cb.add(c);
 	}
 	

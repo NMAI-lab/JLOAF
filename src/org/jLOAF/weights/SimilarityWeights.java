@@ -14,13 +14,7 @@ public class SimilarityWeights extends Weights {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	/***
-	 * Sets default_weight and instantiates the object
-	 * ***/
-	public SimilarityWeights(double default_weight){
-		if(default_weight<1) throw new IllegalArgumentException("defualt weight should be >=1");
-		this.default_weight =default_weight;
-	}
+	
 	/***
 	 * Sets weights for each feature by name
 	 * @param feature name, weight
@@ -28,7 +22,6 @@ public class SimilarityWeights extends Weights {
 	 * ***/
 	public void setFeatureWeight(String feat_name, double weight){
 		if(feat_name==null) throw new IllegalArgumentException("Null parameter passed as feature name");
-		if(weight<1) throw new IllegalArgumentException("weight should be >=1");
 		weights.put(feat_name, weight);
 	}
 	

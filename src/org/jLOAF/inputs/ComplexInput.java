@@ -37,5 +37,8 @@ public class ComplexInput extends Input {
 		}
 		return s;
 	}
+	public HashMap<String,Input> getChildren(){
+		return (HashMap<String,Input>)collect;
+	}
 	
 }
