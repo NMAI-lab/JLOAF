@@ -30,6 +30,10 @@ public class WeightedMean extends ComplexSimilarityMetricStrategy {
 		feat_weights = featureweights;
 		
 	}
+	
+	public SimilarityWeights getSimilarityWeights(){
+		return feat_weights;
+	}
 
 	@Override
 	public double similarity(Input i1, Input i2) {
