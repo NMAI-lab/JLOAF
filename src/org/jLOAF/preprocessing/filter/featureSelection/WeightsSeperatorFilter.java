@@ -5,6 +5,7 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
+import org.jLOAF.sim.complex.WeightedMean;
 import org.jLOAF.weights.SimilarityWeights;
 
 public class WeightsSeperatorFilter extends CaseBaseFilter {
@@ -30,8 +31,8 @@ public class WeightsSeperatorFilter extends CaseBaseFilter {
 				return initial ;
 			}
 			
-			if(i1.getSimilarityMetricStrategy() instanceof SimilarityWeights){
-				SimilarityWeights sim =(SimilarityWeights)i1.getSimilarityMetricStrategy();
+			if(i1.getSimilarityMetricStrategy() instanceof WeightedMean){
+				SimilarityWeights sim =((WeightedMean)i1.getSimilarityMetricStrategy()).getSimilarityWeights();
 			for(Case c:initial.getCases()){
 				ComplexInput i2 =null;
 				try{
