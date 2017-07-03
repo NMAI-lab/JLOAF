@@ -48,7 +48,7 @@ public abstract class PerformanceEvaluator {
 	 * and prints out performance data as well as saves to a csv
 	 * @throws IOException 
 	 * ***/
-	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter) throws IOException{
+	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String output_stats) throws IOException{
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
@@ -135,7 +135,7 @@ public abstract class PerformanceEvaluator {
 		System.out.println("Writing stats to file...");
 		//writes calculated stats into a csv file
 		CsvWriter writer = new CsvWriter();
-		writer.writeCalculatedStats("Sample.csv", pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
 		System.out.println("Done");
 	}
 }
