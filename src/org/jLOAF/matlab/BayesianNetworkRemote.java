@@ -54,9 +54,9 @@ public class BayesianNetworkRemote {
 //	        System.out.println("BNetRemove.run( " + input + " )");
 	        try {
 	            proxy.eval("evidence = cell(1," + (XSIZE + YSIZE) + ");");
-	            
-	            for(int i = 0;i<XSIZE;i++) {
-	                proxy.eval("evidence{" + (i+1) + "} = " + input.get(i) + ";");
+	      
+	            for(int i = 0;i<input.size();i++) {
+	            	proxy.eval("evidence{" + (i+1) + "} = " + input.get(i) + ";");
 	            }
 	            proxy.eval("[tmpeng, tmpll] = enter_evidence(bnetengine" + index + ", evidence);");
 	            proxy.eval("tmp = [];\n");
