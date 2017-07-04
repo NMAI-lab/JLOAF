@@ -49,7 +49,7 @@ public class CaseBase implements Serializable{
 					return ;
 				}
 			if(((WeightedMean)i1.getSimilarityMetricStrategy()).getSimilarityWeights() instanceof SimilarityWeights ){
-					SimilarityWeights sim =(SimilarityWeights)i1.getSimilarityMetricStrategy();
+					SimilarityWeights sim =(SimilarityWeights)((WeightedMean)i1.getSimilarityMetricStrategy()).getSimilarityWeights();
 				for(String w:i1.getChildNames()){
 					if(sim.getWeight(w)==0){
 						sim.setFeatureWeight(w,1);
