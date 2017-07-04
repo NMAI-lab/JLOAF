@@ -3,6 +3,7 @@ package org.jLOAF.performance;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.jLOAF.Agent;
 import org.jLOAF.casebase.Case;
@@ -17,6 +18,9 @@ import org.jLOAF.util.CsvWriter;
  * @author sachagunaratne
  * ***/
 public abstract class PerformanceEvaluator {
+	
+	CaseBase tb = null;
+	CaseBase cb = new CaseBase();
 	
 	
 	
@@ -52,8 +56,6 @@ public abstract class PerformanceEvaluator {
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
-		CaseBase tb = null;
-		CaseBase cb = new CaseBase();;
 		
 		long startTime = System.currentTimeMillis();
 		
@@ -80,16 +82,16 @@ public abstract class PerformanceEvaluator {
 		long totalTime = System.currentTimeMillis();
 		for(int ii=0;ii<listOfCaseBases.size();ii++){
 			//temp list
-			tempList.addAll(listOfCaseBases);
+			//tempList.addAll(listOfCaseBases);
 			
 			//add ignore index casebase to testbase tb and remove from templist
 			//add temp list to caseBase cb
 			//remove this method here
-			//cb.addListOfCaseBases(templist);
-			for(int i=0;i<listOfCaseBases.size();i++){
-				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
-				else {cb.addListOfCaseBases(tempList);}
-			}
+			cb.addListOfCaseBases(listOfCaseBases);
+//			for(int i=0;i<listOfCaseBases.size();i++){
+//				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
+//				else {cb.addListOfCaseBases(tempList);}
+//			}
 			
 			if(filter!=null){
 				
@@ -98,7 +100,7 @@ public abstract class PerformanceEvaluator {
 				
 				cb=filter.filter(cb);
 				//remove tb filter
-				tb = filter.filter(tb);
+				//tb = filter.filter(tb);
 				
 				tempTime = System.currentTimeMillis() - tempTime;
 				
@@ -106,6 +108,7 @@ public abstract class PerformanceEvaluator {
 			}
 			
 			//add function to split casebase into cb and tb
+			SplitTrainTest(cb);
 			
 			agent.train(cb);
 			Statistics stats_module = new Statistics(agent);
@@ -141,5 +144,23 @@ public abstract class PerformanceEvaluator {
 		CsvWriter writer = new CsvWriter();
 		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
 		System.out.println("Done");
+	}
+	
+	protected void SplitTrainTest(CaseBase casebase){ 
+		Random r = new Random();
+
+		for(int i=0;i<casebase.getSize()*0.2;){
+			Case c =(Case)casebase.getCases().toArray()[r.nextInt(casebase.getSize())];
+			if(!tb.getCases().contains(c)){
+				tb.add(c);
+				i++;
+			}
+		}
+		
+		for(Case c:casebase.getCases()){
+			if(!tb.getCases().contains(c)){
+				cb.add(c);
+			}
+		}	
 	}
 }
