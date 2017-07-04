@@ -1,7 +1,10 @@
 package org.jLOAF.preprocessing.filter.featureSelection;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import org.jLOAF.Agent;
+import org.jLOAF.agents.GenericAgent;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.performance.Statistics;
@@ -13,12 +16,14 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 	
 	protected Statistics st;
 	protected CaseBase testCases;
+	protected CaseBase trainCases;
 	protected ArrayList<FeatureNode> open;
 
 
-	public FeatureSelection(FeatureSelection fs,Statistics st){
+	public FeatureSelection(FeatureSelection fs){
 		super(fs);
-		this.st=st;
+		Agent a = new GenericAgent();
+		st=new Statistics(a);
 		open = new ArrayList<FeatureNode>();
 	}
 	
@@ -56,7 +61,8 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 
 	@Override
 	public CaseBase filter(CaseBase initial) {
-			testCases=initial;
+			
+			SplitTrainTest(initial);
 			Case c = (Case)initial.getCases().toArray()[0];
 			((Weights)((WeightedMean) c.getInput().getSimilarityMetricStrategy()).getSimilarityWeights()).copyWeights((filterFeatures((Weights)((WeightedMean) c.getInput().getSimilarityMetricStrategy()).getSimilarityWeights())).getWeights());
 			
@@ -67,6 +73,22 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 	protected abstract FeatureNode filterFeatures(Weights allIn);
 	
 	protected void SplitTrainTest(CaseBase casebase){ 
+		Random r = new Random();
+			
+		for(int i=0;i<casebase.getSize()*0.2;){
+			Case c =(Case)casebase.getCases().toArray()[r.nextInt(casebase.getSize())];
+				if(!testCases.getCases().contains(c)){
+					testCases.add(c);
+				i++;
+				}
+			
+			
+		}
+		 for(Case c:casebase.getCases()){
+			 if(!testCases.getCases().contains(c)){
+				 trainCases.add(c);
+			 }
+		 }
 		
 	}
 

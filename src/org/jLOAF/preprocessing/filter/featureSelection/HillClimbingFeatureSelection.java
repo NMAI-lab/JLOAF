@@ -15,17 +15,14 @@ public class HillClimbingFeatureSelection extends FeatureSelection {
 	private double maxWeight=10;
 	
 	
-	public HillClimbingFeatureSelection(FeatureSelection fs,Statistics st,int goalValue){
-		super(fs,st);
+	public HillClimbingFeatureSelection(FeatureSelection fs,int goalValue){
+		super(fs);
 		
 		currentNode = new FeatureNode();
 		
 		this.goalValue=goalValue;
 	}
 	
-	public void createChildren(FeatureNode currentNode){
-		
-	}
 	
 	public FeatureNode filterFeatures(Weights allIn){
 		

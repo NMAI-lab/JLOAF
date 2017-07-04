@@ -36,7 +36,7 @@ public class SequentialBackwardGenerationTest {
 				i++;
 			}
 			
-		SequentialBackwardGeneration sbg = new SequentialBackwardGeneration(null,st,4,0.9);
+		SequentialBackwardGeneration sbg = new SequentialBackwardGeneration(null,4,0.9);
 		System.out.println("Sd");
 		
 	}

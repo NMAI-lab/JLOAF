@@ -21,7 +21,7 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.sim.StateBased.OrderedSimilarity;
 import org.jLOAF.weights.SimilarityWeights;
-
+import org.jLOAF.sim.complex.*;
 
 public class CaseBase implements Serializable{
 
@@ -48,7 +48,7 @@ public class CaseBase implements Serializable{
 					cb.add(c);
 					return ;
 				}
-			if(i1.getSimilarityMetricStrategy() instanceof SimilarityWeights){
+			if(((WeightedMean)i1.getSimilarityMetricStrategy()).getSimilarityWeights() instanceof SimilarityWeights ){
 					SimilarityWeights sim =(SimilarityWeights)i1.getSimilarityMetricStrategy();
 				for(String w:i1.getChildNames()){
 					if(sim.getWeight(w)==0){
