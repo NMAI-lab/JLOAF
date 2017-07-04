@@ -7,6 +7,7 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.performance.Statistics;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.weights.Weights;
+import org.jLOAF.sim.complex.WeightedMean;
 
 public abstract class FeatureSelection extends CaseBaseFilter {
 	
@@ -56,18 +57,17 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 	@Override
 	public CaseBase filter(CaseBase initial) {
 			testCases=initial;
-			Case c1=null;
-			for(Case c:testCases.getCases()){
-				c1=c;
-				break;
-			}
-			for(Case c:testCases.getCases()){
-				((Weights)c.getInput().getSimilarityMetricStrategy()).copyWeights((filterFeatures((Weights)c1.getInput().getSimilarityMetricStrategy())).getWeights());
-			}
+			Case c = (Case)initial.getCases().toArray()[0];
+			((Weights)((WeightedMean) c.getInput().getSimilarityMetricStrategy()).getSimilarityWeights()).copyWeights((filterFeatures((Weights)((WeightedMean) c.getInput().getSimilarityMetricStrategy()).getSimilarityWeights())).getWeights());
+			
 		 return testCases;
 	}
 
 
 	protected abstract FeatureNode filterFeatures(Weights allIn);
+	
+	protected void SplitTrainTest(CaseBase casebase){ 
+		
+	}
 
 }
