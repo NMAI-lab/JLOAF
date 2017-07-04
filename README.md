@@ -8,3 +8,5 @@ Examples of Implementations of jLOAF Agents can be found at:
 
 https://github.com/sachag678/jLOAF-Robocup
 
+https://github.com/sachag678/JLOAF-VacuumCleaner
+
