@@ -8,14 +8,14 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.performance.Statistics;
 import org.jLOAF.weights.Weights;
 
-public class FeatureWeightSelection extends FeatureSelection {
+public class HillClimbingFeatureSelection extends FeatureSelection {
 	private FeatureNode currentNode ;
 	private double goalValue;
 	private int currentIndex=0;
 	private double maxWeight=10;
 	
 	
-	public FeatureWeightSelection(FeatureSelection fs,Statistics st,int goalValue){
+	public HillClimbingFeatureSelection(FeatureSelection fs,Statistics st,int goalValue){
 		super(fs,st);
 		
 		currentNode = new FeatureNode();
