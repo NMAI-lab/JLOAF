@@ -18,7 +18,6 @@ import org.jLOAF.matlab.DynamicBayesianNetworkRemote;
 
 public class DynamicBayesianReasoner extends Reasoning {
 	
-	private String filename = "C:/Users/sachagunaratne/Documents/GitHub/JLOAF-VacuumCleaner/Bayesian_csv.txt";
 	DynamicBayesianNetworkRemote bnet = null;
 	List<Action> actions;
 	int EmIter = 10;
@@ -28,13 +27,13 @@ public class DynamicBayesianReasoner extends Reasoning {
 	int action = 0;//action variable
 	int timestep = 0;
 	
-	public DynamicBayesianReasoner(CaseBase cb) {
+	public DynamicBayesianReasoner(CaseBase cb, String output_filename) {
 		super(null);
 		try {
 			actions = CaseBase.getActionNames(cb);
-			CaseBase.saveAsTrace(cb,filename, false);
-			int numFeatures = checkNumFeatures();
-			bnet = new DynamicBayesianNetworkRemote(filename,numFeatures,EmIter);
+			CaseBase.saveAsTrace(cb,output_filename, false);
+			int numFeatures = checkNumFeatures(output_filename);
+			bnet = new DynamicBayesianNetworkRemote(output_filename,numFeatures,EmIter);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -87,12 +86,12 @@ public class DynamicBayesianReasoner extends Reasoning {
 	 * Calculates the number of features by reading the csv file that was created using CaseBase.SaveAsTrace
 	 * @author sachagunaratne
 	 * ***/
-	private int checkNumFeatures() throws IOException{
+	private int checkNumFeatures(String output_filename) throws IOException{
 		BufferedReader br=null;
 		String[] input = {};
 		String line ="";
 		try {
-			br = new BufferedReader(new FileReader(filename));
+			br = new BufferedReader(new FileReader(output_filename));
 			line = br.readLine();
 			input = line.split(",");	
 			br.close();
