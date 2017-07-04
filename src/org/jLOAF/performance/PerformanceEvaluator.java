@@ -84,6 +84,8 @@ public abstract class PerformanceEvaluator {
 			
 			//add ignore index casebase to testbase tb and remove from templist
 			//add temp list to caseBase cb
+			//remove this method here
+			//cb.addListOfCaseBases(templist);
 			for(int i=0;i<listOfCaseBases.size();i++){
 				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
 				else {cb.addListOfCaseBases(tempList);}
@@ -95,6 +97,7 @@ public abstract class PerformanceEvaluator {
 				long tempTime = System.currentTimeMillis();
 				
 				cb=filter.filter(cb);
+				//remove tb filter
 				tb = filter.filter(tb);
 				
 				tempTime = System.currentTimeMillis() - tempTime;
@@ -102,7 +105,8 @@ public abstract class PerformanceEvaluator {
 				System.out.println("time Taken to Filter is " + tempTime/1000.0 +" seconds");
 			}
 			
-
+			//add function to split casebase into cb and tb
+			
 			agent.train(cb);
 			Statistics stats_module = new Statistics(agent);
 			
