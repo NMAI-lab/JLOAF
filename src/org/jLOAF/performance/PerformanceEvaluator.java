@@ -82,16 +82,16 @@ public abstract class PerformanceEvaluator {
 		long totalTime = System.currentTimeMillis();
 		for(int ii=0;ii<listOfCaseBases.size();ii++){
 			//temp list
-			//tempList.addAll(listOfCaseBases);
+			tempList.addAll(listOfCaseBases);
 			
 			//add ignore index casebase to testbase tb and remove from templist
 			//add temp list to caseBase cb
 			//remove this method here
-			cb.addListOfCaseBases(listOfCaseBases);
-//			for(int i=0;i<listOfCaseBases.size();i++){
-//				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
-//				else {cb.addListOfCaseBases(tempList);}
-//			}
+			//cb.addListOfCaseBases(listOfCaseBases);
+			for(int i=0;i<listOfCaseBases.size();i++){
+				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
+				else {cb.addListOfCaseBases(tempList);}
+			}
 			
 			if(filter!=null){
 				
@@ -100,7 +100,7 @@ public abstract class PerformanceEvaluator {
 				
 				cb=filter.filter(cb);
 				//remove tb filter
-				//tb = filter.filter(tb);
+				tb = filter.filter(tb);
 				
 				tempTime = System.currentTimeMillis() - tempTime;
 				
@@ -108,7 +108,7 @@ public abstract class PerformanceEvaluator {
 			}
 			
 			//add function to split casebase into cb and tb
-			SplitTrainTest(cb);
+			//SplitTrainTest(cb);
 			
 			agent.train(cb);
 			Statistics stats_module = new Statistics(agent);
