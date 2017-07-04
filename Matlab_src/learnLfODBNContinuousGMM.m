@@ -49,7 +49,7 @@ for c = 1:CSIZE
   for x = 1:XSIZE
     %checking if discrete or cts
     %if dsc X->C if cts C->X
-    if(find(discrete==x))
+    if(any(discrete==x) && x~=1)
         intra(x+CSIZE,c) = 1;
     else
         intra(c,x+CSIZE) = 1;
@@ -60,7 +60,7 @@ end
 for y = 1:YSIZE
 	for x = 1:XSIZE
       %if dsc X->Y if cts Y->X
-      if(find(discrete==x)) 
+      if(any(discrete==x)&& x~=1) 
         intra(x+CSIZE,y+CSIZE+XSIZE) = 1;
       else
          intra(y+CSIZE+XSIZE,x+CSIZE) = 1;  
