@@ -74,7 +74,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 	}
 	
 	public void replaceLastAction(String action){
-		this.action = Integer.parseInt(action);	
+		this.action = actions.indexOf(action);	
 	}
 
 	@Override
