@@ -17,9 +17,11 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
+import org.jLOAF.sim.SimilarityMetricStrategy;
+import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.sim.StateBased.OrderedSimilarity;
 import org.jLOAF.weights.SimilarityWeights;
-
+import org.jLOAF.sim.complex.*;
 
 public class CaseBase implements Serializable{
 
@@ -37,7 +39,7 @@ public class CaseBase implements Serializable{
 	}
 	
 	public void add(Case c){
-			Input i = c.getInput();
+			Input i = ((StateBasedInput)c.getInput()).getInput();
 					
 			ComplexInput i1 =null;
 				try{
@@ -46,7 +48,7 @@ public class CaseBase implements Serializable{
 					cb.add(c);
 					return ;
 				}
-			if(i1.getSimilarityMetricStrategy() instanceof SimilarityWeights){
+			if(((WeightedMean)i1.getSimilarityMetricStrategy()).getSimilarityWeights() instanceof SimilarityWeights ){
 					SimilarityWeights sim =(SimilarityWeights)i1.getSimilarityMetricStrategy();
 				for(String w:i1.getChildNames()){
 					if(sim.getWeight(w)==0){
@@ -69,12 +71,12 @@ public class CaseBase implements Serializable{
 		}
 	}
 	
-	public void createThenAdd(Input i,Action a){
-		StateBasedInput i1 = new  StateBasedInput(i.getName(),new OrderedSimilarity());
+	public void createThenAdd(Input i,Action a,StateBasedSimilarity sim){
+		StateBasedInput i1 = new  StateBasedInput(i.getName(),sim);
 		i1.setInput(i);
 		i1.setCase(latest);
 		latest=new Case(i1,a);
-		cb.add(latest);
+		add(latest);
 	}
 	
 	/***
@@ -173,7 +175,7 @@ public class CaseBase implements Serializable{
 			int count = 0;
 			
 			for(Case cb: casebase.getCases()){
-				Input i = cb.getInput();
+				Input i = ((StateBasedInput)cb.getInput()).getInput();
 				Action a = cb.getAction();
 				input = convert(i);
 				

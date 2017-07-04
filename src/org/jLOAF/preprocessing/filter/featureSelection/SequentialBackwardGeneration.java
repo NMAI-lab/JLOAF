@@ -19,8 +19,8 @@ public class SequentialBackwardGeneration extends FeatureSelection{
 	
 	
 
-	public SequentialBackwardGeneration(FeatureSelection fs,Statistics st,int k, double epsilon){
-		super(fs,st);
+	public SequentialBackwardGeneration(FeatureSelection fs,int k, double epsilon){
+		super(fs);
 		//check parameters
 		if(k < 1){
 			throw new IllegalArgumentException("k-value must be greater than zero.");
