@@ -13,6 +13,7 @@ import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.matlab.DynamicBayesianNetworkRemote;
 
 public class DynamicBayesianReasoner extends Reasoning {
@@ -41,6 +42,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 	
 	@Override
 	public Action selectAction(Input i){
+		i = ((StateBasedInput)i).getInput();
 		HashMap<String, Double> temp = CaseBase.convert(i);
 		List<Double> X = new ArrayList<Double>();
 		for(String key: temp.keySet()){
