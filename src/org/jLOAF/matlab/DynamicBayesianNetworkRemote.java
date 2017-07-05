@@ -18,7 +18,7 @@ import matlabcontrol.MatlabProxyFactoryOptions;
 public class DynamicBayesianNetworkRemote {
 	
 	public static MatlabProxy proxy = null;    
-	static int STATES = 4;
+	static int STATES = 2;
 	
 	public DynamicBayesianNetworkRemote(String trace, int a_XSIZE, int Em_iter){
 		
