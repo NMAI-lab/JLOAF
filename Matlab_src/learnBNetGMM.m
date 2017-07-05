@@ -58,7 +58,7 @@ for i = 1:VARS
 end
 
 %removes the missing values from the cases
-for i = 1:2:length(cases)
+for i = 1:length(cases)*VARS
     if cases{i}==301.5
         cases{i}=[];
     end
