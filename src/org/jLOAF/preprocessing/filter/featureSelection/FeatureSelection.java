@@ -61,7 +61,9 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 
 	@Override
 	public CaseBase filter(CaseBase initial) {
-			
+			if(filter!=null){
+				initial =filter.filter(initial);
+			}
 			SplitTrainTest(initial);
 			Case c = (Case)initial.getCases().toArray()[0];
 			((Weights)((WeightedMean) c.getInput().getSimilarityMetricStrategy()).getSimilarityWeights()).copyWeights((filterFeatures((Weights)((WeightedMean) c.getInput().getSimilarityMetricStrategy()).getSimilarityWeights())).getWeights());
@@ -71,10 +73,10 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 
 
 	protected abstract FeatureNode filterFeatures(Weights allIn);
-	
+		
 	protected void SplitTrainTest(CaseBase casebase){ 
-		Random r = new Random();
-			
+		
+		Random r = new Random();	
 		for(int i=0;i<casebase.getSize()*0.2;){
 			Case c =(Case)casebase.getCases().toArray()[r.nextInt(casebase.getSize())];
 				if(!testCases.getCases().contains(c)){

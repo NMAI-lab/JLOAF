@@ -1,23 +1,13 @@
 package org.jLOAF.preprocessing.filter.featureSelection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
 import java.util.Random;
-import java.util.TreeMap;
-import java.util.stream.IntStream;
 
-import org.jLOAF.Agent;
-import org.jLOAF.agents.GenericAgent;
-import org.jLOAF.casebase.Case;
-import org.jLOAF.casebase.CaseBase;
-import org.jLOAF.inputs.ComplexInput;
-import org.jLOAF.performance.Statistics;
-import org.jLOAF.preprocessing.filter.CaseBaseFilter;
-import org.jLOAF.sim.complex.WeightedMean;
+
+
 import org.jLOAF.weights.SimilarityWeights;
+import org.jLOAF.weights.Weights;
 /**
  * This method will take a casebase that has some similarityWeights for every feature and determine the best weights for each feature.
  * The filter will return a casebase with updated weights
@@ -25,175 +15,130 @@ import org.jLOAF.weights.SimilarityWeights;
  * @since 2017 June
  * 
  * ***/
-public class GeneticAlgorithmWeightSelector extends CaseBaseFilter {
+public class GeneticAlgorithmWeightSelector extends FeatureSelection {
 	Random r;
-	public GeneticAlgorithmWeightSelector(CaseBaseFilter f) {
-		super(f);
+	private int numberOfPopulation=4;
+	public GeneticAlgorithmWeightSelector(FeatureSelection fs) {
+		super(fs);
 		r = new Random();
 	}
-
-	@Override
-	public CaseBase filter(CaseBase initial) {
-		Case first = (Case)initial.getCases().toArray()[0];
-		
-		ComplexInput i = null; 
-		try{
-			i = (ComplexInput)first.getInput();
-		}catch(ClassCastException e){
-			System.out.println(e);
-			return initial;
+	
+	private void mutate(FeatureNode node) {
+		Random r = new Random();
+		double p = r.nextDouble();
+		double c=0.5;
+		int i=0;
+		for(String w:node.getWeights().getWeightedItems()){
+			if(p>0.8){
+				if(i%2==0){
+					((SimilarityWeights)node.getWeights()).setFeatureWeight(w,node.getWeights().getWeight(w)+c*10);
+				}else{
+					double check = node.getWeights().getWeight(w)-c*10;
+					if(check>0){
+						((SimilarityWeights)node.getWeights()).setFeatureWeight(w,check);
+					}
+					
+				}
+			}
+			
+			p=r.nextDouble();
+			i++;
 		}
 		
-		if(i.getSimilarityMetricStrategy() instanceof WeightedMean){
-			SimilarityWeights sim =((WeightedMean)i.getSimilarityMetricStrategy()).getSimilarityWeights();
-			
-			//set similarityfeatures randomly - step 1 GA - initialization
-			//-------------------------------------------------------------------------
-			int len = sim.getWeightedItems().size();
-			//create a list of lists which will hold the initial weights
-			ArrayList<ArrayList<Double>> listOfWeights = new ArrayList<ArrayList<Double>>();
-			ArrayList<Double> weights1 = new ArrayList<Double>();
-			ArrayList<Double> weights2 = new ArrayList<Double>();
-			ArrayList<Double> weights3 = new ArrayList<Double>();
-			ArrayList<Double> weights4 = new ArrayList<Double>();
-			
-			//contains the fitness for each weight
-			ArrayList<Float> fitness = new ArrayList<Float>();
-			
-			//initialize the weights for each list
-			for(int ii=0;ii<len;ii++){
-				weights1.add(r.nextDouble());
-				weights2.add(r.nextDouble());
-				weights3.add(r.nextDouble());
-				weights4.add(r.nextDouble());
-			}
-			//add the weights to the list of lists
-			listOfWeights.add(weights1);
-			listOfWeights.add(weights2);
-			listOfWeights.add(weights3);
-			listOfWeights.add(weights4);
+		
+	}
 
-			double old_accuracy = 0;
-			double new_accuracy = 1;
-			while((new_accuracy-old_accuracy)<1e-4){
-				old_accuracy = new_accuracy;
-				
-				
-				
-				Agent a = new GenericAgent();
-				Statistics st = new Statistics(a);
-				
-				//calculate fitness - step 2 GA - selection
-				//---------------------------------------------------------
-				for(ArrayList<Double> weight: listOfWeights){
-					//set the simFeatures for each set of weights
-					int index = 0;
-					for(String w:i.getChildNames()){
-						sim.setFeatureWeight(w, weight.get(index));
-					}
-					//train on new sim feature weights
-					a.train(initial);
-					
-					//test the prediction capability
-					for(Case test: initial.getCases()){
-						st.predictedCorrectActionName(test);
-					}
-					//add accuracy to fitness function
-					fitness.add(st.getClassificationAccuracy());
-					
+	
+
+	
+
+	@Override
+	protected FeatureNode filterFeatures(Weights allIn) {
+		FeatureNode initialNode = new FeatureNode();
+		
+		initialNode.setWeights(allIn);
+		//create a list of nodes which will hold the weights
+		ArrayList<FeatureNode> nodes= new ArrayList<FeatureNode>();
+		populate(nodes,numberOfPopulation,allIn);
+		
+		double old_accuracy = 0;
+		double new_accuracy = 1;
+		evaluate(initialNode);
+		
+		new_accuracy =initialNode.getEvaluateNumber();
+		
+		while((new_accuracy-old_accuracy)<1e-4){
+			old_accuracy = new_accuracy;
+			
+			//calculate fitness - step 2 GA - selection
+			//---------------------------------------------------------
+				for(int j=0;j<nodes.size();j++){
+					evaluate(nodes.get(j));
 				}
 				
 				//create reproduction pool - step 2 GA - selection
 				//--------------------------------------------------------
-				
-				//choose the two best weights using the fitness function
-				
-				//choose the best two fitness functions
-				Float[] temp = new Float[fitness.size()];
-				temp = fitness.toArray(temp);
-				Arrays.sort(temp);  
-			    int [] indexes = new int [temp.length];
-			    indexes[0]=fitness.indexOf(temp[0]);
-			    indexes[1]=fitness.indexOf(temp[1]);//this should be generic, but for now let's make it like this
-			    
-			    new_accuracy =fitness.get(indexes[0]);
-			    ArrayList<ArrayList<Double>> mating_pool =  new ArrayList<ArrayList<Double>>();
-			    //add two of the best weight lists to the mating pool
-			    for(int counter1=0;counter1<2;counter1++){
-			    	mating_pool.add(listOfWeights.get(indexes[counter1]));
-			    }
-			    
-			    //cross produce - step 3 GA - mating
-			    //----------------------------------------------------------------------------
-			    listOfWeights.clear();
-			    weights1.clear();
-			    for(int j=0;j<mating_pool.get(0).size();j++){
-			    	weights1.add((mating_pool.get(0).get(j)+mating_pool.get(1).get(j))/2);
-			    }
-			    listOfWeights.add(crossProduce(mating_pool,0,1));
-			    listOfWeights.add(crossProduce(mating_pool,1,0));
-				
-				//mutate - step 3 GA - mutation
-			    //---------------------------------------------------------------------------
-			    for(int j=0;j<listOfWeights.size();j++){
-			    	mutate(listOfWeights.get(j));
-			    }
-			}
+				Collections.sort(nodes);//now the first two nodes are the best ones.
+				FeatureNode best = nodes.get(0);
+				FeatureNode best_2 =nodes.get(1);
+				new_accuracy = best.getEvaluateNumber();
+				initialNode=best;
+		    //cross produce - step 3 GA - mating
+		    //----------------------------------------------------------------------------
+				nodes.clear();
+				nodes.add(mergeMean(best,best_2));
+				nodes.add(crossProduce(best,best_2));
+				nodes.add(crossProduce(best_2,best));
+			//mutate - step 3 GA - mutation
+		    //---------------------------------------------------------------------------
+				for(int j=0;j<nodes.size();j++){
+					mutate(nodes.get(j));
+				}
 		}
-		return initial;
+		return initialNode;
+		
+	}
+
+	
+	
+	
+	
+	private FeatureNode crossProduce(FeatureNode best, FeatureNode best_2) {
+			int size = best.getWeights().getWeightedItems().size();
+		SimilarityWeights sim = new SimilarityWeights();
+			int i=0;
+		for(String w:best.getWeights().getWeightedItems()){
+			if(i<size/2){
+				sim.setFeatureWeight(w, best.getWeights().getWeight(w));
+			}else {
+				sim.setFeatureWeight(w, best_2.getWeights().getWeight(w));
+			}
+			i++;
+		}
+		FeatureNode newNode = new FeatureNode();
+		newNode.setWeights(sim);
+		return newNode;
+	}
+
+	private FeatureNode mergeMean(FeatureNode best, FeatureNode best_2) {
+		SimilarityWeights sim = new SimilarityWeights();
+		for(String w : best.getWeights().getWeightedItems()){
+			sim.setFeatureWeight(w, (best.getWeights().getWeight(w)+best_2.getWeights().getWeight(w))/2);
+		}
+		FeatureNode newNode = new FeatureNode();
+		newNode.setWeights(sim);
+		return newNode;
 	}
 	
-	private void mutate(ArrayList<Double> arrayList) {
-		Random r = new Random();
-		double p = r.nextDouble();
-		double c=0.5;
-		for(int i=0;i<arrayList.size();i++){
-			if(p>0.8){
-				if(i%2==0){
-				arrayList.set(i,arrayList.get(i)+c);
-				
-				}else {
-					if(arrayList.get(i)-c>0){
-					arrayList.set(i,arrayList.get(i)-c);
-					}
-				}
-				
-			
-			}
-		}
-		
-		
-		
-	}
 
-	private ArrayList<Double> crossProduce(ArrayList<ArrayList<Double>> arrayList, int i,int j) {
-		int size=arrayList.get(0).size();
-		Double[] temp = new Double[size];
-		for(int k=0;k<arrayList.get(0).size()/2;k++){
-			temp[k] =arrayList.get(i).get(k);
-			temp[size-k-1]=arrayList.get(j).get(size-k-1);
+	private void populate(ArrayList<FeatureNode> nodes, int numberOfPopulation2,Weights allIn) {
+		for(int i=0;i<numberOfPopulation2;i++){
+			FeatureNode newNode = new FeatureNode();
+			newNode.randomizeWeights(allIn);
 		}
-		return (ArrayList<Double>) Arrays.asList(temp);
-	}
-
-	public static void main(String[] args){
-		HashMap<Integer,Integer> test = new HashMap<Integer,Integer>();
-		test.put(2, 3);test.put(4, 1);test.put(5, 2);test.put(1,4);
-		for(Integer w:test.keySet()){
-		System.out.println(0%4);
-		break;
-		}
-		for(Integer w:test.keySet()){
-			System.out.println(w);
-			break;
-			}
 		
-		Double c;
-		ArrayList<Double> a = new ArrayList<Double>();
-		a.add(23.4);
-		c=a.get(0);
-		
-		System.out.println(a.get(0));
 	}
+	
+	
 
 }
