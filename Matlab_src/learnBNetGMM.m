@@ -57,6 +57,13 @@ for i = 1:VARS
 	end
 end
 
+%removes the missing values from the cases
+for i = 1:length(cases)*VARS
+    if cases{i}==301.5
+        cases{i}=[];
+    end
+end
+
 engine = jtree_inf_engine(bnet);
 %engine = likelihood_weighting_inf_engine(bnet); %use if chnodes->dnodes exist
 %engine = var_elim_inf_engine(bnet);

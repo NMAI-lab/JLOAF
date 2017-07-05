@@ -13,17 +13,19 @@ import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.matlab.BayesianNetworkRemote;
 
 public class BayesianReasoner extends Reasoning {
 	BayesianNetworkRemote bnet = null;
 	List<Action> actions;
+	List<String> feature_names;
 	
 	public BayesianReasoner(CaseBase cb, String output_filename) {
 		super(null);
 		try {
 			actions = CaseBase.getActionNames(cb);
-			CaseBase.saveAsTrace(cb,output_filename, false);
+			feature_names = CaseBase.saveAsTrace(cb,output_filename, false);
 			int numFeatures = checkNumFeatures(output_filename);
 			bnet = new BayesianNetworkRemote(output_filename,numFeatures,1);
 		} catch (IOException e) {
@@ -41,11 +43,16 @@ public class BayesianReasoner extends Reasoning {
 	
 	@Override
 	public Action selectAction(Input i){
+		i = ((StateBasedInput)i).getInput();
 		HashMap<String, Double> temp = CaseBase.convert(i);
 		List<Double> input = new ArrayList<Double>();
 		
+		for(int ii=0;ii<feature_names.size();ii++){input.add(301.5);}
+		
 		for(String key: temp.keySet()){
-			input.add(temp.get(key)+1.0);
+			int index = feature_names.indexOf(key);
+			input.remove(index);
+			input.add(index, temp.get(key)+1.0);	
 		}
 		
 		List<Double> output = bnet.run(input);

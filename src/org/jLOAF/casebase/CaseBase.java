@@ -154,7 +154,7 @@ public class CaseBase implements Serializable{
 	 * @author sachagunaratne
 	 * @since 2017 June
 	 * ***/
-	public static void saveAsTrace(CaseBase casebase, String filename, boolean outputColumnNames) throws IOException{
+	public static List<String> saveAsTrace(CaseBase casebase, String filename, boolean outputColumnNames) throws IOException{
 		if(filename == null ){
 			throw new IllegalArgumentException("A null value was given for the file name");
 		}
@@ -163,6 +163,7 @@ public class CaseBase implements Serializable{
 		}
 		
 		List<Action> actions = CaseBase.getActionNames(casebase);
+		List<String> feature_names = new ArrayList<String>();
 		
 		HashMap<String, Double> input = new HashMap<String, Double>();
 		String action;
@@ -213,6 +214,10 @@ public class CaseBase implements Serializable{
 				f1.write("\n");
 			}
 			
+			for(String keys2: inputs.keySet()){
+				feature_names.add(keys2);
+			}
+			
 			//writing
 			for(int jj=0;jj<casebase.getSize();jj++){
 				for(String key3: inputs.keySet()){
@@ -246,6 +251,7 @@ public class CaseBase implements Serializable{
 		}
 		
 		System.out.println("Completed trace creation!");
+		return feature_names;
 	}
 	
 	
@@ -272,7 +278,6 @@ public class CaseBase implements Serializable{
 		}
 		return actions;
 	}
-
 
 	private static int getActionNum(String action, List<Action> actions) {
 		int index =0;
