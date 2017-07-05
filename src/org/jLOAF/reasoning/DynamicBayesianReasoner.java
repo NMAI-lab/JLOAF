@@ -20,6 +20,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 	
 	DynamicBayesianNetworkRemote bnet = null;
 	List<Action> actions;
+	List<String> feature_names;
 	int EmIter = 10;
 	
 	int state = 0;//initial state variable
@@ -31,7 +32,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 		super(null);
 		try {
 			actions = CaseBase.getActionNames(cb);
-			CaseBase.saveAsTrace(cb,output_filename, false);
+			feature_names = CaseBase.saveAsTrace(cb,output_filename, false);
 			int numFeatures = checkNumFeatures(output_filename);
 			bnet = new DynamicBayesianNetworkRemote(output_filename,numFeatures,EmIter);
 		} catch (IOException e) {
@@ -44,8 +45,13 @@ public class DynamicBayesianReasoner extends Reasoning {
 		i = ((StateBasedInput)i).getInput();
 		HashMap<String, Double> temp = CaseBase.convert(i);
 		List<Double> X = new ArrayList<Double>();
+		
+		for(int ii=0;ii<feature_names.size();ii++){X.add(301.5);}
+		
 		for(String key: temp.keySet()){
-			X.add(temp.get(key)+1.0);
+			int index = feature_names.indexOf(key);
+			X.remove(index);
+			X.add(index, temp.get(key)+1.0);	
 		}
 		
 		List<Double> input = new ArrayList<Double>();
