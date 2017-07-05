@@ -1,7 +1,9 @@
 package org.jLOAF.preprocessing.filter.featureSelection;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
@@ -107,24 +109,14 @@ public class GeneticAlgorithmWeightSelector extends CaseBaseFilter {
 				//choose the two best weights using the fitness function
 				
 				//choose the best two fitness functions
-				Object[] temp = fitness.toArray();
-				float [] fitness_array = new float [temp.length];
-				for(int lenght=0;lenght<temp.length;lenght++){
-					fitness_array[lenght] = (float)temp[lenght];
-				}
-				Map<Float, Integer> map = new TreeMap<Float, Integer>();
-			    for (int i2 = 0; i2 < fitness_array.length; ++i2) {
-			        map.put(fitness_array[i2], i2);
-			    }
-			    Collection<Integer> indices = map.values();
-				
-			    Object [] indexes1 = indices.toArray(); 
+				Float[] temp = new Float[fitness.size()];
+				temp = fitness.toArray(temp);
+				Arrays.sort(temp);  
 			    int [] indexes = new int [temp.length];
-			    for(int lenght=0;lenght<temp.length;lenght++){
-			    	indexes[lenght] = (int)indexes1[lenght];
-				}
+			    indexes[0]=fitness.indexOf(temp[0]);
+			    indexes[1]=fitness.indexOf(temp[1]);//this should be generic, but for now let's make it like this
 			    
-			    
+			    new_accuracy =fitness.get(indexes[0]);
 			    ArrayList<ArrayList<Double>> mating_pool =  new ArrayList<ArrayList<Double>>();
 			    //add two of the best weight lists to the mating pool
 			    for(int counter1=0;counter1<2;counter1++){
@@ -133,13 +125,75 @@ public class GeneticAlgorithmWeightSelector extends CaseBaseFilter {
 			    
 			    //cross produce - step 3 GA - mating
 			    //----------------------------------------------------------------------------
-			    
+			    listOfWeights.clear();
+			    weights1.clear();
+			    for(int j=0;j<mating_pool.get(0).size();j++){
+			    	weights1.add((mating_pool.get(0).get(j)+mating_pool.get(1).get(j))/2);
+			    }
+			    listOfWeights.add(crossProduce(mating_pool,0,1));
+			    listOfWeights.add(crossProduce(mating_pool,1,0));
 				
 				//mutate - step 3 GA - mutation
-			    //----------------------------------------------------------------------------
+			    //---------------------------------------------------------------------------
+			    for(int j=0;j<listOfWeights.size();j++){
+			    	mutate(listOfWeights.get(j));
+			    }
 			}
 		}
 		return initial;
+	}
+	
+	private void mutate(ArrayList<Double> arrayList) {
+		Random r = new Random();
+		double p = r.nextDouble();
+		double c=0.5;
+		for(int i=0;i<arrayList.size();i++){
+			if(p>0.8){
+				if(i%2==0){
+				arrayList.set(i,arrayList.get(i)+c);
+				
+				}else {
+					if(arrayList.get(i)-c>0){
+					arrayList.set(i,arrayList.get(i)-c);
+					}
+				}
+				
+			
+			}
+		}
+		
+		
+		
+	}
+
+	private ArrayList<Double> crossProduce(ArrayList<ArrayList<Double>> arrayList, int i,int j) {
+		int size=arrayList.get(0).size();
+		Double[] temp = new Double[size];
+		for(int k=0;k<arrayList.get(0).size()/2;k++){
+			temp[k] =arrayList.get(i).get(k);
+			temp[size-k-1]=arrayList.get(j).get(size-k-1);
+		}
+		return (ArrayList<Double>) Arrays.asList(temp);
+	}
+
+	public static void main(String[] args){
+		HashMap<Integer,Integer> test = new HashMap<Integer,Integer>();
+		test.put(2, 3);test.put(4, 1);test.put(5, 2);test.put(1,4);
+		for(Integer w:test.keySet()){
+		System.out.println(0%4);
+		break;
+		}
+		for(Integer w:test.keySet()){
+			System.out.println(w);
+			break;
+			}
+		
+		Double c;
+		ArrayList<Double> a = new ArrayList<Double>();
+		a.add(23.4);
+		c=a.get(0);
+		
+		System.out.println(a.get(0));
 	}
 
 }
