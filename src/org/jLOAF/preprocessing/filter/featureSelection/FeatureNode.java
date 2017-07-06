@@ -1,10 +1,12 @@
 package org.jLOAF.preprocessing.filter.featureSelection;
 
+import java.util.Random;
+
 import org.jLOAF.performance.StatisticsBundle;
 import org.jLOAF.weights.SimilarityWeights;
 import org.jLOAF.weights.Weights;
 
-public class FeatureNode {
+public class FeatureNode implements Comparable<FeatureNode> {
 		
 	
 	
@@ -67,5 +69,24 @@ public class FeatureNode {
 		
 		return evaluateNumber>featureNode.getEvaluateNumber();
 	}
-
+	public void randomizeWeights(Weights allIn) {
+		Random r = new Random();
+		SimilarityWeights weight= new SimilarityWeights();
+		for(String w:allIn.getWeightedItems()){
+			weight.setFeatureWeight(w, r.nextDouble()*10);
+		}
+		this.weights=weight;
+	}
+	
+	@Override
+	public int compareTo(FeatureNode o) {
+		if(this.getEvaluateNumber()>o.getEvaluateNumber()){
+			return 1;
+		}else if(this.getEvaluateNumber()==o.getEvaluateNumber()){
+			return 0;
+		}else {
+			return -1;
+		}
+	}
 }
+	
