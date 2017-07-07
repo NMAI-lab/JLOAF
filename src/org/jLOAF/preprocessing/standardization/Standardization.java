@@ -56,7 +56,9 @@ public class Standardization extends CaseBaseFilter {
 				Set <String> secondChildNames = ((ComplexInput)((ComplexInput)((StateBasedInput)c.getInput()).getInput()).getChildren().get(key)).getChildNames();
 				for(String key2: secondChildNames){
 					for(String key3: inputs.keySet()){
-						((ComplexInput)((ComplexInput)((StateBasedInput)c.getInput()).getInput()).getChildren().get(key2)).getChildren().put(key3, new AtomicInput(key3,new Feature(inputs.get(key3).get(count)),Atomic_strat));
+						if(key3.equals(key2)){
+							((ComplexInput)((ComplexInput)((StateBasedInput)c.getInput()).getInput()).getChildren().get(key)).getChildren().put(key3, new AtomicInput(key3,new Feature(inputs.get(key3).get(count)),Atomic_strat));
+						}
 					}
 				}
 			}
