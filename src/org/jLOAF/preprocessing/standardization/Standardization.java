@@ -31,6 +31,11 @@ public class Standardization extends CaseBaseFilter {
 
 	@Override
 	public CaseBase filter(CaseBase initial) {
+		
+		if(filter!=null){
+			initial=filter.filter(initial);
+		}
+		
 		HashMap<String,List<Double>> inputs = getFeatures(initial);	
 		List<Double> temp = new ArrayList<Double>();
 		
