@@ -76,7 +76,7 @@ public class Standardization extends CaseBaseFilter {
 	private List<Double> standardized(List<Double> temp, double mean, double standardDeviation) {
 		List<Double> standardize_list = new ArrayList<Double>();
 		for(double val: temp){
-			standardize_list.add(val-mean/standardDeviation);
+			standardize_list.add((val-mean)/standardDeviation);
 		}
 		return standardize_list;
 	}
