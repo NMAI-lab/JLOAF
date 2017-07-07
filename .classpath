@@ -4,5 +4,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="C:/Users/sachagunaratne/Documents/GitHub/JLOAF/Matlab_src/matlabcontrol-4.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/sachagunaratne/Documents/GitHub/JLOAF/commons-math3-3.6.1/commons-math3-3.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
