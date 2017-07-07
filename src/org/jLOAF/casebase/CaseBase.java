@@ -168,6 +168,7 @@ public class CaseBase implements Serializable{
 		HashMap<String, Double> input = new HashMap<String, Double>();
 		String action;
 		double action_num;
+		double placeholder_val = 300.5;
 		FileWriter f1 = null;
 		HashMap<String,List<Double>> inputs= new HashMap<String,List<Double>>();
 		List<Double> actions_container= new ArrayList<Double>();
@@ -184,14 +185,14 @@ public class CaseBase implements Serializable{
 					if (!inputs.containsKey(key)){
 						List<Double> temp_list = new ArrayList<Double>();
 						for(int ii=0;ii<count;ii++){
-							temp_list.add(300.5);
+							temp_list.add(placeholder_val);
 						}
 						temp_list.add(input.get(key));
 						inputs.put(key,temp_list);
 					}else{
 						List<Double> actual_list = inputs.get(key);
 						for(int ii=actual_list.size();ii<count;ii++){
-							actual_list.add(300.5);
+							actual_list.add(placeholder_val);
 						}
 						actual_list.add(input.get(key));
 						inputs.replace(key, actual_list);
@@ -228,12 +229,8 @@ public class CaseBase implements Serializable{
 						break;
 					}
 					double val = results.get(jj);
-					if(val!=1000.0){
-						val += 1.0;
-						f1.write(String.valueOf(val));
-					}else{
-						f1.write(".");
-					}
+					val += 1.0;
+					f1.write(String.valueOf(val));
 					f1.write(",");
 				}
 				
