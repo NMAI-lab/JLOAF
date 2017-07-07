@@ -68,7 +68,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 			input.add((X.get(ii))); //add perceptions to the evidence
 		}
 		
-		action = bnet.getAction(input); //get the output of actions for the specific perceptions and state
+		action = bnet.getAction(input)-1; //get the output of actions for the specific perceptions and state
 
 		if(timestep >0){
 			state = new_state;//update the state
@@ -76,11 +76,17 @@ public class DynamicBayesianReasoner extends Reasoning {
 		
 		timestep++;
 		
-		return actions.get(action-1);
+		return actions.get(action);
 	}
 	
 	public void replaceLastAction(String action){
-		this.action = actions.indexOf(action);	
+		int index=0;
+		for(Action a: actions){
+			if(a.getName().equals(action)){
+				this.action = index;
+			}
+			index++;
+		}
 	}
 
 	@Override

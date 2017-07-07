@@ -71,6 +71,7 @@ public class DynamicBayesianNetworkRemote {
 	 * ***/
 	public int getNewState(List<Double> x, int action, int state) {
 		try {
+			action +=1;
 			proxy.eval("newState = getNewState("+x+","+state+","+action+",dbn);");
 			double[] s = (double[]) proxy.returningEval("newState", 1)[0];	
 			return (int) s[0];
