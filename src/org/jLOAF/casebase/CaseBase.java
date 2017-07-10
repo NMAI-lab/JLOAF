@@ -39,24 +39,26 @@ public class CaseBase implements Serializable{
 	}
 	
 	public void add(Case c){
-			Input i = ((StateBasedInput)c.getInput()).getInput();
-					
-			ComplexInput i1 =null;
-				try{
-					 i1= (ComplexInput)i;	
-				}catch(ClassCastException e){
-					cb.add(c);
-					return ;
-				}
+		Input i = ((StateBasedInput)c.getInput()).getInput();
+
+		ComplexInput i1 =null;
+		try{
+			i1= (ComplexInput)i;	
+		}catch(ClassCastException e){
+			cb.add(c);
+			return ;
+		}
+		if(i1.getSimilarityMetricStrategy() instanceof WeightedMean){
 			if(((WeightedMean)i1.getSimilarityMetricStrategy()).getSimilarityWeights() instanceof SimilarityWeights ){
-					SimilarityWeights sim =(SimilarityWeights)((WeightedMean)i1.getSimilarityMetricStrategy()).getSimilarityWeights();
+				SimilarityWeights sim =(SimilarityWeights)((WeightedMean)i1.getSimilarityMetricStrategy()).getSimilarityWeights();
 				for(String w:i1.getChildNames()){
 					if(sim.getWeight(w)==0){
 						sim.setFeatureWeight(w,1);
 					}
-					
+
 				}
 			}
+		}
 		this.cb.add(c);
 	}
 	
