@@ -22,6 +22,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 	List<Action> actions;
 	List<String> feature_names;
 	int EmIter = 10;
+	double placeholder = 6.6;
 	
 	int state = 0;//initial state variable
 	int new_state =0;//new state variable
@@ -46,7 +47,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 		HashMap<String, Double> temp = CaseBase.convert(i);
 		List<Double> X = new ArrayList<Double>();
 		
-		for(int ii=0;ii<feature_names.size();ii++){X.add(301.5);}
+		for(int ii=0;ii<feature_names.size();ii++){X.add(placeholder);}
 		
 		for(String key: temp.keySet()){
 			int index = feature_names.indexOf(key);

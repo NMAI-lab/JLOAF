@@ -170,7 +170,7 @@ public class CaseBase implements Serializable{
 		HashMap<String, Double> input = new HashMap<String, Double>();
 		String action;
 		double action_num;
-		double placeholder_val = 300.5;
+		double placeholder_val = 6.6;
 		FileWriter f1 = null;
 		HashMap<String,List<Double>> inputs= new HashMap<String,List<Double>>();
 		List<Double> actions_container= new ArrayList<Double>();
