@@ -126,8 +126,6 @@ end
 %     end
 % end
 
-
-
 engine = smoother_engine(jtree_2TBN_inf_engine(bnet));
 %engine = jtree_dbn_inf_engine(bnet);
 %engine = jtree_unrolled_dbn_inf_engine(bnet, 5);
