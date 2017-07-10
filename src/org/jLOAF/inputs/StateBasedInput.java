@@ -19,6 +19,7 @@ public class StateBasedInput extends Input {
 		super(name);
 		simStrategy=sim;
 		size=0;
+		c=null;
 		
 	}
 	
@@ -35,7 +36,9 @@ public class StateBasedInput extends Input {
 	}
 	public void setCase(Case c1){
 		c=c1;
+		if(c1!=null){
 		size++;
+		}
 	}
 	public int getSize(){
 		if(c!=null){

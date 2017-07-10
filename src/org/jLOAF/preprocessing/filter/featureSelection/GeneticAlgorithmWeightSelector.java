@@ -67,7 +67,7 @@ public class GeneticAlgorithmWeightSelector extends FeatureSelection {
 		
 		new_accuracy =initialNode.getEvaluateNumber();
 		
-		while((new_accuracy-old_accuracy)<1e-4){
+		while((new_accuracy-old_accuracy)>0.001){
 			old_accuracy = new_accuracy;
 			
 			//calculate fitness - step 2 GA - selection
@@ -135,6 +135,7 @@ public class GeneticAlgorithmWeightSelector extends FeatureSelection {
 		for(int i=0;i<numberOfPopulation2;i++){
 			FeatureNode newNode = new FeatureNode();
 			newNode.randomizeWeights(allIn);
+			nodes.add(newNode);
 		}
 		
 	}

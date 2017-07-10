@@ -31,7 +31,7 @@ public class SequentialBackwardGeneration extends FeatureSelection{
 		
 		
 		m_k = k;
-		m_multiplier = 1 + (epsilon/100);
+		m_multiplier = epsilon;
 		
 		m_best = null;
 	
@@ -61,7 +61,7 @@ public class SequentialBackwardGeneration extends FeatureSelection{
 					}
 					
 					currentNode =open.remove(0);
-					
+					evaluate(currentNode);
 					if(currentNode.bigger(m_best,m_multiplier)){
 						
 						m_best=currentNode;

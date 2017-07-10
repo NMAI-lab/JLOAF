@@ -39,11 +39,14 @@ public class AtomicAction extends Action {
 		if(v==0){
 			return v;
 		}
+		
+			if(feat!=null && action1.getFeature()!=null){
 			double x=feat.getValue();
 			double x1=action1.getFeature().getValue();
 		
-		
+			
 			v-=Math.abs(x-x1)/((x+x1)/2);
+			}
 		
 		
 		return v;

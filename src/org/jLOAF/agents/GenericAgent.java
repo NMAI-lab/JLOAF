@@ -8,6 +8,8 @@ import org.jLOAF.inputs.Input;
 import org.jLOAF.reasoning.SimpleKNN;
 import org.jLOAF.reasoning.WeightedKNN;
 
+
+
 public class GenericAgent extends Agent {
 	
 	public GenericAgent(){
@@ -17,13 +19,13 @@ public class GenericAgent extends Agent {
 	@Override
 	public Action run(Input i) {
 		// TODO Auto-generated method stub
-		return null;
+		return this.r.selectAction(i);
 	}
 
 	@Override
 	public void train(CaseBase casebase) {
 		this.cb = casebase;
-		this.r = new WeightedKNN(5,cb);
+		this.r = new WeightedKNN(1,cb);
 		
 	}
 	

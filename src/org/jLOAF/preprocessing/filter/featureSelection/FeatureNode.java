@@ -1,5 +1,7 @@
 package org.jLOAF.preprocessing.filter.featureSelection;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 import org.jLOAF.performance.StatisticsBundle;
@@ -81,12 +83,14 @@ public class FeatureNode implements Comparable<FeatureNode> {
 	@Override
 	public int compareTo(FeatureNode o) {
 		if(this.getEvaluateNumber()>o.getEvaluateNumber()){
-			return 1;
+			return -1;
 		}else if(this.getEvaluateNumber()==o.getEvaluateNumber()){
 			return 0;
 		}else {
-			return -1;
+			return 1;
 		}
 	}
+	
+	
 }
 	

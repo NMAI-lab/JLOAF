@@ -7,8 +7,10 @@ import org.jLOAF.Agent;
 import org.jLOAF.agents.GenericAgent;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
+import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.performance.Statistics;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
+import org.jLOAF.weights.SimilarityWeights;
 import org.jLOAF.weights.Weights;
 import org.jLOAF.sim.complex.WeightedMean;
 
@@ -18,18 +20,26 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 	protected CaseBase testCases;
 	protected CaseBase trainCases;
 	protected ArrayList<FeatureNode> open;
+	protected Agent a;
 
-
-	public FeatureSelection(FeatureSelection fs){
+	public FeatureSelection(CaseBaseFilter fs){
 		super(fs);
-		Agent a = new GenericAgent();
+		a = new GenericAgent();
 		st=new Statistics(a);
 		open = new ArrayList<FeatureNode>();
+		testCases = new CaseBase();
+		trainCases= new CaseBase();
 	}
 	
 	
 	protected void evaluate(FeatureNode allIn) {
 		st.getStatisticsHashMap().clear();
+		Case c =(Case) testCases.getCases().toArray()[0];
+				Weights w1 =allIn.getWeights();
+				Weights w2=((WeightedMean)((StateBasedInput)c.getInput()).getInput().getSimilarityMetricStrategy()).getSimilarityWeights();
+				if(!w1.equals(w2)){
+				w2.copyWeights(w1);
+				}
 		for(Case test:testCases.getCases()){
 			st.predictedCorrectActionName(test);
 		}
@@ -66,7 +76,11 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 			}
 			SplitTrainTest(initial);
 			Case c = (Case)initial.getCases().toArray()[0];
-			((Weights)((WeightedMean) c.getInput().getSimilarityMetricStrategy()).getSimilarityWeights()).copyWeights((filterFeatures((Weights)((WeightedMean) c.getInput().getSimilarityMetricStrategy()).getSimilarityWeights())).getWeights());
+			Weights sim1 =((Weights)((WeightedMean) (((StateBasedInput)c.getInput()).getInput().getSimilarityMetricStrategy())).getSimilarityWeights());
+			Weights sim2 =filterFeatures(((Weights)((WeightedMean) (((StateBasedInput)c.getInput()).getInput().getSimilarityMetricStrategy())).getSimilarityWeights())).getWeights();
+			if(!sim1.equals(sim2)){
+			sim1.copyWeights(sim2);
+			}
 			
 		 return testCases;
 	}
@@ -87,11 +101,11 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 			
 		}
 		 for(Case c:casebase.getCases()){
-			 if(!testCases.getCases().contains(c)){
+			 
 				 trainCases.add(c);
-			 }
+			 
 		 }
-		
+		a.train(trainCases);
 	}
 
 }
