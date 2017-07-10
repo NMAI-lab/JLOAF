@@ -15,8 +15,8 @@ for i = 1:size(traces,1)
 	alldata = [alldata ; data];
 	seqlen = size(data, 1);		% number of data points
     %normalize data
-    trainData = mynormalize(data(:,1:size(data,2)-1));
-    data = [trainData, data(:,size(data,2))];
+%   trainData = mynormalize(data(:,1:size(data,2)-1));
+%   data = [trainData, data(:,size(data,2))];
 	datac = cell(VARS,seqlen);
 %	disp(['data size: ' num2str(size(data))]);
 %	disp(['datac size: ' num2str(size(datac))]);
