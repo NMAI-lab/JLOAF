@@ -48,8 +48,13 @@ public class Standardization extends CaseBaseFilter {
 		}
 		
 		SimilarityMetricStrategy Atomic_strat = new EuclideanDistance();
+		//create counts HashMap which contains the count values for each input key. This will make sure that the count of each column only goes up if it has been added back to the casebase
+		HashMap<String, Integer> counts = new HashMap<String, Integer>();
+		for(String key: inputs.keySet()){
+			counts.put(key, 0);
+		}
 		
-		int count = 0;
+		
 		for(Case c: initial.getCases()){
 			Set<String> childNames = ((ComplexInput)((StateBasedInput)c.getInput()).getInput()).getChildNames();
 			for(String key: childNames){
@@ -57,12 +62,13 @@ public class Standardization extends CaseBaseFilter {
 				for(String key2: secondChildNames){
 					for(String key3: inputs.keySet()){
 						if(key3.equals(key2)){
+							int count = counts.get(key3);
 							((ComplexInput)((ComplexInput)((StateBasedInput)c.getInput()).getInput()).getChildren().get(key)).getChildren().put(key3, new AtomicInput(key3,new Feature(inputs.get(key3).get(count)),Atomic_strat));
+							counts.put(key3, count+1);
 						}
 					}
 				}
 			}
-			count++;
 			
 		}
 		
