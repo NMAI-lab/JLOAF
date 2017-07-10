@@ -81,15 +81,25 @@ public class WeightedMean extends ComplexSimilarityMetricStrategy {
 		double totalDistance = 0.0;
 		
 		List<String> featureTypes = new ArrayList<String>(similarities.keySet());
+			int i=0;
 		for(String currentFeature : featureTypes){
 			double featureDistance = similarities.get(currentFeature);
 				
 			//apply the weight
+			
+			
 			double currentWeight = this.feat_weights.getWeight(currentFeature);
+			if(currentWeight==0){
+				i++;
+			}
 			totalDistance += featureDistance*currentWeight;
 		}
-		
-		return totalDistance/similarities.keySet().size();
+				int divider=similarities.keySet().size()-i;
+				if(divider==0)
+				{
+					divider=1;
+				}
+		return totalDistance/divider;
 		
 	}
 	public void setFeaturesWeights(HashMap<String,Double> featweights){
