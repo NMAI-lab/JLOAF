@@ -11,6 +11,7 @@ import matlabcontrol.MatlabProxyFactoryOptions;
 public class BayesianNetworkRemote {
 
 	 static int nextIndex = 1;
+	 double placeholder = 6.6;
 	    
 	    int index = 0;
 	    int XSIZE = 8, YSIZE = 1;
@@ -56,7 +57,7 @@ public class BayesianNetworkRemote {
 	            proxy.eval("evidence = cell(1," + (XSIZE + YSIZE) + ");");
 	      
 	            for(int i = 0;i<input.size();i++) {
-	            	if(input.get(i)!=301.5){
+	            	if(input.get(i)!=placeholder){
 	            		proxy.eval("evidence{" + (i+1) + "} = " + input.get(i) + ";");
 	            	}
 	            }

@@ -18,6 +18,9 @@ public class WeightsSeperatorFilter extends CaseBaseFilter {
 
 	@Override
 	public CaseBase filter(CaseBase initial) {
+		if(filter!=null){
+			initial=filter.filter(initial);
+		}
 		Input i=null;
 		for(Case c:initial.getCases()){
 		 i= ((StateBasedInput)c.getInput()).getInput();

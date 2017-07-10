@@ -20,7 +20,9 @@ public class DynamicBayesianReasoner extends Reasoning {
 	
 	DynamicBayesianNetworkRemote bnet = null;
 	List<Action> actions;
+	List<String> feature_names;
 	int EmIter = 10;
+	double placeholder = 6.6;
 	
 	int state = 0;//initial state variable
 	int new_state =0;//new state variable
@@ -31,7 +33,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 		super(null);
 		try {
 			actions = CaseBase.getActionNames(cb);
-			CaseBase.saveAsTrace(cb,output_filename, false);
+			feature_names = CaseBase.saveAsTrace(cb,output_filename, false);
 			int numFeatures = checkNumFeatures(output_filename);
 			bnet = new DynamicBayesianNetworkRemote(output_filename,numFeatures,EmIter);
 		} catch (IOException e) {
@@ -44,8 +46,13 @@ public class DynamicBayesianReasoner extends Reasoning {
 		i = ((StateBasedInput)i).getInput();
 		HashMap<String, Double> temp = CaseBase.convert(i);
 		List<Double> X = new ArrayList<Double>();
+		
+		for(int ii=0;ii<feature_names.size();ii++){X.add(placeholder);}
+		
 		for(String key: temp.keySet()){
-			X.add(temp.get(key)+1.0);
+			int index = feature_names.indexOf(key);
+			X.remove(index);
+			X.add(index, temp.get(key)+1.0);	
 		}
 		
 		List<Double> input = new ArrayList<Double>();
@@ -62,7 +69,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 			input.add((X.get(ii))); //add perceptions to the evidence
 		}
 		
-		action = bnet.getAction(input); //get the output of actions for the specific perceptions and state
+		action = bnet.getAction(input)-1; //get the output of actions for the specific perceptions and state
 
 		if(timestep >0){
 			state = new_state;//update the state
@@ -70,11 +77,17 @@ public class DynamicBayesianReasoner extends Reasoning {
 		
 		timestep++;
 		
-		return actions.get(action-1);
+		return actions.get(action);
 	}
 	
 	public void replaceLastAction(String action){
-		this.action = actions.indexOf(action);	
+		int index=0;
+		for(Action a: actions){
+			if(a.getName().equals(action)){
+				this.action = index;
+			}
+			index++;
+		}
 	}
 
 	@Override

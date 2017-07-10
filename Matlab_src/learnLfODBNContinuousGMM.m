@@ -4,6 +4,9 @@
 function [bnet,engine] = learnLfODBNContinuousGMM(traces,EMIterations,STATES,XSIZE,YSIZE)
 %function [bnet,engine] = learnLfODBN(traces,EMIterations,STATES,XSIZE,YSIZE)
 
+s = RandStream('mcg16807','Seed',0);
+RandStream.setGlobalStream(s);
+
 CSIZE = 1;
 VARS = CSIZE+XSIZE+YSIZE;	% we add one for the internal state
 alldata = [];
@@ -14,6 +17,9 @@ for i = 1:size(traces,1)
 %   data = data(1:100,:); 
 	alldata = [alldata ; data];
 	seqlen = size(data, 1);		% number of data points
+    %normalize data
+%   trainData = mynormalize(data(:,1:size(data,2)-1));
+%   data = [trainData, data(:,size(data,2))];
 	datac = cell(VARS,seqlen);
 %	disp(['data size: ' num2str(size(data))]);
 %	disp(['datac size: ' num2str(size(datac))]);
@@ -117,6 +123,12 @@ for i = 1:VARS
 end
 %bnet = renormalizeDBNdistributions(bnet);
 
+% for i=1:length(cases{1})*VARS
+%     if(cases{1}{i}==301.5)
+%         cases{1}{i}=[];
+%     end
+% end
+
 engine = smoother_engine(jtree_2TBN_inf_engine(bnet));
 %engine = jtree_dbn_inf_engine(bnet);
 %engine = jtree_unrolled_dbn_inf_engine(bnet, 5);
@@ -128,3 +140,13 @@ disp('Learning... LFODBN');
 %engine = jtree_dbn_inf_engine(bnet);
 %engine = jtree_unrolled_dbn_inf_engine(bnet, 5);
 engine = smoother_engine(jtree_2TBN_inf_engine(bnet));
+
+function[data] = mynormalize(data)
+%normalizes the data to zero mean and unit variance
+means = mean(data);
+stds = std(data);
+data1 = (data-repmat(means,length(data),1));
+for i=1:size(data,2)
+    data(:,i) = data1(:,i)/stds(i);
+end
+

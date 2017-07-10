@@ -20,6 +20,7 @@ public class BayesianReasoner extends Reasoning {
 	BayesianNetworkRemote bnet = null;
 	List<Action> actions;
 	List<String> feature_names;
+	double placeholder = 6.6;
 	
 	public BayesianReasoner(CaseBase cb, String output_filename) {
 		super(null);
@@ -47,7 +48,7 @@ public class BayesianReasoner extends Reasoning {
 		HashMap<String, Double> temp = CaseBase.convert(i);
 		List<Double> input = new ArrayList<Double>();
 		
-		for(int ii=0;ii<feature_names.size();ii++){input.add(301.5);}
+		for(int ii=0;ii<feature_names.size();ii++){input.add(placeholder);}
 		
 		for(String key: temp.keySet()){
 			int index = feature_names.indexOf(key);
