@@ -4,6 +4,9 @@
 function [bnet,engine] = learnLfODBNContinuousGMM(traces,EMIterations,STATES,XSIZE,YSIZE)
 %function [bnet,engine] = learnLfODBN(traces,EMIterations,STATES,XSIZE,YSIZE)
 
+s = RandStream('mcg16807','Seed',0);
+RandStream.setGlobalStream(s);
+
 CSIZE = 1;
 VARS = CSIZE+XSIZE+YSIZE;	% we add one for the internal state
 alldata = [];
