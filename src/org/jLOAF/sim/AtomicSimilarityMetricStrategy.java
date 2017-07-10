@@ -5,6 +5,7 @@ public abstract class AtomicSimilarityMetricStrategy implements SimilarityMetric
 	/**
 	 * 
 	 */
+	//hello
 	private static final long serialVersionUID = 1L;
 
 }
