@@ -33,6 +33,7 @@ public class SequentialBackwardGenerationTest extends FeatureSelectionTest{
 		sq.filter(cb);
 		//now after we filter the casebase, we need to check that the weight of the a1 input is zero
 		//the filter changes the weight map in the similarityWeights class.
+		System.out.println(sim2.getWeight("a")+ " "+sim2.getWeight("a1"));
 		assertTrue(sim2.getWeight("a")==1.0);
 		assertTrue(sim2.getWeight("a1")==0.0);
 		

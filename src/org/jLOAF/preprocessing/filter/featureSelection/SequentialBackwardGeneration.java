@@ -61,7 +61,7 @@ public class SequentialBackwardGeneration extends FeatureSelection{
 					}
 					
 					currentNode =open.remove(0);
-					evaluate(currentNode);
+					
 					if(currentNode.bigger(m_best,m_multiplier)){
 						
 						m_best=currentNode;
@@ -86,6 +86,7 @@ public class SequentialBackwardGeneration extends FeatureSelection{
 		for(String w : weights){
 			if(currentNode.exists(w)){
 				FeatureNode child = currentNode.remove(w);
+				evaluate(child);
 				placeInList(child);
 			}
 			

@@ -21,6 +21,7 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 	protected CaseBase trainCases;
 	protected ArrayList<FeatureNode> open;
 	protected Agent a;
+	private CaseBase cb;
 
 	public FeatureSelection(CaseBaseFilter fs){
 		super(fs);
@@ -74,13 +75,17 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 			if(filter!=null){
 				initial =filter.filter(initial);
 			}
+			cb=initial;
 			SplitTrainTest(initial);
 			Case c = (Case)initial.getCases().toArray()[0];
 			Weights sim1 =((Weights)((WeightedMean) (((StateBasedInput)c.getInput()).getInput().getSimilarityMetricStrategy())).getSimilarityWeights());
-			Weights sim2 =filterFeatures(((Weights)((WeightedMean) (((StateBasedInput)c.getInput()).getInput().getSimilarityMetricStrategy())).getSimilarityWeights())).getWeights();
-			if(!sim1.equals(sim2)){
-			sim1.copyWeights(sim2);
-			}
+			Weights sim2 =new SimilarityWeights();
+			sim2.copyWeights(sim1);
+			
+			Weights sim3 =filterFeatures(sim2).getWeights();
+			
+			sim1.copyWeights(sim3);
+			
 			
 		 return testCases;
 	}
@@ -91,7 +96,8 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 	protected void SplitTrainTest(CaseBase casebase){ 
 		
 		Random r = new Random();	
-		for(int i=0;i<casebase.getSize()*0.2;){
+		testCases.getCases().clear();
+		for(int i=0;i<casebase.getSize()*0.3;){
 			Case c =(Case)casebase.getCases().toArray()[r.nextInt(casebase.getSize())];
 				if(!testCases.getCases().contains(c)){
 					testCases.add(c);
