@@ -58,10 +58,10 @@ public class FeatureNode implements Comparable<FeatureNode> {
 		SimilarityWeights newWeights = new SimilarityWeights();
 		for(String w1:weights.getWeightedItems()){
 			if(w1.equals(w)){
-				newWeights.setFeatureWeight(w1, weights.getWeight(w1)+i);
-			}
+				newWeights.setFeatureWeight(w1, i);
+			}else{
 			newWeights.setFeatureWeight(w1, weights.getWeight(w1));
-			
+			}
 		}
 		FeatureNode newNode = new FeatureNode();
 		newNode.setWeights(newWeights);
@@ -69,7 +69,7 @@ public class FeatureNode implements Comparable<FeatureNode> {
 	}
 	public boolean bigger(FeatureNode featureNode) {
 		
-		return evaluateNumber>featureNode.getEvaluateNumber();
+		return evaluateNumber>=featureNode.getEvaluateNumber();
 	}
 	public void randomizeWeights(Weights allIn) {
 		Random r = new Random();
