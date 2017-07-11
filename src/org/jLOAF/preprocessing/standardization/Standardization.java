@@ -39,6 +39,7 @@ public class Standardization extends CaseBaseFilter {
 		HashMap<String,List<Double>> inputs = getFeatures(initial);	
 		List<Double> temp = new ArrayList<Double>();
 		
+		//Calculates the standardized values for each data point in the feature and places it in a list with the key value being the its name
 		for(String key: inputs.keySet()){
 			temp = inputs.get(key);
 			addValuestoSS(temp);
@@ -47,34 +48,48 @@ public class Standardization extends CaseBaseFilter {
 			ss.clear();
 		}
 		
-		SimilarityMetricStrategy Atomic_strat = new EuclideanDistance();
 		//create counts HashMap which contains the count values for each input key. This will make sure that the count of each column only goes up if it has been added back to the casebase
 		HashMap<String, Integer> counts = new HashMap<String, Integer>();
 		for(String key: inputs.keySet()){
 			counts.put(key, 0);
 		}
 		
-		
+		//gets the input from the stateBasedInput and passes it to a function that replaces the AtomicInputs with the standardized values. 
 		for(Case c: initial.getCases()){
-			Set<String> childNames = ((ComplexInput)((StateBasedInput)c.getInput()).getInput()).getChildNames();
-			for(String key: childNames){
-				Set <String> secondChildNames = ((ComplexInput)((ComplexInput)((StateBasedInput)c.getInput()).getInput()).getChildren().get(key)).getChildNames();
-				for(String key2: secondChildNames){
-					for(String key3: inputs.keySet()){
-						if(key3.equals(key2)){
-							int count = counts.get(key3);
-							((ComplexInput)((ComplexInput)((StateBasedInput)c.getInput()).getInput()).getChildren().get(key)).getChildren().put(key3, new AtomicInput(key3,new Feature(inputs.get(key3).get(count)),Atomic_strat));
-							counts.put(key3, count+1);
-						}
-					}
-				}
-			}
-			
+			Input i = ((StateBasedInput)c.getInput()).getInput();
+			replaceAtomicInputs(i,inputs,counts);
 		}
-		
 		
 		return initial;
 	}
+	/***
+	 * Takes an input that is not StateBased and a hashmap of inputs and standardized values
+	 * and replaces the input's atomicInputs with the standardized values.
+	 * @param Input, HashMap<String, List<Double>>
+	 * @author sachagunaratne 
+	 * ***/
+	private void replaceAtomicInputs(Input input, HashMap<String,List<Double>> inputs, HashMap<String, Integer> counts){
+		SimilarityMetricStrategy Atomic_strat = new EuclideanDistance();
+		
+		if (input instanceof ComplexInput){
+			Set<String> childNames = ((ComplexInput)input).getChildNames();
+			for(String key: childNames){
+				if(((ComplexInput)input).getChildren().get(key) instanceof ComplexInput){
+					replaceAtomicInputs(((ComplexInput)input).getChildren().get(key), inputs, counts);
+				}else if(((ComplexInput)input).getChildren().get(key) instanceof AtomicInput){
+					int count = counts.get(key);
+					((ComplexInput)input).getChildren().put(key, new AtomicInput(key,new Feature(inputs.get(key).get(count)),Atomic_strat));
+					counts.put(key, count+1);
+				}
+			}
+		}else if (input instanceof AtomicInput){
+			String key = ((AtomicInput)input).getName();
+			int count = counts.get(key);
+			((AtomicInput)input).setFeature(new Feature(inputs.get(key).get(count)));
+			counts.put(key, count+1);
+		}
+	}
+	
 	/**
 	 * Takes a list, a mean, and standard deviation. Standardizes the list.
 	 * @param List<Double>, double mean, double std
