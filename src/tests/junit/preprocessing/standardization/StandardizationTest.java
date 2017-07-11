@@ -101,4 +101,28 @@ public class StandardizationTest {
 		
 		assertEquals(input.get("goal_dist"),-0.7071,0.0001);
 	}
+	
+	@Test
+	/***
+	 * This test checks the functionality if each Case only contains one AtomicInput 
+	 * The AtomicInputs feature is changed using th setFeature method. 
+	 * ***/
+	public void AtomicInputTest(){
+		AtomicInput a1 = new AtomicInput("goal_dist", new Feature(20.0),a_sim);
+		AtomicInput a2 = new AtomicInput("goal_dist", new Feature(10.0),a_sim);
+		CaseBase cb = new CaseBase();
+		
+		cb.createThenAdd(a1,new AtomicAction("Kick"), stateBasedSim);
+		cb.createThenAdd(a2,new AtomicAction("Kick"), stateBasedSim);
+		
+		CaseBaseFilter standardize = new Standardization(null);
+		cb = standardize.filter(cb);
+		
+		HashMap<String, Double> input = new HashMap<String, Double>();
+		Case c = (Case)cb.getCases().toArray()[0];
+		Input i = ((StateBasedInput)c.getInput()).getInput();
+		input = CaseBase.convert(i);
+		
+		assertEquals(input.get("goal_dist"),0.7071,0.0001);
+	}
 }
