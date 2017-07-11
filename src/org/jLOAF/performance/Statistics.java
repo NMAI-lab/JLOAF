@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.jLOAF.performance.StatisticsBundle;
 import org.jLOAF.reasoning.DynamicBayesianReasoner;
+import org.jLOAF.reasoning.NeuralNetworkOrderKReasoner;
 import org.jLOAF.Agent;
 import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
@@ -37,6 +38,7 @@ public class Statistics {
 		Action predictedAction = agent.run(input.getInput());
 		//checks to see if DBN and then replace last action with correct action
 		if(agent.getR() instanceof DynamicBayesianReasoner){ ((DynamicBayesianReasoner) agent.getR()).replaceLastAction(correctAction.getName());}
+		if(agent.getR() instanceof NeuralNetworkOrderKReasoner){ ((NeuralNetworkOrderKReasoner) agent.getR()).replaceLastAction(correctAction.getName());}
 		addPair2ConfusionMatrix(correctAction.getName(),predictedAction.getName());
 	}
 	
