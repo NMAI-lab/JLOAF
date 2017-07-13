@@ -32,8 +32,8 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 				StateBasedInput st2 = (StateBasedInput)i2;
 				int sizeSt1 = st1.getSize();
 				int sizeSt2=st2.getSize();
-				int penalty =Math.abs(k-sizeSt2);
-				if(penalty > 5){
+				int penalty =Math.abs(k-Math.min(sizeSt2,sizeSt1));
+				if(penalty > 5 && k>Math.min(sizeSt2, sizeSt1)){
 					return 0;
 				}
 				double similarity = 0;

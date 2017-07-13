@@ -10,7 +10,7 @@ import org.jLOAF.sim.StateBasedSimilarity;
  * traces
  * @authore Ibrahim Ali Fawaz
  */
-public class WeightedStateBased extends StateBasedSimilarity 
+public class WeightedStateBasedSimilarity extends StateBasedSimilarity 
 {
 	/**
 	 * 
@@ -36,10 +36,10 @@ public class WeightedStateBased extends StateBasedSimilarity
 				
 				double similarity = 0;
 				int count=0;
-				int multiplyer;//hello2
+				int multiplyer;
 
 				for(int i=0;i<Math.min(sizeSt1, sizeSt2);i=i+2){
-					multiplyer=weight/i+1;
+					multiplyer=weight/(i+1);
 					if(multiplyer==0){
 						multiplyer=1;
 					}
