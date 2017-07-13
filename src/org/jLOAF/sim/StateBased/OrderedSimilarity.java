@@ -39,8 +39,11 @@ public class OrderedSimilarity extends StateBasedSimilarity {
 						
 						similarity+=st1.getAction(i+1).similarity(st2.getAction(i+1));}
 				}
-				
-				return (similarity-(similarity*penalty/10))/(Math.min(sizeSt1, sizeSt2));
+				double k=(similarity-(similarity*penalty/10));
+				if(k<0){
+					k=0;
+				}
+				return k/(Math.min(sizeSt1, sizeSt2));
 	}
 
 }
