@@ -38,10 +38,14 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 				}
 				double similarity = 0;
 				for(int i=0;i<k;i=i+2){
-					if(i==sizeSt1 ||i==sizeSt2){
+					if(i>sizeSt1 ||i>sizeSt2){
 						break;
 					}
+					try{
 					similarity+=st1.getInput(i).similarity(st2.getInput(i));
+					}catch(NullPointerException e){
+						System.out.print(e);
+					}
 					if(i+1 <Math.min(sizeSt1, sizeSt2) && i+1 <k){
 						
 						similarity+=st1.getAction(i+1).similarity(st2.getAction(i+1));}
