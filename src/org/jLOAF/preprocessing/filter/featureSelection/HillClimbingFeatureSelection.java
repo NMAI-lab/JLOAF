@@ -22,12 +22,12 @@ public class HillClimbingFeatureSelection extends FeatureSelection {
 	 * @param fs a caseBaseFilter to be passed to a filter method, as part of the chain of responsibility design patter
 	 * @param goalValue the best performance the user would like to get for a set of features
 	 */
-	public HillClimbingFeatureSelection(CaseBaseFilter fs,double goalValue){
+	public HillClimbingFeatureSelection(CaseBaseFilter fs){
 		super(fs);
 		
 		currentNode = new FeatureNode();
 		
-		this.goalValue=goalValue;
+	
 	}
 	
 	
@@ -36,9 +36,7 @@ public class HillClimbingFeatureSelection extends FeatureSelection {
 		currentNode.setWeights(allIn);
 		evaluate(currentNode);
 		double acc= currentNode.getEvaluateNumber();
-		if(acc==goalValue ){
-			return currentNode;
-		}
+		
 		FeatureNode s =currentNode;
 		currentNode =getHighestBetweenLocalNeighbours(currentNode);
 			

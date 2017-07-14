@@ -4,6 +4,7 @@ import org.jLOAF.casebase.CaseBase;
 
 public abstract class CaseBaseFilter {
 	
+		
 		protected CaseBaseFilter filter;
 		public CaseBaseFilter(CaseBaseFilter f){
 			filter=f;
@@ -22,4 +23,11 @@ public abstract class CaseBaseFilter {
 	
 	
 	public abstract CaseBase filter(CaseBase initial);
+	public void setFilter(CaseBaseFilter filter){
+		this.filter=filter;
+	}
+
+	public static CaseBaseFilter getFilter(String string) {
+		return Filters.valueOf(string).getFilter();
+	}
 }

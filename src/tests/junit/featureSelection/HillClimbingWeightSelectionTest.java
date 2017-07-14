@@ -18,7 +18,7 @@ public class HillClimbingWeightSelectionTest extends FeatureSelectionTest{
 	
 	@Test
 	public void testWeightSelection(){
-		CaseBaseFilter sq = new HillClimbingFeatureSelection(null,0.9);
+		CaseBaseFilter sq = new HillClimbingFeatureSelection(null);
 		sq.filter(cb);
 		System.out.println(sim2.getWeight("a"));
 		System.out.println(sim2.getWeight("a1"));

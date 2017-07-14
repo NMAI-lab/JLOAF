@@ -15,6 +15,7 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 	private static final long serialVersionUID = 1L;
 		//k is how many steps you want to go back in the trace
 		private int k;
+		int bla=0;
 		public KOrderedSimilarity(int k){
 			this.k=k;
 		}
@@ -33,6 +34,7 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 				int sizeSt1 = st1.getSize();
 				int sizeSt2=st2.getSize();
 				int penalty =0;
+				bla++;
 				penalty =Math.abs(sizeSt1-sizeSt2);
 				if(k>Math.min(sizeSt2, sizeSt1)+5){
 				 
@@ -62,10 +64,11 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 				}
 				
 				
-				similarity=(similarity-(similarity*penalty/10));
+				similarity=(similarity-((similarity*penalty)/10));
 					if(similarity<0){
 						return 0;
 					}
+					
 				return similarity/k;
 	}
 
