@@ -67,7 +67,7 @@ public class CaseBase implements Serializable{
 	 * Sacha Gunaratne 2017 May
 	 * **/
 	
-	private void addCaseBase(CaseBase cbnew){
+	public void addCaseBase(CaseBase cbnew){
 		for(Case c: cbnew.getCases()){
 			cb.add(c);
 		}

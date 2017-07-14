@@ -21,17 +21,14 @@ public class BayesianReasoner extends Reasoning {
 	List<Action> actions;
 	List<String> feature_names;
 	double placeholder = 6.6;
+	CaseBase cb;
+	String output_filename;
+	boolean train = true;
 	
 	public BayesianReasoner(CaseBase cb, String output_filename) {
 		super(null);
-		try {
-			actions = CaseBase.getActionNames(cb);
-			feature_names = CaseBase.saveAsTrace(cb,output_filename, false);
-			int numFeatures = checkNumFeatures(output_filename);
-			bnet = new BayesianNetworkRemote(output_filename,numFeatures,1);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.output_filename = output_filename;
+		this.cb = cb;
 	}
 
 	@Override
@@ -44,6 +41,19 @@ public class BayesianReasoner extends Reasoning {
 	
 	@Override
 	public Action selectAction(Input i){
+		
+		if(train){
+			try {
+				actions = CaseBase.getActionNames(cb);
+				feature_names = CaseBase.saveAsTrace(cb,output_filename, false);
+				int numFeatures = checkNumFeatures(output_filename);
+				bnet = new BayesianNetworkRemote(output_filename,numFeatures,1);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			train = false;
+		}
+		
 		i = ((StateBasedInput)i).getInput();
 		HashMap<String, Double> temp = CaseBase.convert(i);
 		List<Double> input = new ArrayList<Double>();

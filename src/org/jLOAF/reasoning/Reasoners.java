@@ -7,7 +7,7 @@ import org.jLOAF.casebase.CaseBase;
 
 public enum Reasoners {
 		 cb(new CaseBase()),weightedKNN(new WeightedKNN(5,cb.returnCaseBase())),KNN(new SimpleKNN(5,cb.returnCaseBase())),
-		 TB(new TBReasoning(cb.returnCaseBase()));
+		 TB(new TBReasoning(cb.returnCaseBase())),bayesian(new BayesianReasoner(cb.returnCaseBase(),"bayesian_reactive.txt"));
 	
 		CaseBase cbr;
 		Reasoning r;
@@ -24,6 +24,6 @@ public enum Reasoners {
 			return cbr;
 		}
 		public void setCaseBase(CaseBase cb1){
-			cbr.addListOfCaseBases((List)cb1.getCases());
+			cbr.addCaseBase(cb1);
 		}
 }
