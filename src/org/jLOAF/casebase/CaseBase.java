@@ -226,11 +226,14 @@ public class CaseBase implements Serializable{
 				for(String key3: inputs.keySet()){
 					List<Double> results = inputs.get(key3);
 					//System.out.println("Results size: "+ results.size());
-					if(jj==3651){
+					if(jj==3428){
 						leave = true;
 						break;
 					}
 					double val = results.get(jj);
+					if(Double.isNaN(val)){
+						System.out.println("hello");
+					}
 					val += 1.0;
 					f1.write(String.valueOf(val));
 					f1.write(",");

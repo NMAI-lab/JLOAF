@@ -30,7 +30,7 @@ public class Standardization extends CaseBaseFilter {
 	}
 
 	@Override
-	public CaseBase filter(CaseBase initial) {
+	public CaseBase filter(CaseBase initial) { 
 		
 		if(filter!=null){
 			initial=filter.filter(initial);
@@ -43,7 +43,9 @@ public class Standardization extends CaseBaseFilter {
 		for(String key: inputs.keySet()){
 			temp = inputs.get(key);
 			addValuestoSS(temp);
-			temp = standardized(temp, ss.getMean(),ss.getStandardDeviation());
+			if(!key.equals("goalSeenR")&&!key.equals("goalSeenL")&&!key.equals("ballSeen")){
+				temp = standardized(temp, ss.getMean(),ss.getStandardDeviation());
+			}
 			inputs.put(key, temp);
 			ss.clear();
 		}

@@ -59,7 +59,7 @@ end
 
 %removes the missing values from the cases
 for i = 1:length(cases)*VARS
-    if cases{i}==301.5
+    if cases{i}==7.6
         cases{i}=[];
     end
 end
