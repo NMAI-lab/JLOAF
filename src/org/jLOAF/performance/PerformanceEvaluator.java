@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import org.jLOAF.Agent;
+import org.jLOAF.Reasoning;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
@@ -52,7 +53,7 @@ public abstract class PerformanceEvaluator {
 	 * and prints out performance data as well as saves to a csv
 	 * @throws IOException 
 	 * ***/
-	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String output_stats) throws IOException{
+	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String output_stats,String r) throws IOException{
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
@@ -110,6 +111,7 @@ public abstract class PerformanceEvaluator {
 			//add function to split casebase into cb and tb
 			//SplitTrainTest(cb);
 			
+			agent.setR(Reasoning.getReasoner(r, cb));
 			agent.train(cb);
 			Statistics stats_module = new Statistics(agent);
 			

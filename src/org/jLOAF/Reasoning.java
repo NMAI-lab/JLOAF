@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
+import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.reasoning.Reasoners;
 import org.jLOAF.retrieve.Retrieval;
 
 public abstract class Reasoning {
@@ -54,6 +56,9 @@ public abstract class Reasoning {
 		return action;
 	}
 
-	
+	public static Reasoning getReasoner(String a,CaseBase cb){
+			Reasoners.valueOf("cb").setCaseBase(cb);
+		return Reasoners.valueOf(a).getR();
+	}
 	
 }
