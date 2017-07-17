@@ -14,7 +14,7 @@ import org.jLOAF.weights.SimilarityWeights;
 import org.jLOAF.weights.Weights;
 import org.jLOAF.sim.complex.WeightedMean;
 
-public abstract class FeatureSelection extends CaseBaseFilter {
+public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 	
 	protected Statistics st;
 	protected CaseBase testCases;
@@ -23,7 +23,7 @@ public abstract class FeatureSelection extends CaseBaseFilter {
 	protected Agent a;
 	private CaseBase cb;
 
-	public FeatureSelection(CaseBaseFilter fs){
+	public FeatureSelectionAlgorithm(CaseBaseFilter fs){
 		super(fs);
 		a = new GenericAgent();
 		st=new Statistics(a);

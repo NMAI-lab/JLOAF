@@ -14,7 +14,7 @@ public class TestingConfig {
 	
 	public String[] getFileNames(String[] args){
 		//create an array that has all the strings between the two words files.
-		
+		System.out.println("got the files");
 		return returnStrings("files",args);
 	}
 	public String getOutputFileName(String[] args){

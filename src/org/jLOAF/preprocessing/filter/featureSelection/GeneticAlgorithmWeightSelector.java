@@ -14,7 +14,7 @@ import org.jLOAF.weights.Weights;
  * @since 2017 June
  * 
  * ***/
-public class GeneticAlgorithmWeightSelector extends FeatureSelection {
+public class GeneticAlgorithmWeightSelector extends FeatureSelectionAlgorithm {
 	Random r;
 	private int numberOfPopulation=4;
 	public GeneticAlgorithmWeightSelector(CaseBaseFilter fs) {
