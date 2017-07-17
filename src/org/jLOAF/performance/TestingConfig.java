@@ -69,6 +69,14 @@ public class TestingConfig {
 		f=arguments.toArray(f);
 		return f;
 	}
+	public String getStSim(String[] args) {
+	
+		return returnStrings("stsim",args)[0];
+		
+				}
+	public String getCpSim(String[] args) {
+		return returnStrings("cpsim",args)[0];
+	}
 	
 }
 
