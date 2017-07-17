@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-
-
+import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.weights.SimilarityWeights;
 import org.jLOAF.weights.Weights;
 /**
@@ -18,7 +17,7 @@ import org.jLOAF.weights.Weights;
 public class GeneticAlgorithmWeightSelector extends FeatureSelection {
 	Random r;
 	private int numberOfPopulation=4;
-	public GeneticAlgorithmWeightSelector(FeatureSelection fs) {
+	public GeneticAlgorithmWeightSelector(CaseBaseFilter fs) {
 		super(fs);
 		r = new Random();
 	}
