@@ -10,7 +10,7 @@ import org.jLOAF.performance.Statistics;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.weights.Weights;
 
-public class SequentialBackwardGeneration extends FeatureSelection{
+public class SequentialBackwardGeneration extends FeatureSelectionAlgorithm{
 	
 	
 	private int m_k;
