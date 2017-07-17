@@ -65,9 +65,11 @@ public class TestingConfig {
 				break;
 			}
 		}
-		
-		return (String[])arguments.toArray();
+		String[] f=new String[arguments.size()];
+		f=arguments.toArray(f);
+		return f;
 	}
+	
 }
 
 	

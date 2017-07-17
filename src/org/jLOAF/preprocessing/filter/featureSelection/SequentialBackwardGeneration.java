@@ -7,6 +7,7 @@ import java.util.Set;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.performance.Statistics;
+import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.weights.Weights;
 
 public class SequentialBackwardGeneration extends FeatureSelection{
@@ -19,7 +20,7 @@ public class SequentialBackwardGeneration extends FeatureSelection{
 	
 	
 
-	public SequentialBackwardGeneration(FeatureSelection fs,int k, double epsilon){
+	public SequentialBackwardGeneration(CaseBaseFilter fs,int k, double epsilon){
 		super(fs);
 		//check parameters
 		if(k < 1){
