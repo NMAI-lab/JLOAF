@@ -7,15 +7,26 @@ import java.util.List;
 import java.util.Set;
 
 import org.jLOAF.util.CsvWriter;
-
+/**
+ * This class calculates the Mean and Standard Deviation of multiple test set results.
+ * @author sachagunaratne
+ *
+ */
 public class PerformanceMeasureCalculator {
 	List<HashMap<String, Float>> AllStats;
 	int numMaps;
+	/**
+	 * @param AllStats A list of HashMaps containing all the stats for each test
+	 */
 	public PerformanceMeasureCalculator(List<HashMap<String, Float>> AllStats){
 		this.AllStats = AllStats;
 		numMaps = AllStats.size();
 	}
 	
+	/**
+	 * Calculates all the stats by calling all the helper functions.
+	 * Prints out the stats to the console. 
+	 */
 	public void CalculateAllStats(){
 		HashMap<String, Float> mean = calcMean();
 		HashMap<String, HashMap<String, Float>> matrix = calcMatrix();
@@ -31,6 +42,10 @@ public class PerformanceMeasureCalculator {
 		System.out.format("|%45s| \n", "_______________________________________________");
 	}
 	
+	/**
+	 * Calculates the Mean of each statistic for each test.
+	 * @return A HashMap containing the mean across each statistic for all the tests
+	 */
 	public HashMap<String, Float> calcMean(){
 		HashMap<String, Float> mean = new HashMap<String, Float>();
 		for(HashMap<String, Float> stats: AllStats){
@@ -55,6 +70,10 @@ public class PerformanceMeasureCalculator {
 		return mean;
 	}
 	
+	/**
+	 * Puts the list of HashMaps into HashMap
+	 * @return A HashMap containing all the HashMaps containing Statistics
+	 */
 	public HashMap<String, HashMap<String, Float>> calcMatrix(){
 		HashMap<String, HashMap<String, Float>> matrix = new HashMap<String, HashMap<String, Float>>();
 		int count = 0;
@@ -65,6 +84,12 @@ public class PerformanceMeasureCalculator {
 		return matrix;
 	}
 	
+	/**
+	 * Calculates the Standard deviation for each statstic and returns it in a HashMap
+	 * @param mean HashMap containing Means of statistics
+	 * @param matrix HashMap of statistics
+	 * @return HashMap with Standard Deviations for each Statistic
+	 */
 	public HashMap<String, Float> calcStDev(HashMap<String, Float> mean, HashMap<String, HashMap<String, Float>> matrix){
 		HashMap<String, Float> tempfeatures = new HashMap<String, Float>();
 		HashMap<String, HashMap<String, Float>> indexnum = new HashMap<String, HashMap<String, Float>>();
@@ -104,7 +129,11 @@ public class PerformanceMeasureCalculator {
 		return tempfeatures2;
 	}
 	
-	public static void main(String a[]){
+	/**
+	 * Sample test function that tests the above functions. 
+	 * @param args
+	 */
+	public static void main(String args[]){
 		//little test
 		
 		HashMap<String, Float> stats1 = new HashMap<String, Float>();
