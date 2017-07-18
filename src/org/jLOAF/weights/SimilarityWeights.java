@@ -2,7 +2,7 @@ package org.jLOAF.weights;
 
 
 /***
- * Weights can take on values from [1,inf] giving more weight to more important features and less weight to features
+ * Weights can take on values from [0,inf] giving more weight to more important features and less weight to features
  * that are less important. The weights are valued this way because the higher the similarity the better.
  * @author micheal floyd, sacha gunaratne
  * @since 2017 may
@@ -17,7 +17,8 @@ public class SimilarityWeights extends Weights {
 	
 	/***
 	 * Sets weights for each feature by name
-	 * @param feature name, weight
+	 * @param feat_name the name of the feature
+	 * @param weight double value of the weight
 	 * @return none
 	 * ***/
 	public void setFeatureWeight(String feat_name, double weight){

@@ -16,14 +16,17 @@ public abstract class Weights implements Serializable {
 	}
 
 	HashMap<String,Double> weights = new HashMap<String,Double>();
-	
+	/**
+	 * Return the weights
+	 * @return weights
+	 */
 	public HashMap<String, Double> getWeights() {
 		return weights;
 	}
 
 	/***
 	 * returns the weight for a given feature
-	 * @param feature name
+	 * @param feat_name Name of feature
 	 * @return weight
 	 * ***/
 	public double getWeight(String feat_name){
@@ -32,10 +35,18 @@ public abstract class Weights implements Serializable {
 		return weights.get(feat_name);
 	}
 	
+	/**
+	 * Returns a set of keys
+	 * @return Set<String> keysets
+	 */
 	public Set<String> getWeightedItems(){
 		return weights.keySet();
 	}
-
+	
+	/**
+	 * Copies weights into the current objects weights
+	 * @param weights2
+	 */
 	public void copyWeights(Weights weights2) {
 		weights.clear();
 		for(String w:weights2.getWeightedItems()){
