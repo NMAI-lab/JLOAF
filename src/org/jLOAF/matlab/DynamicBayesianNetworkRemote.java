@@ -6,7 +6,7 @@ import matlabcontrol.MatlabProxy;
 import matlabcontrol.MatlabProxyFactory;
 import matlabcontrol.MatlabProxyFactoryOptions;
 
-/***
+/**
  * @author sachagunaratne
  * 
  * This class creates a DBN in matlab and trains it using the provided trace
@@ -19,7 +19,12 @@ public class DynamicBayesianNetworkRemote {
 	
 	public static MatlabProxy proxy = null;    
 	static int STATES = 4;
-	
+	/**
+	 * This function proxyes Matlab and calls learnLfODBNContinuousGMM() which creates and trains a DBN using the provided trace data.
+	 * @param trace the name of the tracefile
+	 * @param a_XSIZE the number of features
+	 * @param Em_iter the number of EM iterations to run before terminating.
+	 */
 	public DynamicBayesianNetworkRemote(String trace, int a_XSIZE, int Em_iter){
 		
 		String matlabCommand = "[dbn,bnetengine] = learnLfODBNContinuousGMM([";
@@ -49,6 +54,8 @@ public class DynamicBayesianNetworkRemote {
 	 * @param list of input values
 	 * 
 	 * @return an integer state value
+	 * 
+	 * @author sachagunaratne
 	 * ***/
 	public int getInitialState(List<Double> x) {
 		try {
@@ -68,6 +75,7 @@ public class DynamicBayesianNetworkRemote {
 	 * @param list of input values, integer past state
 	 * 
 	 * @return an integer state value
+	 * @author sachagunaratne
 	 * ***/
 	public int getNewState(List<Double> x, int action, int state) {
 		try {
@@ -87,6 +95,7 @@ public class DynamicBayesianNetworkRemote {
 	 * @param list of input which contain the input as well as the current state
 	 * 
 	 * @return an integer action value
+	 * @author sachagunaratne
 	 * ***/
 	public int getAction(List<Double> input) {
 		try {
