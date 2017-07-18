@@ -8,7 +8,7 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.preprocessing.filter.Cluster;
 
-/*
+/**
  * this class is used to cluster casebases, it puts similar cases in one cluster,the picks one of them to add it to the new casebase
  * removing almost duplicated cases
  * @author Ibrahim Ali Fawaz
@@ -19,9 +19,9 @@ public class Clustering extends CaseBaseFilter {
 	private HashMap<Case,Cluster> clusters;
 	private double td =0.95;
 	
-	/*
+	/**
 	 * Constructor
-	 * 
+	 * @see org.JLOAF.preprocessing.filter.CaseBaseFilter
 	 */
 	public Clustering(CaseBaseFilter f){
 		super(f);

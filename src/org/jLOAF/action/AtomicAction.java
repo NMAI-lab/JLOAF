@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jLOAF.inputs.Feature;
-
+/*
+ * an Atomic Action is the Atomic level of an Action, it can only take one feature, and has a name, usually the name represents the action itself.
+ * usually atomic actions are within complexActions.
+ */
 public class AtomicAction extends Action {
 
 	private static final long serialVersionUID = 1L;
@@ -12,15 +15,25 @@ public class AtomicAction extends Action {
 	protected Feature feat;
 	
 	
-
+	/*
+	 * Constructor that constructs the atomic Action ny given it a name.
+	 * @param name the name of the action, or the action itself.
+	 */
 	public AtomicAction(String name) {
 		super(name);
 		
 	}
-
+	/*
+	 * sets the feature of the action
+	 * @param f the feature of the action.
+	 */
 	public void setFeature(Feature f){
 		feat= f;
 	}
+	/*
+	 * returns the feature of the action
+	 * @return the feature of the action
+	 */
 	public Feature getFeature(){
 		return feat;
 	}
@@ -29,7 +42,13 @@ public class AtomicAction extends Action {
 	
 	
 	
-	
+	/*
+	 * returns the similarity between two actions, by first using the similarity method of the parent class,then if the names were the same, it checks
+	 * their features.
+	 * @param the action to be compared to this action.
+	 * @return the simialiry between two actions
+	 * @see org.jLOAF.action.Action#similarity(org.jLOAF.action.Action)
+	 */
 	public double similarity(Action action) {
 		
 		AtomicAction action1 = (AtomicAction)action;
