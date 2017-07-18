@@ -13,7 +13,13 @@ import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.weights.SimilarityWeights;
 import org.jLOAF.weights.Weights;
 import org.jLOAF.sim.complex.WeightedMean;
-
+/**
+ * this class extends the caseBaseFilter class and follows the decorator design pattern as well,
+ * but it also the parent of all the classes that has to do with the weights of the features,
+ * usually this filters are used when the inputs used in the cases have a weightedMean similarity.
+ * @author Ibrahim Ali Fawaz
+ *
+ */
 public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 	
 	protected Statistics st;
@@ -22,7 +28,10 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 	protected ArrayList<FeatureNode> open;
 	protected Agent a;
 	private CaseBase cb;
-
+	/**
+	 * 
+	 * @param fs the caseBaseFilter to be passed to this filter
+	 */
 	public FeatureSelectionAlgorithm(CaseBaseFilter fs){
 		super(fs);
 		a = new GenericAgent();
@@ -32,7 +41,10 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 		trainCases= new CaseBase();
 	}
 	
-	
+	/**
+	 * this method evaluate the given node, and then sets all its statistics information.
+	 * @param allIn the FeatureNode to be evaluated
+	 */
 	protected void evaluate(FeatureNode allIn) {
 		st.getStatisticsHashMap().clear();
 		Case c =(Case) testCases.getCases().toArray()[0];
@@ -48,7 +60,11 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 	allIn.setEvaluateNumber(st.getStatisticsBundle().getPrimaryStatistic());
 	st= new Statistics(st.getAgent());
 	}
-	
+	/**
+	 * places a given node in its right place in the open list,
+	 * usually the biggest node is placed at the front
+	 * @param child the FeatureNode to be placed in the open list
+	 */
 	protected void placeInList(FeatureNode child) {
 		boolean placed = false;
 	
@@ -90,9 +106,17 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 		 return testCases;
 	}
 
-
+	/**
+	 * returns a single feature node that has the last state of the weights of the feature,
+	 * this method is overriden by all the subclasses of this class. and it is called in the filter method of this class
+	 * @param allIn the initial state of the weights of the features
+	 * @return single feature node that has the last state of the weights of the feature,
+	 */
 	protected abstract FeatureNode filterFeatures(Weights allIn);
-		
+		/**
+		 * chooses randomly 20 percent of the casebase cases to pass them to the test casebases, and the whole casebase cases are trained by the agent.
+		 * @param casebase the casebase to be trained and split
+		 */
 	protected void SplitTrainTest(CaseBase casebase){ 
 		
 		Random r = new Random();	

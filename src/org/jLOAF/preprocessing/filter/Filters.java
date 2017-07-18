@@ -6,7 +6,13 @@ import org.jLOAF.preprocessing.filter.featureSelection.GeneticAlgorithmWeightSel
 import org.jLOAF.preprocessing.filter.featureSelection.HillClimbingFeatureSelection;
 import org.jLOAF.preprocessing.filter.featureSelection.SequentialBackwardGeneration;
 import org.jLOAF.preprocessing.filter.featureSelection.WeightsSeperatorFilter;
-
+/**
+ * this enum is only used for testing purposes, it is used to return an instance of a casebase filter, which corresponds to the string representation
+ * of its name.
+ * 
+ * @author Ibrahim Ali Fawaz
+ *
+ */
 public enum Filters {
 
 	clustering(new Clustering(null)),sampling(new Sampling(null)),geneticAlgorithm(new GeneticAlgorithmWeightSelector(null))
@@ -14,11 +20,15 @@ public enum Filters {
 	,weightsSeperator(new WeightsSeperatorFilter(null));
 	
 		CaseBaseFilter fs ;
+		
 	Filters(CaseBaseFilter fs){
 		this.fs=fs;
 	}
 	
-	
+	/**
+	 * 
+	 * @return the caseBase filter of this enumerated element
+	 */
 	public CaseBaseFilter getFilter(){
 		return fs;
 	}

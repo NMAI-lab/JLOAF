@@ -6,19 +6,23 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.reasoning.SimpleKNN;
 import org.jLOAF.reasoning.WeightedKNN;
-
+/**
+ * preprocess the casebase by only adding a case into the casebase if the prediction of the action using the current casebase is wrong
+ * return the new casebase
+ * @author sacha gunaratne 
+ * @since 2017 may
+ * ***/
 public class Sampling extends CaseBaseFilter {
+	/**
+	 * Constructor 
+	 * @param f the CasebaseFilter to be passed to this filter
+	 */
 	public Sampling(CaseBaseFilter f) {
 		super(f);
 		
 	}
 
-	/***
-	 * preprocess the casebase by only adding a case into the casebase if the prediction of the action using the current casebase is wrong
-	 * return the new casebase
-	 * @author sacha gunaratne 
-	 * @since 2017 may
-	 * ***/
+	
 	@Override
 	public CaseBase filter(CaseBase initial) {
 		if(filter!=null){
