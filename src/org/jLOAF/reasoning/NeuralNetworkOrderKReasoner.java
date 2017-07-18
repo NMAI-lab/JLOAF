@@ -17,7 +17,11 @@ import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.matlab.NeuralNetworkOrderKRemote;
 
-
+/**
+ *  This class creates a NeuralNetworkKOrderReasoner that has a NeuralNetworkOrderKRemote instance.
+ * @author sachagunaratne
+ *
+ */
 public class NeuralNetworkOrderKReasoner extends Reasoning {
 	NeuralNetworkOrderKRemote nnet; 
 	List<Action> actions;
@@ -77,7 +81,14 @@ public class NeuralNetworkOrderKReasoner extends Reasoning {
 			e.printStackTrace();
 		}
 	}
-
+	
+	
+	/**
+	 * This method takes an input, converts it into a list and passes it to NeuralNetworkRemote to get the most likely action.
+	 * 
+	 * @param i An Input
+	 * @return Action The most probable action
+	 */
 	@Override
 	public Action selectAction(Input i){
 		i = ((StateBasedInput)i).getInput();
@@ -107,6 +118,8 @@ public class NeuralNetworkOrderKReasoner extends Reasoning {
 	/***
 	 * Calculates the number of features by reading the csv file that was created using CaseBase.SaveAsTrace
 	 * @author sachagunaratne
+	 * @param Filename the trace file
+	 * @return int numFeature the number of features in the trace file
 	 * ***/
 	private int checkNumFeatures(String filename) throws IOException{
 		BufferedReader br=null;
@@ -130,6 +143,10 @@ public class NeuralNetworkOrderKReasoner extends Reasoning {
 	}
 	
 	 //new replaceLast action - modular
+	/**
+	 * Replaces the last action with the correct Action
+	 * @param action
+	 */
     public void replaceLastAction(String action){
     	for(int i=0;i<actions.size();i++){
     		if(actions.get(i).equals(action)) nnet.replaceLastAction(i);

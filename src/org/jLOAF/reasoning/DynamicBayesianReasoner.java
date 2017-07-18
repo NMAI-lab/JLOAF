@@ -15,7 +15,11 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.matlab.DynamicBayesianNetworkRemote;
-
+/**
+ * This class creates a DynamicBayesianReasoner which has a DynamicBayesianNetworkRemote. 
+ * @author sachagunaratne
+ *
+ */
 public class DynamicBayesianReasoner extends Reasoning {
 	
 	DynamicBayesianNetworkRemote bnet = null;
@@ -41,6 +45,16 @@ public class DynamicBayesianReasoner extends Reasoning {
 		}
 	}
 	
+	
+	/**
+	 * This method takes and input, sets the inputs in the correct index based on the indices of the feature names, and then depending on the timesetep
+	 * will get the intiialState or newState, add it onto the list of inputs and pass it on to the getAction function.
+	 * This will return the most probable action as an integer.
+	 * The state is updated and the most probable action is returned
+	 *  
+	 * @param i An input
+	 * @return An Action The most probable action
+	 */
 	@Override
 	public Action selectAction(Input i){
 		i = ((StateBasedInput)i).getInput();
@@ -79,7 +93,10 @@ public class DynamicBayesianReasoner extends Reasoning {
 		
 		return actions.get(action);
 	}
-	
+	/**
+	 * Replaces the action of the agent with the correct action. 
+	 * @param action
+	 */
 	public void replaceLastAction(String action){
 		int index=0;
 		for(Action a: actions){
@@ -90,6 +107,11 @@ public class DynamicBayesianReasoner extends Reasoning {
 		}
 	}
 
+	/**
+	 * There is no returning a list of cases in this situation so we don't use this method
+	 * @param nn A list of the top K cases
+	 * @return null 
+	 * *
 	@Override
 	public Action mostLikelyAction(List<Case> nn) {
 		return null;
@@ -98,6 +120,8 @@ public class DynamicBayesianReasoner extends Reasoning {
 	/***
 	 * Calculates the number of features by reading the csv file that was created using CaseBase.SaveAsTrace
 	 * @author sachagunaratne
+	 * @param filename The trace file
+	 * @return numFeatures the number of features present in the tracefile
 	 * ***/
 	private int checkNumFeatures(String output_filename) throws IOException{
 		BufferedReader br=null;
