@@ -4,7 +4,11 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
-
+/**
+ * This class calculates the Euclidean distance between two inputs.
+ * @author sachagunaratne
+ *
+ */
 public class EuclideanDistance extends AtomicSimilarityMetricStrategy {
 	
 	/**
@@ -12,8 +16,10 @@ public class EuclideanDistance extends AtomicSimilarityMetricStrategy {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	//calculates the Euclidean distance between objects - can only be used with weighted knn
-	//the larger the better , can be used for any type of value ranges between [0,1]
+	/**
+	 * Calculates the Euclidean distance between two inputs and converts it into a similarity value ranging between [0,1]
+	 *  @see org.jLOAF.sim.SimilarityMetricStrategy
+	 */
 	@Override
 	public double similarity(Input i1, Input i2) {
 		if(!(i1 instanceof AtomicInput) || !(i2 instanceof AtomicInput)){
