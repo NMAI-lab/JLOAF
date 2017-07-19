@@ -10,6 +10,20 @@ import org.jLOAF.performance.Statistics;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.weights.Weights;
 
+/** The Sequential Backward Generation wrapper algorithm described in
+ * 
+ * R. Kohavi, Wrapper for Performance Enhancement and Oblivious Decision
+ * Graphs, PhD thesis, Stanford University, 1995.
+ * 
+ * The algorithm initially starts with with a complete feature set and then
+ * "opens" that set by examining all possible feature sets that exist by removing
+ * a single feature. The feature set with the highest evaluation is likewise
+ * "opened". This process continues until there is not a significant increase 
+ * in the evaluation of feature sets for k "openings".
+ * 
+ * @author Michael W. Floyd
+ * @since 0.5
+ */
 public class SequentialBackwardGeneration extends FeatureSelectionAlgorithm{
 	
 	
@@ -40,7 +54,7 @@ public class SequentialBackwardGeneration extends FeatureSelectionAlgorithm{
 		
 		
 	}
-	
+	@Override
 	public FeatureNode filterFeatures(Weights allIn){
 		FeatureNode currentNode = new FeatureNode();
 			currentNode.setWeights(allIn);
@@ -79,8 +93,16 @@ public class SequentialBackwardGeneration extends FeatureSelectionAlgorithm{
 		
 	}
 
-	
 
+	/** This method determines the children of the current 
+	 * feature set by finding all children with one less
+	 * feature
+	 * 
+	 * @param current The current feature set being examined
+	 * 
+	 * @author Michael W. Floyd
+	 * @since 0.5
+	 */
 	private void createChildren(FeatureNode currentNode) {
 		Set<String> weights=currentNode.getWeights().getWeightedItems();
 		
