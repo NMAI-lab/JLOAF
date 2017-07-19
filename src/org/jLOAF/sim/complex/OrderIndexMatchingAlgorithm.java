@@ -11,7 +11,7 @@ import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.util.InputSorter;
 
 
-/*
+/**
  * Sorts features in a meaningful way. Features are paired with the
  * Input of the same type, with the same index, in the other Input. For example,
  * if an input has many features, then the feature which was seen by the agent at
@@ -33,7 +33,7 @@ public class OrderIndexMatchingAlgorithm extends ComplexSimilarityMetricStrategy
 	private static final long serialVersionUID = 1L;
 	// an InputSorter object to be used for the sorting of the given input
 	private InputSorter fdcp;
-	/*
+	/**
 	 * Constructor
 	 * @param sortingInput the name of the input  holding the inputs to be sorted
 	 * @param feature the feature by which the selected input will be sorted.
