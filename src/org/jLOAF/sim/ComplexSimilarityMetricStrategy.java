@@ -1,5 +1,10 @@
 package org.jLOAF.sim;
 
+/**
+ * Abstract SimilarityMetricStrategy for ComplexInputs
+ * @author sachagunaratne
+ *
+ */
 public abstract class ComplexSimilarityMetricStrategy implements SimilarityMetricStrategy {
 
 	/**
