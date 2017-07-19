@@ -7,7 +7,11 @@ import java.util.List;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
-
+/**
+ * This class creates a KNN class that implements Retrieval. 
+ * @author sachagunaratne
+ *
+ */
 public class kNN implements Retrieval {
 
 	private int k;
@@ -20,6 +24,12 @@ public class kNN implements Retrieval {
 		this.dist_closest = new Distance [k];
 	}
 	
+	/**
+	 * Takes an input, compares its similarity to each case in the casebase, creates an array of distance objects and sorts it.
+	 * Takes the top -k Similar Cases. 
+	 * @param i An Input
+	 * @return A list of the top K cases (Most similar)
+	 */
 	@Override
 	public List<Case> retrieve(Input i) {
 		//creates a new array of distance objects
@@ -49,6 +59,10 @@ public class kNN implements Retrieval {
 		return best;
 	}
 	
+	/**
+	 * Returns the top_k closest distance values in an array. 
+	 * @return dist_closest
+	 */
 	public Distance [] getDist(){
 		
 		return dist_closest;

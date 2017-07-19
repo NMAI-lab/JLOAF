@@ -22,7 +22,10 @@ public class GreedyMunkrezMatching extends ComplexSimilarityMetricStrategy {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * Uses a greedy version of Hungarian Algorithm to perform an optimal set matching between two sets.  
+	 */
 	@Override
 	public double similarity(Input i1, Input i2) {
 		

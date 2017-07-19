@@ -10,7 +10,11 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
-
+/**
+ * This class check equality of two inputs
+ * @author sachagunaratne
+ *
+ */
 public class Equality extends AtomicSimilarityMetricStrategy {
 
 
@@ -20,9 +24,11 @@ public class Equality extends AtomicSimilarityMetricStrategy {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/** The similarity is bound between 0.0 and 1.0. If the
+	/** 
+	 * The similarity is bound between 0.0 and 1.0. If the
 	 * feature values are the same the similarity is 1.0, 
 	 * otherwise the similarity is 0.0.
+	 * @see org.jLOAF.sim.SimilarityMetricStrategy
 	 * 
 	 */
 	@Override

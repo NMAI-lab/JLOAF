@@ -9,18 +9,22 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
-
+/**
+ * This class calculates the percent difference between two inputs
+ * @author sachagunaratne
+ *
+ */
 public class PercentDifference extends AtomicSimilarityMetricStrategy {
-	/* Checks the percent difference between the two atomic values and returns that in the range 
-	 * of 0 and 1. The higher the better
-	 * 
-	 * **/
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Checks the percent difference between the two atomic values and returns that in the range 
+	 * of 0 and 1. The higher the better
+	 *  @see org.jLOAF.sim.SimilarityMetricStrategy
+	 */
 	@Override
 	public double similarity(Input i1, Input i2) {
 		if(!(i1 instanceof AtomicInput) || !(i2 instanceof AtomicInput)){

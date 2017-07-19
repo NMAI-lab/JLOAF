@@ -19,6 +19,11 @@ import org.jLOAF.matlab.NeuralNetworkOrderKRemote;
 import org.jLOAF.matlab.NeuralNetworkRemote;
 import org.jLOAF.retrieve.Retrieval;
 
+/**
+ * This class creates a NeuralNetworkReasoner that has a NeuralNetworkRemote instance.
+ * @author sachagunaratne
+ *
+ */
 public class NeuralNetworkReasoner extends Reasoning {
 
 
@@ -91,6 +96,8 @@ public class NeuralNetworkReasoner extends Reasoning {
 	/***
 	 * Calculates the number of features by reading the csv file that was created using CaseBase.SaveAsTrace
 	 * @author sachagunaratne
+	 * @param Filename the trace file
+	 * @return int numFeature the number of features in the trace file
 	 * ***/
 	private int checkNumFeatures(String filename) throws IOException{
 		BufferedReader br=null;
@@ -113,6 +120,12 @@ public class NeuralNetworkReasoner extends Reasoning {
 		}	
 	}
 	
+	/**
+	 * This method takes an input, converts it into a list and passes it to NeuralNetworkRemote to get the most likely action.
+	 * 
+	 * @param i An Input
+	 * @return Action The most probable action
+	 */
 	@Override
 	public Action selectAction(Input i){
 		i = ((StateBasedInput)i).getInput();

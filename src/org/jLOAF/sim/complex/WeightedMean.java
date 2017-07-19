@@ -102,6 +102,10 @@ public class WeightedMean extends ComplexSimilarityMetricStrategy {
 		return totalDistance/divider;
 		
 	}
+	/**
+	 * Sets the feature weights of the current object. 
+	 * @param featweights
+	 */
 	public void setFeaturesWeights(HashMap<String,Double> featweights){
 		for(String feature:featweights.keySet()){
 		feat_weights.setFeatureWeight(feature, featweights.get(feature));

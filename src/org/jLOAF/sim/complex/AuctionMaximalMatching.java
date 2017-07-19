@@ -25,6 +25,9 @@ public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Uses the auction algorithm to match two sets of inputs together in the best possible manner.
+	 */
 	@Override
 	public double similarity(Input i1, Input i2) {
 		
@@ -116,6 +119,7 @@ public class AuctionMaximalMatching extends ComplexSimilarityMetricStrategy {
 	/***
 	 * gets the index that maximizes the w[bidder,good]-price[good]
 	 * @author sachagunaratne
+	 * @return argmax index
 	 * ***/
 	private int argmax(double[][] similarities, double[] price, int bidder) {
 		double max=0;

@@ -25,10 +25,16 @@ import org.jLOAF.sim.atomic.EuclideanDistance;
 public class Standardization extends CaseBaseFilter {
 	SummaryStatistics ss = new SummaryStatistics();
 	
+	
 	public Standardization(CaseBaseFilter f) {
 		super(f);
 	}
-
+	
+	/**
+	 * Takes a CaseBase, normalizes each AtomicInput to 0 mean and unit variance. 
+	 * @param Initial A CaseBase
+	 * @return CaseBase A filtered CaseBase
+	 */
 	@Override
 	public CaseBase filter(CaseBase initial) { 
 		
@@ -67,7 +73,9 @@ public class Standardization extends CaseBaseFilter {
 	/***
 	 * Takes an input that is not StateBased and a hashmap of inputs and standardized values
 	 * and replaces the input's atomicInputs with the standardized values.
-	 * @param Input, HashMap<String, List<Double>>
+	 * @param Input The input.
+	 * @param inputs The Map containing the standardized atomicInput names and values. 
+	 * @param counts The Map of the counts of the atomicInputs that have been put back. 
 	 * @author sachagunaratne 
 	 * ***/
 	private void replaceAtomicInputs(Input input, HashMap<String,List<Double>> inputs, HashMap<String, Integer> counts){
@@ -94,8 +102,10 @@ public class Standardization extends CaseBaseFilter {
 	
 	/**
 	 * Takes a list, a mean, and standard deviation. Standardizes the list.
-	 * @param List<Double>, double mean, double std
-	 * @return List<Double>
+	 * @param temp List of Feature values 
+	 * @param mean Mean
+	 * @param std  Standard deviation
+	 * @return standardized_list a list of standardized values
 	 * @author sachagunaratne
 	 * ***/
 	private List<Double> standardized(List<Double> temp, double mean, double standardDeviation) {
@@ -108,7 +118,7 @@ public class Standardization extends CaseBaseFilter {
 
 	/***
 	 * This function adds values to SummaryStatistics
-	 * @param List<Double>
+	 * @param list List of feature values
 	 * @return nothing
 	 * @author sachagunaratne
 	 * ***/
@@ -123,7 +133,7 @@ public class Standardization extends CaseBaseFilter {
 	/***
 	 * This function will read a CaseBase and create a HashMap of feature names as keys and a list of feature values as values. 
 	 * @param CaseBase
-	 * @return HashMap<String,List<Double>>
+	 * @return inputs A Map of the AtomicFeature name and the list of its feature values. 
 	 * @author sachagunaratne
 	 * ***/
 	private HashMap<String,List<Double>> getFeatures(CaseBase casebase){

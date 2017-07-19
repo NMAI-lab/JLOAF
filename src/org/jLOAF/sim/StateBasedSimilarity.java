@@ -1,5 +1,10 @@
 package org.jLOAF.sim;
 
+/**
+ * Abstract SimilarityMetricStrategy for StateBasedInputs
+ * @author sachagunaratne
+ *
+ */
 public abstract class StateBasedSimilarity implements SimilarityMetricStrategy {
 
 	/**

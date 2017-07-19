@@ -13,7 +13,11 @@ import org.jLOAF.inputs.Input;
 import org.jLOAF.retrieve.Distance;
 import org.jLOAF.retrieve.Retrieval;
 import org.jLOAF.retrieve.kNN;
-
+/**
+ * Creates a weightedKNN reasoner class. 
+ * @author sachagunaratne
+ *
+ */
 public class WeightedKNN extends Reasoning {
 
 	
@@ -22,7 +26,12 @@ public class WeightedKNN extends Reasoning {
 		 super(new kNN(k, cb));
 	}
 	
-	
+	/**
+	 * Takes the top k cases and chooses the weighted majority class as the class and returns it.
+	 *  
+	 * @param nn A list of the top k Cases
+	 * @return Action The most likely action
+	 */
 	@Override
 	public Action mostLikelyAction(List<Case> nn){
 		Hashtable<String, Double> nnactions = new Hashtable<String, Double>();

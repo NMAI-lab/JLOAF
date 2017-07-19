@@ -10,7 +10,11 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 
-
+/**
+ * Creates a TBReasoning reasoner. 
+ * @author sachagunaratne
+ *
+ */
 public class TBReasoning extends Reasoning {
 	
 	private CaseBase cb;
@@ -22,6 +26,15 @@ public class TBReasoning extends Reasoning {
 		this.cb=cb;
 		}
 	
+	/**
+	 * This function implements the Temporal Backtracking algorithm. It dynamically backtracks through each run, comparing input and action
+	 * to the current input until there is consensus on the most likely action performed. 
+	 * @author Ali Fawaz
+	 * @param i A stateBasedInput
+	 * @param nn The currentList of best cases
+	 * @param time The time step
+	 * @return Action The most likely action
+	 */
 	public Action retrieve(StateBasedInput i, ArrayList<Case> nn, int time) {
 		double threshold = PAT;
 		
@@ -78,7 +91,11 @@ public class TBReasoning extends Reasoning {
 			
 		
 	}
-
+	/**
+	 * Returns the most likely action
+	 * @param i An Input
+	 * @return Action The most likely action
+	 */
 	@Override
 	public Action selectAction(Input i){
 		StateBasedInput i1=(StateBasedInput)i;

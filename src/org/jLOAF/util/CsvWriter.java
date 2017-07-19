@@ -4,9 +4,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-
+/**
+ * Creates a writer instance
+ * @author sachagunaratne
+ *
+ */
 public class CsvWriter {
-	
+	/**
+	 * Takes means and std and writes them to a CSV file. 
+	 * @param filename Output filename
+	 * @param mean HashMap of Means
+	 * @param stdev HashMap of Standard Deviations
+	 */
 	public void writeCalculatedStats(String filename, HashMap<String, Float> mean, HashMap<String, Float> stdev){
 		try {
 			FileWriter fw = new FileWriter(filename);
@@ -36,7 +45,12 @@ public class CsvWriter {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Writes the Raw stats to a CSV File.
+	 * @param filename
+	 * @param labels
+	 * @param stats
+	 */
 	public void writeRawStats(String filename, String [] labels, float[][] stats){
 		try {
 			FileWriter fw = new FileWriter(filename);

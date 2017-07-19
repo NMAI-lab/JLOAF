@@ -20,7 +20,10 @@ import org.jLOAF.sim.atomic.EuclideanDistance;
 import org.jLOAF.sim.atomic.PercentDifference;
 
 public class simulation {
-
+	/**
+	 * This main is used to test the reasoners simpleKNN and weightedKNN
+	 * @param args
+	 */
 	public static void main(String [] args){
 		//create a casebase and testbase
 		Feature f1 = new Feature(1.0);

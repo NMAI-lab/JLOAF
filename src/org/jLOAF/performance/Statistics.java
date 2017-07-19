@@ -12,9 +12,10 @@ import org.jLOAF.reasoning.NeuralNetworkOrderKReasoner;
 import org.jLOAF.Agent;
 import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
-/***
+/**
  * Creates statistics for testing performance of imitating agents
- * Sacha Gunaratne 2017
+ * @author sachagunaratne
+ * @since 2017
  * ***/
 public class Statistics {
 	
@@ -23,6 +24,7 @@ public class Statistics {
 	
 	/***
 	 * Creates a statistics object with an agent, and initializes a confusion matrix
+	 * @param An Agent
 	 * ***/
 	public Statistics(Agent agent){
 		this.agent = agent;
@@ -32,6 +34,7 @@ public class Statistics {
 	/***
 	 * Takes a case as an input, the agent predicts an action and then the correct and predicted actions are
 	 * added to the confusion matrix
+	 * @param input A Case containing an input and action
 	 * ***/
 	public void predictedCorrectActionName(Case input){
 		Action correctAction = input.getAction();
@@ -44,6 +47,8 @@ public class Statistics {
 	
 	/***
 	 * Adds predicted and correct action pairs to the confusion matrix
+	 * @param correct The correct action string
+	 * @param predicted The predicted action string
 	 * ***/
 	private void addPair2ConfusionMatrix(String correct, String predicted){
 		
@@ -277,7 +282,7 @@ public class Statistics {
 	/***
 	 * Returns all the performance measures inside a HashMap
 	 * @author sachagunaratne
-	 * @return HashMap
+	 * @return HashMap of all the statistics
 	 * ***/
 	public HashMap<String, Float> getStatisticsHashMap(){
 		HashMap<String, Float> Allstats = new HashMap<String, Float>();
@@ -295,7 +300,7 @@ public class Statistics {
 		return Allstats;
 		
 	}
-	/*
+	/**
 	 * returns the agent on which the evaluation is done
 	 * @return the agent on which the evaluation is done
 	 */

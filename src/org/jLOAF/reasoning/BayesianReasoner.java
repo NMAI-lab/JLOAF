@@ -15,7 +15,11 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.matlab.BayesianNetworkRemote;
-
+/**
+ * This class creates a BayesianReasoner which has a BayesianNetworkRemote. 
+ * @author sachagunaratne
+ *
+ */
 public class BayesianReasoner extends Reasoning {
 	BayesianNetworkRemote bnet = null;
 	List<Action> actions;
@@ -31,14 +35,31 @@ public class BayesianReasoner extends Reasoning {
 		this.cb = cb;
 	}
 
-	@Override
-	/***
+	/**
 	 * There is no returning a list of cases in this situation so we don't use this method
-	 * ***/
+	 * @param nn A list of the top K cases
+	 * @return null 
+	 * */
+	@Override
 	public Action mostLikelyAction(List<Case> nn) {
 		return null;
 	}
 	
+
+	
+	/**
+	 * This function initially trains the agent when called the first time. It converts the CaseBase to a tracefile. Gets the feature names,
+	 * action names, and passes it to the BayesianNetworkRemote(). 
+	 * 
+	 * It then will convert the input into a hashMap of inputs. It will put placeholderValues into the list of inputs so that if there are
+	 * missing values they will be supplemented by the placeholder. 
+	 * 
+	 * The inputs are then matched with the index of the feature_names so that the correct feature_value is sent as evidence to Matlab. 
+	 * 
+	 * The result is a list of probabilities and the highest is chosen and the corresponding action is returned.  
+	 * @param i An input
+	 * @return Action The most probable action 
+	 */
 	@Override
 	public Action selectAction(Input i){
 		
@@ -78,6 +99,8 @@ public class BayesianReasoner extends Reasoning {
 	/***
 	 * Calculates the number of features by reading the csv file that was created using CaseBase.SaveAsTrace
 	 * @author sachagunaratne
+	 * @param filename The trace file
+	 * @return numFeatures the number of features present in the tracefile
 	 * ***/
 	private int checkNumFeatures(String filename) throws IOException{
 		BufferedReader br=null;

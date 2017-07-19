@@ -7,7 +7,11 @@ import org.jLOAF.inputs.Input;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
-
+/**
+ * This class calculates the mean Similarity Between two matching inputs. If there isn't a matching input it add a penalty to the similarity. 
+ * @author sachagunaratne
+ *
+ */
 public class Mean extends ComplexSimilarityMetricStrategy {
 
 	/**
