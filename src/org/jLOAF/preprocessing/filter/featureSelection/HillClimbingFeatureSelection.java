@@ -9,7 +9,13 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.performance.Statistics;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.weights.Weights;
-
+/**
+ * this class takes the original list of weights and calculates its performance accuracy, it keeps comparing this accuracy to the accuracy of
+ * this list's neighbors. the lists of weights are stored in FeatureNodes, and the neighbors are just other FeatureNodes with different list of weights.
+ * once this algorithm finds a maximum accuracy between neighbors, it returns the FeatureNode with the list of weights that led to the maximum accuracy.
+ * @author Ibrahim Ali Fawaz
+ *
+ */
 public class HillClimbingFeatureSelection extends FeatureSelectionAlgorithm {
 	private FeatureNode currentNode ;
 	private double goalValue;
@@ -17,7 +23,7 @@ public class HillClimbingFeatureSelection extends FeatureSelectionAlgorithm {
 	private double maxWeight=10;
 	private int getStuck=0;
 	private int escape;
-	/*
+	/**
 	 * Constructor
 	 * @param fs a caseBaseFilter to be passed to a filter method, as part of the chain of responsibility design patter
 	 * @param goalValue the best performance the user would like to get for a set of features

@@ -21,7 +21,11 @@ public class GeneticAlgorithmWeightSelector extends FeatureSelectionAlgorithm {
 		super(fs);
 		r = new Random();
 	}
-	
+	/**
+	 * this function goes through a list of weight and adjust each weight with a probability of 20 percent, i.e there is
+	 * a 20 percent chance that a weight could be adjusted
+	 * @param node the node with the list of weights to be adjusted
+	 */
 	private void mutate(FeatureNode node) {
 		Random r = new Random();
 		double p = r.nextDouble();
@@ -101,7 +105,13 @@ public class GeneticAlgorithmWeightSelector extends FeatureSelectionAlgorithm {
 	
 	
 	
-	
+	/**
+	 * produces a new list of weights after taking two old list of weights. it takes the first half of a list and the second half of a second list
+	 * and combines them, and return a new node with the new list of weights.
+	 * @param best the first node that has the first list of weights, usually it is the list that led to the best performance accuracy.
+	 * @param best_2 the second node that has the second list of weights, usually it is the list that led to the second best performance accuracy.
+	 * @return a featureNode with the new list of weights that is a combination of two lists of weights
+	 */
 	private FeatureNode crossProduce(FeatureNode best, FeatureNode best_2) {
 			int size = best.getWeights().getWeightedItems().size();
 		SimilarityWeights sim = new SimilarityWeights();
@@ -118,7 +128,12 @@ public class GeneticAlgorithmWeightSelector extends FeatureSelectionAlgorithm {
 		newNode.setWeights(sim);
 		return newNode;
 	}
-
+	/**
+	 * creates a new list of weights, where each weight is the mean of two weights from two list of weights. 
+	 * @param best the first node that has the first list of weights, usually it is the list that led to the best performance accuracy.
+	 * @param best_2 the second node that has the second list of weights, usually it is the list that led to the second best performance accuracy
+	 * @return a featureNode with the new list of weights that has the means of two list of weights.
+	 */
 	private FeatureNode mergeMean(FeatureNode best, FeatureNode best_2) {
 		SimilarityWeights sim = new SimilarityWeights();
 		for(String w : best.getWeights().getWeightedItems()){
@@ -129,7 +144,12 @@ public class GeneticAlgorithmWeightSelector extends FeatureSelectionAlgorithm {
 		return newNode;
 	}
 	
-
+	/**
+	 * creates a new list of nodes, which each has a list of weights, where all the weights of all the nodes are randomized.
+	 * @param nodes the list of nodes that will have all the created nodes
+	 * @param numberOfPopulation2 the number of nodes to be populated
+	 * @param allIn the original list of weights.
+	 */
 	private void populate(ArrayList<FeatureNode> nodes, int numberOfPopulation2,Weights allIn) {
 		for(int i=0;i<numberOfPopulation2;i++){
 			FeatureNode newNode = new FeatureNode();

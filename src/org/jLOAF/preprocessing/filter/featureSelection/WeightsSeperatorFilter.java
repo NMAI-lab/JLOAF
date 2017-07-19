@@ -8,7 +8,13 @@ import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.sim.complex.WeightedMean;
 import org.jLOAF.weights.SimilarityWeights;
-
+/**
+ * this class checks the weights of the features of all the cases, when a weight of a feature is zero, it removes it from the list of the features
+ * that the cases have.(here by features we mean inputs). this is only applicable when the similarityMetricStrategy used for the complexInput is 
+ * the weightedMean.
+ * @author Ibrahim Ali Fawaz
+ *
+ */
 public class WeightsSeperatorFilter extends CaseBaseFilter {
 
 	public WeightsSeperatorFilter(CaseBaseFilter f) {
