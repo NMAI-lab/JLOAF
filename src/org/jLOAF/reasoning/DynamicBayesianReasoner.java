@@ -143,4 +143,11 @@ public class DynamicBayesianReasoner extends Reasoning {
 			return input.length-1;
 		}	
 	}
+
+
+	@Override
+	public Action mostLikelyAction(List<Case> nn) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
