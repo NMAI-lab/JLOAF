@@ -89,17 +89,7 @@ public abstract class PerformanceEvaluator {
 		ArrayList<HashMap<String, Float>>AllStats = new ArrayList<HashMap<String, Float>>();
 		Agent agent = createAgent();
 		
-		//setting SimilarityMetricStrategies
-		Case c =(Case)cb.getCases().toArray()[0];
-		if(st!=null){
-
-			c.getInput().setSimilarityMetric(StateBasedSimilarity.getSim(st));
-
-		}
-		if(cp!=null){
-
-			((StateBasedInput)c.getInput()).getInput().setSimilarityMetric(ComplexSimilarityMetricStrategy.getSim(st));
-		}
+		
 
 		//loop over all casebases
 		long totalTime = System.currentTimeMillis();
@@ -114,6 +104,18 @@ public abstract class PerformanceEvaluator {
 			for(int i=0;i<listOfCaseBases.size();i++){
 				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
 				else {cb.addListOfCaseBases(tempList);}
+			}
+			
+			//setting SimilarityMetricStrategies
+			Case c =(Case)cb.getCases().toArray()[0];
+			if(st!=null){
+
+				c.getInput().setSimilarityMetric(StateBasedSimilarity.getSim(st));
+
+			}
+			if(cp!=null){
+
+				((StateBasedInput)c.getInput()).getInput().setSimilarityMetric(ComplexSimilarityMetricStrategy.getSim(st));
 			}
 
 			if(filter!=null){
