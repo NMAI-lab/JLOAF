@@ -265,7 +265,7 @@ public class CaseBase implements Serializable{
 					}
 					double val = results.get(jj);
 					if(Double.isNaN(val)){
-						System.out.println("hello");
+						throw new ArithmeticException("There shouldn't be any NaN values - could be something wrong with the logFile2CaseBase.java ");
 					}
 					val += 1.0;
 					f1.write(String.valueOf(val));
