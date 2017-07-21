@@ -18,7 +18,6 @@ import org.jLOAF.weights.Weights;
  */
 public class HillClimbingFeatureSelection extends FeatureSelectionAlgorithm {
 	private FeatureNode currentNode ;
-	private double goalValue;
 	private int currentIndex=0;
 	private double maxWeight=10;
 	private int getStuck=0;

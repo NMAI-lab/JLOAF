@@ -4,8 +4,9 @@ package org.jLOAF.sim.StateBased;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.sim.StateBasedSimilarity;
-/*
- * this class represents a similarity metric that calculates the similarity between two stateBasedInputs based on the whole trace,in order
+/**
+ * this class represents a similarity metric that calculates the similarity between two stateBasedInputs based on the whole trace,in order.
+ * and if the difference between the two traces is more than 5, in size, the similarity is zero, other wise there is a penalty for the smaller differences.
  * @author Ibrahim Ali Fawaz
  */
 public class OrderedSimilarity extends StateBasedSimilarity {

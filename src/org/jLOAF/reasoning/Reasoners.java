@@ -41,6 +41,7 @@ public enum Reasoners {
 		 * @return CaseBase
 		 */
 		public CaseBase returnCaseBase(){
+			cbr.getCases().clear();
 			return cbr;
 		}
 		/**

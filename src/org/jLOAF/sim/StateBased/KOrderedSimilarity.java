@@ -3,9 +3,10 @@ package org.jLOAF.sim.StateBased;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.sim.StateBasedSimilarity;
-/*
- * this class represents a similarity metric that compares the traces until it reaches k-steps to the back
- *@author Ibrahim Ali Fawaz
+/**
+ * this class represents a similarity metric that compares the traces until it reaches the  kth element of the traces
+ * where the order matters. if K was bigger than the trace with the minimum size, and the difference between k and that size is larger than 5,
+ * and also the difference between the trace with the bigger size and the smaller size is more than five, the similarity is zero.
  */
 public class KOrderedSimilarity extends StateBasedSimilarity  {
 	

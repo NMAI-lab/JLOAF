@@ -16,7 +16,7 @@ import org.jLOAF.preprocessing.filter.featureSelection.WeightsSeperatorFilter;
 public enum Filters {
 
 	clustering(new Clustering(null)),sampling(new Sampling(null)),geneticAlgorithm(new GeneticAlgorithmWeightSelector(null))
-	,hillClimbing(new HillClimbingFeatureSelection(null)),sequentialBackwardAlgorithm(new SequentialBackwardGeneration(null,5,0.9))
+	,hillclimbing(new HillClimbingFeatureSelection(null)),sequentialBackwardsAlgorithm(new SequentialBackwardGeneration(null,5,0.9))
 	,weightsSeperator(new WeightsSeperatorFilter(null));
 	
 		CaseBaseFilter fs ;

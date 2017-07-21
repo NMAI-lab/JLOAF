@@ -27,7 +27,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 	protected CaseBase trainCases;
 	protected ArrayList<FeatureNode> open;
 	protected Agent a;
-	private CaseBase cb;
+	
 	/**
 	 * 
 	 * @param fs the caseBaseFilter to be passed to this filter
@@ -91,7 +91,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 			if(filter!=null){
 				initial =filter.filter(initial);
 			}
-			cb=initial;
+			
 			SplitTrainTest(initial);
 			Case c = (Case)initial.getCases().toArray()[0];
 			Weights sim1 =((Weights)((WeightedMean) (((StateBasedInput)c.getInput()).getInput().getSimilarityMetricStrategy())).getSimilarityWeights());
