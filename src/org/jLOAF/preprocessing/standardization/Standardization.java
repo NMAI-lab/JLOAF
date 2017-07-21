@@ -49,7 +49,7 @@ public class Standardization extends CaseBaseFilter {
 		for(String key: inputs.keySet()){
 			temp = inputs.get(key);
 			addValuestoSS(temp);
-			if(!key.equals("goalSeenR")&&!key.equals("goalSeenL")&&!key.equals("ballSeen")){
+			if(!key.equals("goal_seenR")&&!key.equals("goal_seenL")&&!key.equals("ball_seen")){
 				temp = standardized(temp, ss.getMean(),ss.getStandardDeviation());
 			}
 			inputs.put(key, temp);
