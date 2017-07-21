@@ -34,6 +34,10 @@ public class BayesianReasoner extends Reasoning {
 		this.output_filename = output_filename;
 		this.cb = cb;
 	}
+	
+	public void setTrain(){
+		train=true;
+	}
 
 	/**
 	 * There is no returning a list of cases in this situation so we don't use this method
@@ -44,9 +48,6 @@ public class BayesianReasoner extends Reasoning {
 	public Action mostLikelyAction(List<Case> nn) {
 		return null;
 	}
-	
-
-	
 	/**
 	 * This function initially trains the agent when called the first time. It converts the CaseBase to a tracefile. Gets the feature names,
 	 * action names, and passes it to the BayesianNetworkRemote(). 
