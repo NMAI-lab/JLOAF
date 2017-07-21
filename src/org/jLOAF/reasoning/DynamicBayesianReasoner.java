@@ -42,6 +42,10 @@ public class DynamicBayesianReasoner extends Reasoning {
 		this.cb = cb;
 	}
 	
+	public void setTrain(){
+		train=true;
+	}
+	
 	
 	/**
 	 * This method takes and input, sets the inputs in the correct index based on the indices of the feature names, and then depending on the timesetep
