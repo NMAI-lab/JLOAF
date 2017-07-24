@@ -5,9 +5,9 @@ import java.util.HashMap;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.sim.StateBasedSimilarity;
-/*
+/**
  * this class represents a similarity metric that compares two stateBased Inputs based on the actions and inputs of their traces, regardless of 
- * the order they are in
+ * the order they are in.
  * @author Ibrahim Ali Fawaz
  */
 public class UnorderedSimilarity extends StateBasedSimilarity{
@@ -37,7 +37,13 @@ public class UnorderedSimilarity extends StateBasedSimilarity{
 		
 		return compare(i1Run,i2Run);
 	}
-
+	/**
+	 * puts the trace's elements in a hashMap, where the keys of the hashmap are the names of those elements, and the values are the count of those
+	 * keys, i.e how many times they have appeared in the trace
+	 * @param sizeSt1 the size of the trace
+	 * @param i1Run the hashMap that will hold the counts
+	 * @param st1 the stateBasedInput that holds the trace
+	 */
 	private void putInRun(int sizeSt1, HashMap<String, Integer> i1Run,StateBasedInput st1) {
 		for(int i=0;i<sizeSt1;i=i+2){
 			String a="";
@@ -60,7 +66,13 @@ public class UnorderedSimilarity extends StateBasedSimilarity{
 		}
 		
 	}
-
+	/**
+	 * takes two HashMaps, where they represent the counts of two traces' elements, and compare only the counts of the same elements.
+	 * if there are elements in one HasMap that don't exist in the other, a penalty gets deducted from the similarity.
+	 * @param i1Run the HashMap for the first trace
+	 * @param i2Run the HashMap for the second trace
+	 * @return the difference between the counts of the two traces's elements, where 1.0 means they are the same. and zero means, the have nothing in common.
+	 */
 	private double compare(HashMap<String, Integer> i1Run, HashMap<String, Integer> i2Run) {
 		
 		double similarity=0;

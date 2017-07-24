@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.sim.StateBasedSimilarity;
-/*
+/**
  * this class represents a similarity Metric that compares stateBasedInputs, given that the most important features are most recent ones in their
  * traces
  * @authore Ibrahim Ali Fawaz

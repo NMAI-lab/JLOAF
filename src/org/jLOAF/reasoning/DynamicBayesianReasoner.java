@@ -27,6 +27,9 @@ public class DynamicBayesianReasoner extends Reasoning {
 	List<String> feature_names;
 	int EmIter = 10;
 	double placeholder = 6.6;
+	CaseBase cb;
+	String output_filename;
+	boolean train = true;
 	
 	int state = 0;//initial state variable
 	int new_state =0;//new state variable
@@ -35,14 +38,12 @@ public class DynamicBayesianReasoner extends Reasoning {
 	
 	public DynamicBayesianReasoner(CaseBase cb, String output_filename) {
 		super(null);
-		try {
-			actions = CaseBase.getActionNames(cb);
-			feature_names = CaseBase.saveAsTrace(cb,output_filename, false);
-			int numFeatures = checkNumFeatures(output_filename);
-			bnet = new DynamicBayesianNetworkRemote(output_filename,numFeatures,EmIter);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		this.output_filename = output_filename;
+		this.cb = cb;
+	}
+	
+	public void setTrain(){
+		train=true;
 	}
 	
 	
@@ -57,6 +58,17 @@ public class DynamicBayesianReasoner extends Reasoning {
 	 */
 	@Override
 	public Action selectAction(Input i){
+		if(train){
+			try {
+				actions = CaseBase.getActionNames(cb);
+				feature_names = CaseBase.saveAsTrace(cb,output_filename, false);
+				int numFeatures = checkNumFeatures(output_filename);
+				bnet = new DynamicBayesianNetworkRemote(output_filename,numFeatures,EmIter);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			train=false;
+		}
 		i = ((StateBasedInput)i).getInput();
 		HashMap<String, Double> temp = CaseBase.convert(i);
 		List<Double> X = new ArrayList<Double>();
@@ -142,5 +154,12 @@ public class DynamicBayesianReasoner extends Reasoning {
 		}else{
 			return input.length-1;
 		}	
+	}
+
+
+	@Override
+	public Action mostLikelyAction(List<Case> nn) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
