@@ -121,7 +121,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 		
 		Random r = new Random();	
 		testCases.getCases().clear();
-		for(int i=0;i<casebase.getSize()*0.3;){
+		for(int i=0;i<casebase.getSize();i+=5){
 			Case c =(Case)casebase.getCases().toArray()[r.nextInt(casebase.getSize())];
 				if(!testCases.getCases().contains(c)){
 					testCases.add(c);
