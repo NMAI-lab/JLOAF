@@ -17,7 +17,7 @@ public enum Filters {
 
 	clustering(new Clustering(null)),sampling(new Sampling(null)),geneticAlgorithm(new GeneticAlgorithmWeightSelector(null))
 	,hillclimbing(new HillClimbingFeatureSelection(null)),sequentialBackwardsAlgorithm(new SequentialBackwardGeneration(null,5,0.9))
-	,weightsSeperator(new WeightsSeperatorFilter(null));
+	,weightsSeperator(new WeightsSeperatorFilter(null)), none(null);
 	
 		CaseBaseFilter fs ;
 		

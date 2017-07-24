@@ -9,15 +9,17 @@ import java.util.List;
 
 public class writer {
 	HashMap <String, List<String>> container = new HashMap<String, List<String>>();
-	String agentName = "PreviousThreeStatesDependentAgent";
+	String [] agents = {"MultipleSequenceAgent", "WallFollowerAgent", "ZigZagAgent","PreviousThreeStatesDependentAgent","SmartSquareAgent"};
+	String agentName = agents[3];
 	String [] traceNames = {"trace-m0-","trace-m1-","trace-m2-","trace-m3-","trace-m4-"};
 	String fileext = ".txt ";
 	String output_file = "";
 	String [] stsim = {"korderd", "ordered", "unordered","weighted"};
 	Boolean stateBased = true;
-	String [] reasoners = {"TB","weightedKNN","KNN"};
-	String [] cbf = {"clustering", "sampling", ""};
-	String [] cbf2 = {"", "hillclimbing", "geneticAlgorithm", "sequentialBackwardsAlgorithm", "weightsSeperator"};
+	String [] reasoners = {"TB","KNN"};
+	String [] cbf = {"clustering", "sampling", "none"};
+	//String [] cbf2 = {"", "hillclimbing", "geneticAlgorithm", "sequentialBackwardsAlgorithm", "weightsSeperator"};
+	String [] cbf2 = {""};
 	String loc = "batch_files/"+agentName+"/";
 	
 	public void writeReactive() {
@@ -26,15 +28,15 @@ public class writer {
 			Files.createDirectories(Paths.get(loc.substring(0, loc.length()-1)));
 			FileWriter master = new FileWriter(loc+agentName+"master.bat");
 			FileWriter fw = new FileWriter(loc+agentName+"0.bat");
-			master.write("call "+ agentName+"0.bat");
+			master.write("start /wait cmd /k CALL "+ agentName+"0.bat");
 			master.write("\r\n");
 			for(int i=0;i<reasoners.length;i++) {
 				for(int k = 0;k<cbf.length;k++) {
 					for(int l =0;l<cbf2.length;l++) {
-						if(count%4==0) {
+						if(count%4==0 && count!=0) {
 							fw.flush();
 							fw = new FileWriter(loc+agentName+String.valueOf(count/4)+".bat");
-							master.write("call "+ agentName+String.valueOf(count/4)+".bat");
+							master.write("start /wait cmd /k CALL "+ agentName+String.valueOf(count/4)+".bat");
 							master.write("\r\n");
 						}
 					String s1 = "start java -jar vacuum.jar files ";
@@ -44,7 +46,7 @@ public class writer {
 						fw.write(s2);
 					}
 					fw.write("files ");
-					fw.write("output " + reasoners[i]+"_"+agentName+"_"+cbf[k]+"_"+cbf2[l]+".txt" +" output ");
+					fw.write("output " + reasoners[i]+"_"+agentName+"_"+cbf[k]+"_"+cbf2[l]+".csv" +" output ");
 					
 					//accounts for empty filter
 					if(cbf[k].equals("") & !cbf2[l].equals("")) {
@@ -89,7 +91,7 @@ public class writer {
 			Files.createDirectories(Paths.get(loc.substring(0, loc.length()-1)));
 			FileWriter master = new FileWriter(loc+agentName+"master.bat");
 			FileWriter fw = new FileWriter(loc+agentName+"0.bat");
-			master.write("call "+ agentName+"0.bat");
+			master.write("start /wait cmd /k CALL "+ agentName+"0.bat");
 			master.write("\r\n");
 			for(int i=0;i<reasoners.length;i++) {
 				for(int k = 0;k<cbf.length;k++) {
@@ -98,7 +100,7 @@ public class writer {
 							if(count%4==0) {
 								fw.flush();
 								fw = new FileWriter(loc+agentName+String.valueOf(count/4)+".bat");
-								master.write("call "+ agentName+String.valueOf(count/4)+".bat");
+								master.write("start /wait cmd /k CALL "+ agentName+String.valueOf(count/4)+".bat");
 								master.write("\r\n");
 							}
 							String s1 = "start java -jar vacuum.jar files ";
