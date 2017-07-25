@@ -54,6 +54,7 @@ public class StateBasedInputTest {
 		cb.createThenAdd(i7, a1, sim1);
 		cb.createThenAdd(i8, a2, sim1);
 		cb.createThenAdd(i9, a4, sim1);
+		
 		// to sum up what happens above, whenever the createThenAdd function gets called, it creates a trace and then sets it as an input for the case created,
 		// thus all cases have their input as a stateBasedInput.
 		//and example, let's take the third case created, it has action a3 and the input has a trace: i1,a1,i2,a2,i3. 

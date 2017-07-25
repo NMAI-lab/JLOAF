@@ -38,6 +38,7 @@ public class CaseBase implements Serializable{
 		this.cb = new ArrayList<Case>();
 		latest=null;
 	}
+	
 	/*
 	 * returns the collections of cases this casebase has.
 	 * @return the collection of cases this casebase has.

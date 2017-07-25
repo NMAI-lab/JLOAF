@@ -97,6 +97,9 @@ public class TestingConfig {
 				break;
 			}
 		}
+		if(arguments.size()==0){
+			return null;
+		}
 		String[] f=new String[arguments.size()];
 		f=arguments.toArray(f);
 		return f;
