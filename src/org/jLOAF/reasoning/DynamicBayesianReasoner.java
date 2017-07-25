@@ -42,9 +42,6 @@ public class DynamicBayesianReasoner extends Reasoning {
 		this.cb = cb;
 	}
 	
-	public void setTrain(){
-		train=true;
-	}
 	
 	
 	/**
@@ -161,5 +158,10 @@ public class DynamicBayesianReasoner extends Reasoning {
 	public Action mostLikelyAction(List<Case> nn) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public void setTrain() {
+		train=true;
+		
 	}
 }
