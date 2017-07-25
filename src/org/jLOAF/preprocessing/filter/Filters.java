@@ -1,6 +1,7 @@
 package org.jLOAF.preprocessing.filter;
 
 
+import org.jLOAF.preprocessing.filter.casebasefilter.FullClustering;
 import org.jLOAF.preprocessing.filter.casebasefilter.KClustering;
 import org.jLOAF.preprocessing.filter.casebasefilter.Sampling;
 import org.jLOAF.preprocessing.filter.featureSelection.GeneticAlgorithmWeightSelector;
@@ -16,9 +17,9 @@ import org.jLOAF.preprocessing.filter.featureSelection.WeightsSeperatorFilter;
  */
 public enum Filters {
 
-	clustering(new KClustering(null)),sampling(new Sampling(null)),geneticAlgorithm(new GeneticAlgorithmWeightSelector(null))
+	kclustering(new KClustering(null)),fullclustering(new FullClustering(null)),sampling(new Sampling(null)),geneticAlgorithm(new GeneticAlgorithmWeightSelector(null))
 	,hillclimbing(new HillClimbingFeatureSelection(null)),sequentialBackwardsAlgorithm(new SequentialBackwardGeneration(null,5,0.9))
-	,weightsSeperator(new WeightsSeperatorFilter(null)), none(null);
+	,weightsSeperator(new WeightsSeperatorFilter(null));
 	
 		CaseBaseFilter fs ;
 		
