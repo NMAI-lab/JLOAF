@@ -42,11 +42,13 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 				 if(penalty>5){
 					 return 0;
 				 }
-				}else {
+				}else if (k>Math.min(sizeSt2, sizeSt1)){
 					
 					if(penalty>5){
 						penalty = k-Math.min(sizeSt2, sizeSt1);
 					}
+				}else {
+					penalty=0;
 				}
 				
 				double similarity = 0;

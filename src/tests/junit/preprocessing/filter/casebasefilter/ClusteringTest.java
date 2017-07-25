@@ -9,8 +9,11 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.preprocessing.filter.casebasefilter.Clustering;
+import org.jLOAF.preprocessing.filter.casebasefilter.FullClustering;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
+import org.jLOAF.sim.StateBasedSimilarity;
+import org.jLOAF.sim.StateBased.KOrderedSimilarity;
 import org.jLOAF.sim.atomic.EuclideanDistance;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,15 +38,13 @@ public class ClusteringTest {
 		i5=new AtomicInput("A",new Feature(10.0),sim);
 		a= new Action("hello");
 		cb=new CaseBase();
-		c1= new Case(i1,a);
-		c2= new Case(i2,a);
-		c3= new Case(i3,a);
-		c4= new Case(i4,a);
-		c5= new Case(i5,a);
-		cb.add(c1);cb.add(c2);
-		cb.add(c4);cb.add(c3);
-		cb.add(c5);
-		clustering = new Clustering(null);
+		StateBasedSimilarity sim1 = new  KOrderedSimilarity(1);
+		cb.createThenAdd(i1, a,sim1 );
+		cb.createThenAdd(i2, a,sim1 );
+		cb.createThenAdd(i3, a,sim1 );
+		cb.createThenAdd(i4, a,sim1 );
+		cb.createThenAdd(i5, a,sim1 );
+		clustering = new FullClustering(null);
 		}
 	/*
 	 * in this test we are going to pass five cases that have the exact same inputs to a clustering filter
@@ -78,7 +79,7 @@ public class ClusteringTest {
 	 */
 	@Test
 	public void TestDifferentCases(){
-		cb.add(new Case(new AtomicInput("A",new Feature(30.0),sim),a));
+		cb.createThenAdd(new AtomicInput("A",new Feature(30.0),sim),a,new KOrderedSimilarity(1));
 		cb= clustering.filter(cb);
 		assertEquals(cb.getSize(),2);
 		

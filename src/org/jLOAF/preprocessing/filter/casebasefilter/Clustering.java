@@ -14,79 +14,76 @@ import org.jLOAF.preprocessing.filter.Cluster;
  * @author Ibrahim Ali Fawaz
  * @since May 2017
  */
-public class Clustering extends CaseBaseFilter {
+public abstract class Clustering extends CaseBaseFilter {
 	
-	private HashMap<Case,Cluster> clusters;
+	protected HashMap<Case,Cluster> clusters;
 	private double td =0.95;
+	protected int k;
 	
 	/**
 	 * Constructor
 	 * @see org.JLOAF.preprocessing.filter.CaseBaseFilter
 	 */
-	public Clustering(CaseBaseFilter f){
+	public Clustering(CaseBaseFilter f, int k){
 		super(f);
+		this.k=k;
 		clusters = new HashMap<Case,Cluster>();
 	}
 	
 
-	@Override
-	public CaseBase filter(CaseBase casebase) {
+	
+	public abstract CaseBase filter(CaseBase casebase) ;
+	
+	public void setCluster(CaseBase casebase){
 		if(filter!=null){
-		casebase=filter.filter(casebase);
-		}
-		boolean firstTime=true;
-		for(Case c :casebase.getCases()){
-			if(clusters.size()==0){
-				Cluster cluster= new Cluster();
-				cluster.addMember(c);
-				clusters.put(c,cluster);
-				
-				
-			}else {
-				
-				
-				boolean hasBeenPut = false;
-				
-				for(Case c1:clusters.keySet()){
-					if(firstTime){
-						
-						firstTime=false;
-					}
-					double sim =c.getInput().similarity(c1.getInput());
-					
-					if(sim>=td){
-						
-						clusters.get(c1).addMember(c);
-						hasBeenPut=true;
-						break;
-						
-					}
-					
-				}
-				if(!hasBeenPut){
-					Cluster cluster = new Cluster();
+			casebase=filter.filter(casebase);
+			}
+			
+			clusters.clear();
+			boolean firstTime=true;
+			for(Case c :casebase.getCases()){
+				if(clusters.size()==0){
+					Cluster cluster= new Cluster();
 					cluster.addMember(c);
 					clusters.put(c,cluster);
 					
-				}
 					
+				}else {
+					
+					
+					boolean hasBeenPut = false;
+					
+					for(Case c1:clusters.keySet()){
+						if(firstTime){
+							
+							firstTime=false;
+						}
+						double sim =c.getInput().similarity(c1.getInput());
+						
+						if(sim>=td && clusters.get(c1).getSize()<k){
+							
+							clusters.get(c1).addMember(c);
+							hasBeenPut=true;
+							break;
+							
+						}
+						
+					}
+					if(!hasBeenPut){
+						Cluster cluster = new Cluster();
+						cluster.addMember(c);
+						clusters.put(c,cluster);
+						
+					}
+						
+				}
+			
+			
+			
+			
+			
 			}
-		
-		
-		
-		
-		
-		}
-		
-		casebase.getCases().clear();
-		for(Case c:clusters.keySet()){
-			casebase.add(c);
-		}
-		
-		clusters.clear();
-		return casebase;
-		
+			
+			
 	}
-	
-
 }

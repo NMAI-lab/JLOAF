@@ -46,6 +46,9 @@ public class Cluster {
 		public Case getPrototype(){
 			return m_members.get(0);
 		}
+		public int getSize(){
+			return m_members.size();
+		}
 
 		
 }
