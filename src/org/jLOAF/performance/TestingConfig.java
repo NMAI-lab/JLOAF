@@ -46,7 +46,9 @@ public class TestingConfig {
 	public CaseBaseFilter createCaseBaseFilter(String[] args){
 		//create an array that has all the strings between the two words filters
 		String[] filters = returnStrings("filter",args);
-		
+		if(filters==null){
+			return null;
+		}
 		
 		
 		return returnFilters(0,filters);
