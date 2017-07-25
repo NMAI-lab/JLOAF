@@ -66,17 +66,19 @@ public class StateBasedInput extends Input {
 		c=c1;
 		if(c1!=null){
 		size++;
+		size+=((StateBasedInput)c.getInput()).getSize();
 		}
 	}
+	
+	
+	
 	/**
 	 * returns the size of the trace of the stateBasedInput which is always odd
 	 * @return the size of the trace of the stateBasedInput which is always odd
 	 */
 	
 	public int getSize(){
-		if(c!=null){
-			return size+((StateBasedInput)c.getInput()).getSize();
-		}
+		
 		return size;
 		
 	}

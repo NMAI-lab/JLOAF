@@ -37,4 +37,12 @@ public class Case implements Serializable{
 	public Action getAction(){
 		return this.act;
 	}
+	/**
+	 * sets the Action of this case
+	 * @param mostLikelyAction the action to be set for this Case
+	 */
+	public void setAction(Action mostLikelyAction) {
+		act =mostLikelyAction;
+		
+	}
 }

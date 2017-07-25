@@ -131,8 +131,9 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 			
 		}
 		 for(Case c:casebase.getCases()){
-			 
+			 	if(!testCases.getCases().contains(c)){
 				 trainCases.add(c);
+			 	}
 			 
 		 }
 		a.train(trainCases);
