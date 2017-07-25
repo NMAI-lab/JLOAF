@@ -125,7 +125,7 @@ public abstract class PerformanceEvaluator {
 
 				cb=filter.filter(cb);
 				//remove tb filter
-				tb = filter.filter(tb);
+				//tb = filter.filter(tb);
 
 				tempTime = System.currentTimeMillis() - tempTime;
 
