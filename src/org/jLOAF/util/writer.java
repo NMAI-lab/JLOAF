@@ -10,14 +10,14 @@ import java.util.List;
 public class writer {
 	HashMap <String, List<String>> container = new HashMap<String, List<String>>();
 	String [] agents = {"MultipleSequenceAgent", "WallFollowerAgent", "ZigZagAgent","PreviousThreeStatesDependentAgent","SmartSquareAgent"};
-	String agentName = agents[3];
+	String agentName = agents[4];
 	String [] traceNames = {"trace-m0-","trace-m1-","trace-m2-","trace-m3-","trace-m4-"};
 	String fileext = ".txt ";
 	String output_file = "";
 	String [] stsim = {"korderd", "ordered", "unordered","weighted"};
 	Boolean stateBased = true;
-	String [] reasoners = {"TB","KNN"};
-	String [] cbf = {"clustering", "sampling", "none"};
+	String [] reasoners = {"TB","weightedKNN"};
+	String [] cbf = {"fullclustering", "sampling", ""};
 	//String [] cbf2 = {"", "hillclimbing", "geneticAlgorithm", "sequentialBackwardsAlgorithm", "weightsSeperator"};
 	String [] cbf2 = {""};
 	String loc = "batch_files/"+agentName+"/";
@@ -78,10 +78,15 @@ public class writer {
 	
 	public static void main(String []a) {
 		writer w = new writer();
-		if (!w.stateBased) {
+		for(int i=0;i<5;i++){
+		
+		if (i!=1) {
+			w.stateBased = true;
 			w.writeReactive();
 		}else {
-			w.writeState();
+			w.stateBased = false;
+			w.writeState();	
+		}
 		}
 	}
 
