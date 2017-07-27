@@ -22,7 +22,7 @@ import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.sim.StateBased.OrderedSimilarity;
 import org.jLOAF.weights.SimilarityWeights;
 import org.jLOAF.sim.complex.*;
-/*
+/**
  * a caseBase is simply a list of cases, which is a full experiment done by an expert.
  */
 public class CaseBase implements Serializable{
@@ -31,7 +31,7 @@ public class CaseBase implements Serializable{
 	
 	private Collection<Case> cb;
 	private Case latest;
-	/*
+	/**
 	 * Constructor that constructs the casebase and initialize its variables.
 	 */
 	public CaseBase(){
@@ -39,14 +39,14 @@ public class CaseBase implements Serializable{
 		latest=null;
 	}
 	
-	/*
+	/**
 	 * returns the collections of cases this casebase has.
 	 * @return the collection of cases this casebase has.
 	 */
 	public Collection<Case> getCases(){
 		return this.cb;
 	}
-	/*
+	/**
 	 * adds a case to this casebase, and while adding it, it gives the features of the input of the given case a weight of one, and that only
 	 * happens if the similarityMetric used by the case's input is the weightedMean similarity.
 	 * @param c a case to be added to the casebase.
@@ -75,7 +75,7 @@ public class CaseBase implements Serializable{
 		this.cb.add(c);
 	}
 	
-	/*
+	/**
 	 * loops through a casebase and adds its cases to the list of cases this casebase has.
 	 * @param cbnew the casesbase to be added to this casebase.
 	 */
@@ -85,7 +85,7 @@ public class CaseBase implements Serializable{
 			cb.add(c);
 		}
 	}
-	/*
+	/**
 	 * creates a case based on the input and action passed to it, where the input of the case created is a created stateBasedInput(a trace),
 	 * that takes the input passed to the function to be its most recent input.
 	 * @param i, the most recent Input of the stateBasedInput of the case created and added.
@@ -109,21 +109,25 @@ public class CaseBase implements Serializable{
 			this.addCaseBase(cnew);
 		}
 	}
-	/*
+	/**
 	 * returns the size of the casebase.
 	 * @return the size of the casebase
 	 */
 	public int getSize(){
 		return this.cb.size();
 	}
-	/*
+	/**
 	 * removes a case from the casebase.
 	 * @param c the case to be removed from the casebase.
 	 */
 	public void remove(Case c){
 		cb.remove(c);
 	}
-	/*
+	
+	public void removeAll(Case c){
+		cb.removeAll((Collection<?>) c);
+	}
+	/**
 	 * a static method that loads the content of a file, that has a casebase object written in it, using the serializable interface.
 	 * @param filename the name of the file that contains a saved casebase object.
 	 * @return a casebase based on the object written in the given file
@@ -152,7 +156,7 @@ public class CaseBase implements Serializable{
 			return null;
 		}	
 	}
-	/*
+	/**
 	 * exports a casebase to a file using the serializable interface
 	 * @param casebase the casebase to be written in the file.
 	 * @param filename  the name of destination file.
@@ -180,7 +184,7 @@ public class CaseBase implements Serializable{
 	
 	}
 	
-	/*
+	/**
 	 * Converts a casebase into a csv file with all the features
 	 * In the case of missing features it places a template value of 1000.0
 	 * The columns names are places on top of each column
@@ -314,7 +318,7 @@ public class CaseBase implements Serializable{
 		}
 		return actions;
 	}
-	/*
+	/**
 	 * returns the index of an action in a given list of actions
 	 * @param action the actions we are looking for 
 	 * @param actions the list of actions that contains the action we are looking for
