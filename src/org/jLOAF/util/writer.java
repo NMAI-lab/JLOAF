@@ -17,7 +17,7 @@ public class writer {
 	String [] stsim = {"korderd", "ordered", "unordered","weighted"};
 	Boolean stateBased = true;
 	String [] reasoners = {"TB","weightedKNN"};
-	String [] cbf = {"fullclustering", "sampling", "","kclustering","underSampling"};
+	String [] cbf = {"fullclustering", "sampling", "","kclustering","underSampling", "actionClustering"};
 	//String [] cbf2 = {"", "hillclimbing", "geneticAlgorithm", "sequentialBackwardsAlgorithm", "weightsSeperator"};
 	String [] cbf2 = {""};
 	String loc = "C:/Users/sachagunaratne/Documents/GitHub/batch_files/";
