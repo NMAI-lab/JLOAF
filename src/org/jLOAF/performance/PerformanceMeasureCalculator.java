@@ -152,7 +152,7 @@ public class PerformanceMeasureCalculator {
 		pmc.CalculateAllStats();
 		
 		CsvWriter writer = new CsvWriter();
-		writer.writeCalculatedStats("Sample.csv", pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+		writer.writeCalculatedStats("Sample.csv", pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()), null, null);
 	//	writer.writeRawStats("rawStats.csv", pmc.labels, pmc.calcMatrix());
 		
 	}
