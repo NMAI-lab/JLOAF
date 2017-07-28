@@ -73,6 +73,9 @@ public abstract class Reasoning {
 	 */
 	public static Reasoning getReasoner(String a,CaseBase cb){
 			Reasoners.valueOf("cb").setCaseBase(cb);
+			if(a==null){
+				return null;
+			}
 		return Reasoners.valueOf(a).getR();
 	}
 	
