@@ -49,6 +49,7 @@ public enum Reasoners {
 		 * @param cb1
 		 */
 		public void setCaseBase(CaseBase cb1){
+			cbr.getCases().clear();
 			cbr.addCaseBase(cb1);
 		}
 }

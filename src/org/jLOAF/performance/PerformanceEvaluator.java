@@ -113,6 +113,8 @@ public abstract class PerformanceEvaluator {
 			
 			cb.getCases().clear();
 			cb.addListOfCaseBases(tempList);
+			System.out.println("CaseBase size: " + cb.getSize());
+			System.out.println("TestBase size: " + tb.getSize());
 			
 			//setting SimilarityMetricStrategies
 			Case c =(Case)cb.getCases().toArray()[0];
@@ -130,7 +132,9 @@ public abstract class PerformanceEvaluator {
 
 				System.out.println("performing Filtering on the casesbases");
 				long tempTime = System.currentTimeMillis();
-
+				if(ii==1){
+					System.out.println("Out");
+				}
 				cb=filter.filter(cb);
 				//remove tb filter
 				//tb = filter.filter(tb);
@@ -140,6 +144,9 @@ public abstract class PerformanceEvaluator {
 				filterTime[ii]= tempTime/1000.0;
 				System.out.println("time Taken to Filter is " + tempTime/1000.0 +" seconds");
 			}
+			
+			System.out.println("CaseBase size: " + cb.getSize());
+			System.out.println("TestBase size: " + tb.getSize());
 
 			//add function to split casebase into cb and tb
 			//SplitTrainTest(cb);
