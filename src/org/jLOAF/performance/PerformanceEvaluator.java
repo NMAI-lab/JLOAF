@@ -14,6 +14,7 @@ import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.util.CsvWriter;
+import org.jLOAF.util.DBWriter;
 /***
  * Abstract class that can be extended and used to test performance
  * @Steps
@@ -100,6 +101,7 @@ public abstract class PerformanceEvaluator {
 		long totalTime = System.currentTimeMillis();
 		for(int ii=0;ii<listOfCaseBases.size();ii++){
 			//temp list
+			tempList.clear();
 			tempList.addAll(listOfCaseBases);
 
 			//add ignore index casebase to testbase tb and remove from templist
@@ -107,27 +109,36 @@ public abstract class PerformanceEvaluator {
 			//remove this method here
 			//cb.addListOfCaseBases(listOfCaseBases);
 			for(int i=0;i<listOfCaseBases.size();i++){
-				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
-				else {cb.addListOfCaseBases(tempList);}
+				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);break;}
 			}
 			
+			cb.getCases().clear();
+			cb.addListOfCaseBases(tempList);
+			
 			//setting SimilarityMetricStrategies
-			Case c =(Case)cb.getCases().toArray()[0];
 			if(st!=null){
-
-				c.getInput().setSimilarityMetric(StateBasedSimilarity.getSim(st));
+				StateBasedSimilarity sim = (StateBasedSimilarity) StateBasedSimilarity.getSim(st);
+				for(Case c: tb.getCases()){
+					c.getInput().setSimilarityMetric(sim);
+				}
 
 			}
 			if(cp!=null){
-
-				((StateBasedInput)c.getInput()).getInput().setSimilarityMetric(ComplexSimilarityMetricStrategy.getSim(st));
+				
+				ComplexSimilarityMetricStrategy sim = (ComplexSimilarityMetricStrategy) ComplexSimilarityMetricStrategy.getSim(cp);
+				for(Case c: tb.getCases()){
+					((StateBasedInput)c.getInput()).getInput().setSimilarityMetric(sim);
+				}
+				
 			}
 
 			if(filter!=null){
 
 				System.out.println("performing Filtering on the casesbases");
 				long tempTime = System.currentTimeMillis();
-
+				if(ii==1){
+					System.out.println("Out");
+				}
 				cb=filter.filter(cb);
 				//remove tb filter
 				//tb = filter.filter(tb);
@@ -137,6 +148,9 @@ public abstract class PerformanceEvaluator {
 				filterTime[ii]= tempTime/1000.0;
 				System.out.println("time Taken to Filter is " + tempTime/1000.0 +" seconds");
 			}
+			
+			System.out.println("CaseBase size: " + cb.getSize());
+			System.out.println("TestBase size: " + tb.getSize());
 
 			//add function to split casebase into cb and tb
 			//SplitTrainTest(cb);
@@ -161,6 +175,7 @@ public abstract class PerformanceEvaluator {
 			AllStats.add(stats_module.getStatisticsHashMap());
 
 			ignore++;
+			
 		}
 
 		long finalTime = System.currentTimeMillis();
@@ -175,7 +190,13 @@ public abstract class PerformanceEvaluator {
 		System.out.println("Writing stats to file...");
 		//writes calculated stats into a csv file
 		CsvWriter writer = new CsvWriter();
+		DBWriter writer2 = new DBWriter();
 		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()), filterTime, testTime);
+		try {
+			writer2.writeToDB(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Done");
 	}
 
