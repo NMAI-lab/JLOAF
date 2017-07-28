@@ -114,7 +114,7 @@ public class TestingConfig {
 	 */
 	public String getStSim(String[] args) {
 	String a[] =returnStrings("stsim",args);
-		if(a.length!=0){
+		if(a!=null){
 			return a[0];
 		}
 		return null;
@@ -127,7 +127,7 @@ public class TestingConfig {
 	 */
 	public String getCpSim(String[] args) {
 		String a[] =returnStrings("cpsim",args);
-		if(a.length!=0){
+		if(a!=null){
 			return a[0];
 		}
 		return null;

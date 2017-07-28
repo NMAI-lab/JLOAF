@@ -8,7 +8,7 @@ import org.jLOAF.sim.StateBasedSimilarity;
 *
 */
 public enum StSims {
-	koredered(new KOrderedSimilarity(5)),koredered_r(new KOrderedSimilarity(1)),ordered(new OrderedSimilarity()),unoredered(new UnorderedSimilarity())
+	kordered(new KOrderedSimilarity(5)),kordered_r(new KOrderedSimilarity(1)),ordered(new OrderedSimilarity()),unordered(new UnorderedSimilarity())
 	,weighted(new WeightedStateBasedSimilarity());
 	
 	private StateBasedSimilarity sim;

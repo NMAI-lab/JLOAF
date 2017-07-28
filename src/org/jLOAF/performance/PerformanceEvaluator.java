@@ -70,6 +70,10 @@ public abstract class PerformanceEvaluator {
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
+		
+		if(r==null){
+			throw new IllegalArgumentException("The reasoner cannot be null. Please set the reasoner");
+		}
 
 		long startTime = System.currentTimeMillis();
 
@@ -89,7 +93,8 @@ public abstract class PerformanceEvaluator {
 		ArrayList<HashMap<String, Float>>AllStats = new ArrayList<HashMap<String, Float>>();
 		Agent agent = createAgent();
 		
-		
+		double [] filterTime = new double[listOfCaseBases.size()];
+		double [] testTime = new double[listOfCaseBases.size()];
 
 		//loop over all casebases
 		long totalTime = System.currentTimeMillis();
@@ -125,10 +130,11 @@ public abstract class PerformanceEvaluator {
 
 				cb=filter.filter(cb);
 				//remove tb filter
-				tb = filter.filter(tb);
+				//tb = filter.filter(tb);
 
 				tempTime = System.currentTimeMillis() - tempTime;
 
+				filterTime[ii]= tempTime/1000.0;
 				System.out.println("time Taken to Filter is " + tempTime/1000.0 +" seconds");
 			}
 
@@ -148,7 +154,8 @@ public abstract class PerformanceEvaluator {
 			}
 
 			endTime = System.currentTimeMillis();
-
+			
+			testTime[ii] = (endTime - startTime)/(1000.0*60.0);
 			System.out.println("Testing complete in: "+ (endTime - startTime)/(1000.0*60.0) + " min");
 			//adds current stats bundle to main list
 			AllStats.add(stats_module.getStatisticsHashMap());
@@ -168,7 +175,7 @@ public abstract class PerformanceEvaluator {
 		System.out.println("Writing stats to file...");
 		//writes calculated stats into a csv file
 		CsvWriter writer = new CsvWriter();
-		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()), filterTime, testTime);
 		System.out.println("Done");
 	}
 
