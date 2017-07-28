@@ -14,6 +14,7 @@ import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.util.CsvWriter;
+import org.jLOAF.util.DBWriter;
 /***
  * Abstract class that can be extended and used to test performance
  * @Steps
@@ -186,7 +187,13 @@ public abstract class PerformanceEvaluator {
 		System.out.println("Writing stats to file...");
 		//writes calculated stats into a csv file
 		CsvWriter writer = new CsvWriter();
+		DBWriter writer2 = new DBWriter();
 		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()), filterTime, testTime);
+		try {
+			writer2.writeToDB(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Done");
 	}
 
