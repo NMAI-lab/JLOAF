@@ -18,7 +18,7 @@ import org.jLOAF.sim.StateBasedSimilarity;
  *
  */
 public class UnderSampling extends CaseBaseFilter {
-	double underSamplePercent = 1;
+	double underSamplePercent = 0.5;
 	public UnderSampling(CaseBaseFilter f) {
 		super(f);
 	}
