@@ -19,6 +19,7 @@ public class ActionClustering extends CaseBaseFilter{
 	
 	@Override
 	public CaseBase filter(CaseBase initial) {
+		clusters.clear();
 		setClusters(initial);
 		calculateCentroids();
 		CaseBase cb = new CaseBase();
