@@ -2,6 +2,7 @@ package org.jLOAF.preprocessing.filter.casebasefilter;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
@@ -17,7 +18,7 @@ import org.jLOAF.sim.StateBasedSimilarity;
  *
  */
 public class UnderSampling extends CaseBaseFilter {
-	double underSamplePercent = 0;
+	double underSamplePercent = 1;
 	public UnderSampling(CaseBaseFilter f) {
 		super(f);
 	}
@@ -55,18 +56,34 @@ public class UnderSampling extends CaseBaseFilter {
   		//undersample based on the percentage
   		//1->majority class is as same as the minority class
   		//0->No undersampling performed
-		count=0;
+//		count=0;
+//		for(Action a:actions){
+//			if(!a.getName().equals(smallest)){
+//				for(Case c: casebases.get(a.getName()).getCases()){
+//					initial.remove(c);
+//					if(count>=(sizes.get(a.getName())-min)*underSamplePercent){
+//						break;
+//					}
+//					count++;
+//				}
+//			}
+//			count=0;
+//		}
+		
+  		Random r = new Random();
+  		//random undersampling
 		for(Action a:actions){
 			if(!a.getName().equals(smallest)){
-				for(Case c: casebases.get(a.getName()).getCases()){
+				CaseBase temp = casebases.get(a.getName());
+				for(int i=0;i<temp.getSize();i++){
+					Case c = (Case)temp.getCases().toArray()[r.nextInt(temp.getSize())];
 					initial.remove(c);
-					if(count>=(sizes.get(a.getName())-min)*underSamplePercent){
+					temp.remove(c);
+					if(i>=(sizes.get(a.getName())-min)*underSamplePercent){
 						break;
-					}
-					count++;
+					}			
 				}
 			}
-			count=0;
 		}
 		
 		return initial;
