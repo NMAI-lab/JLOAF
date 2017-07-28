@@ -70,6 +70,10 @@ public abstract class PerformanceEvaluator {
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
+		
+		if(r==null){
+			throw new IllegalArgumentException("The reasoner cannot be null. Please set the reasoner");
+		}
 
 		long startTime = System.currentTimeMillis();
 
