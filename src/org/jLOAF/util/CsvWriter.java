@@ -16,7 +16,7 @@ public class CsvWriter {
 	 * @param mean HashMap of Means
 	 * @param stdev HashMap of Standard Deviations
 	 */
-	public void writeCalculatedStats(String filename, HashMap<String, Float> mean, HashMap<String, Float> stdev){
+	public void writeCalculatedStats(String filename, HashMap<String, Float> mean, HashMap<String, Float> stdev, double [] filterTime, double [] testTime){
 		try {
 			FileWriter fw = new FileWriter(filename);
 			PrintWriter out = new PrintWriter(fw);
@@ -37,6 +37,32 @@ public class CsvWriter {
 				sb.append('\n');
 			}
 			out.write(sb.toString());
+			
+			StringBuilder sb2 = new StringBuilder();
+			sb2.append('\n');
+			sb2.append(",");
+			for(int i=0;i<filterTime.length;i++){
+				sb2.append("Cycle"+i);
+				if(i!=filterTime.length-1){
+					sb2.append(",");
+				}
+			}
+			sb2.append('\n');
+			sb2.append("Filter Time (Seconds)");
+			sb2.append(",");
+			for(double val: filterTime){
+				sb2.append(val);
+				sb2.append(",");
+			}
+			sb2.append('\n');
+			sb2.append("Test Time (Minutes)");
+			sb2.append(",");
+			for(double val: testTime){
+				sb2.append(val);
+				sb2.append(",");
+			}
+			sb2.append('\n');
+			out.write(sb2.toString());
 			
 			out.close();
 			fw.close();
