@@ -1,6 +1,7 @@
 package org.jLOAF.preprocessing.filter;
 
 
+import org.jLOAF.preprocessing.filter.casebasefilter.ActionClustering;
 import org.jLOAF.preprocessing.filter.casebasefilter.FullClustering;
 import org.jLOAF.preprocessing.filter.casebasefilter.KClustering;
 import org.jLOAF.preprocessing.filter.casebasefilter.Sampling;
@@ -20,7 +21,7 @@ public enum Filters {
 
 	kclustering(new KClustering(null)),fullclustering(new FullClustering(null)),sampling(new Sampling(null)),geneticAlgorithm(new GeneticAlgorithmWeightSelector(null))
 	,hillclimbing(new HillClimbingFeatureSelection(null)),sequentialBackwardsAlgorithm(new SequentialBackwardGeneration(null,5,0.9))
-	,weightsSeperator(new WeightsSeperatorFilter(null)),underSampling(new UnderSampling(null));
+	,weightsSeperator(new WeightsSeperatorFilter(null)),underSampling(new UnderSampling(null)),actionclustering(new ActionClustering(null));
 	
 		CaseBaseFilter fs ;
 		
