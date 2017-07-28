@@ -109,24 +109,27 @@ public abstract class PerformanceEvaluator {
 			//remove this method here
 			//cb.addListOfCaseBases(listOfCaseBases);
 			for(int i=0;i<listOfCaseBases.size();i++){
-				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
+				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);break;}
 			}
 			
 			cb.getCases().clear();
 			cb.addListOfCaseBases(tempList);
-			System.out.println("CaseBase size: " + cb.getSize());
-			System.out.println("TestBase size: " + tb.getSize());
 			
 			//setting SimilarityMetricStrategies
-			Case c =(Case)cb.getCases().toArray()[0];
 			if(st!=null){
-
-				c.getInput().setSimilarityMetric(StateBasedSimilarity.getSim(st));
+				StateBasedSimilarity sim = (StateBasedSimilarity) StateBasedSimilarity.getSim(st);
+				for(Case c: tb.getCases()){
+					c.getInput().setSimilarityMetric(sim);
+				}
 
 			}
 			if(cp!=null){
-
-				((StateBasedInput)c.getInput()).getInput().setSimilarityMetric(ComplexSimilarityMetricStrategy.getSim(st));
+				
+				ComplexSimilarityMetricStrategy sim = (ComplexSimilarityMetricStrategy) ComplexSimilarityMetricStrategy.getSim(cp);
+				for(Case c: tb.getCases()){
+					((StateBasedInput)c.getInput()).getInput().setSimilarityMetric(sim);
+				}
+				
 			}
 
 			if(filter!=null){
