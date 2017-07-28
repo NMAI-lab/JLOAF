@@ -11,7 +11,7 @@ import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.sim.StateBasedSimilarity;
 /**
- * This class undersamples the majority class by removing a percentage of the majority class cases based on the value of
+ * This class undersamples the majority class by randomly removing a percentage of the majority class cases based on the value of
  * underSamplePercent which can range from [0,1] where 1 represents equalizing the majority and minority classes, and 0 represents not removing
  * cases.
  *  * @author sachagunaratne
