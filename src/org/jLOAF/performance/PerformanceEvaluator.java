@@ -108,7 +108,10 @@ public abstract class PerformanceEvaluator {
 			//cb.addListOfCaseBases(listOfCaseBases);
 			for(int i=0;i<listOfCaseBases.size();i++){
 				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
-				else {cb.addListOfCaseBases(tempList);}
+				else {
+					cb.getCases().clear();
+					cb.addListOfCaseBases(tempList);
+				}
 			}
 			
 			//setting SimilarityMetricStrategies
@@ -161,6 +164,7 @@ public abstract class PerformanceEvaluator {
 			AllStats.add(stats_module.getStatisticsHashMap());
 
 			ignore++;
+			
 		}
 
 		long finalTime = System.currentTimeMillis();
