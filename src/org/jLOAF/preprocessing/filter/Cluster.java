@@ -14,6 +14,7 @@ public class Cluster {
 
 	//used to store the members of the cluster
 		private List<Case> m_members;
+		private Case centroid;
 		
 		/**
 		 * * Creates an empty Cluster that contains no Cases
@@ -49,6 +50,13 @@ public class Cluster {
 		public int getSize(){
 			return m_members.size();
 		}
-
+		
+		public Case getCentroid(){
+			return centroid;
+			
+		}
+		public void setCentroid(Case c){
+			centroid=c;
+		}
 		
 }
