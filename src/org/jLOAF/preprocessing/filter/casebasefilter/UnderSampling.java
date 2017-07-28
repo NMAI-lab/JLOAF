@@ -9,7 +9,13 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.sim.StateBasedSimilarity;
-
+/**
+ * This class undersamples the majority class by removing a percentage of the majority class cases based on the value of
+ * underSamplePercent which can range from [0,1] where 1 represents equalizing the majority and minority classes, and 0 represents not removing
+ * cases.
+ *  * @author sachagunaratne
+ *
+ */
 public class UnderSampling extends CaseBaseFilter {
 	double underSamplePercent = 0;
 	public UnderSampling(CaseBaseFilter f) {
@@ -36,12 +42,7 @@ public class UnderSampling extends CaseBaseFilter {
 			sizes.put(a.getName(),temp.getSize());
 		}
 		
-		//make each casebase the same size? Using oversampling and undersampling
-		//undersampling removes cases from the large cases
-		//oversampling involves making synthetic data using SMOTE
-		
-		//find largest casebase
-				
+		//find smallest casebase
 		int min = sizes.get(actions.get(0).getName());
 		int index =0;
 		int count =0;
@@ -50,7 +51,10 @@ public class UnderSampling extends CaseBaseFilter {
 			count++;
 		}
   		String smallest = actions.get(index).getName();
-		double underSamplePercent =0;
+
+  		//undersample based on the percentage
+  		//1->majority class is as same as the minority class
+  		//0->No undersampling performed
 		count=0;
 		for(Action a:actions){
 			if(!a.getName().equals(smallest)){
