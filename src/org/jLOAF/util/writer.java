@@ -17,7 +17,7 @@ public class writer {
 	String [] stsim = {"korderd", "ordered", "unordered","weighted"};
 	Boolean stateBased = true;
 	String [] reasoners = {"TB","weightedKNN"};
-	String [] cbf = {"fullclustering", "sampling", ""};
+	String [] cbf = {"fullclustering", "sampling", "","kclustering","underSampling"};
 	//String [] cbf2 = {"", "hillclimbing", "geneticAlgorithm", "sequentialBackwardsAlgorithm", "weightsSeperator"};
 	String [] cbf2 = {""};
 	String loc = "C:/Users/sachagunaratne/Documents/GitHub/batch_files/";
@@ -88,21 +88,16 @@ public class writer {
 		writer w = new writer();
 		for(int i=0;i<5;i++){
 			w.setAgent(i);
-		if (i!=1) {
-			w.stateBased = true;		
-			w.writeState();
-		}else {
-			w.stateBased = false;
-			w.writeReactive();	
+			if (i!=1) {
+				w.stateBased = true;		
+				w.writeState();
+			}else {
+				w.stateBased = false;
+				w.writeReactive();	
+			}
 		}
-		}
-//	if(w.stateBased){
-//		w.writeState();
-//	}else{
-//		w.writeReactive();
-//	}
-//	}
 	}
+	
 	public void setAgent(int i){
 		this.agentName = this.agents[i];
 	}
