@@ -100,6 +100,7 @@ public abstract class PerformanceEvaluator {
 		long totalTime = System.currentTimeMillis();
 		for(int ii=0;ii<listOfCaseBases.size();ii++){
 			//temp list
+			tempList.clear();
 			tempList.addAll(listOfCaseBases);
 
 			//add ignore index casebase to testbase tb and remove from templist
@@ -108,11 +109,10 @@ public abstract class PerformanceEvaluator {
 			//cb.addListOfCaseBases(listOfCaseBases);
 			for(int i=0;i<listOfCaseBases.size();i++){
 				if(ignore==i) {tb = listOfCaseBases.get(i);tempList.remove(ignore);}
-				else {
-					cb.getCases().clear();
-					cb.addListOfCaseBases(tempList);
-				}
 			}
+			
+			cb.getCases().clear();
+			cb.addListOfCaseBases(tempList);
 			
 			//setting SimilarityMetricStrategies
 			Case c =(Case)cb.getCases().toArray()[0];
