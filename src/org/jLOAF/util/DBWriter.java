@@ -16,14 +16,21 @@ public class DBWriter {
 		try
 		{
 			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:robocup.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\sachagunaratne-admin\\Documents\\batch_files\\robocup.db");
 
 			Statement statement = connection.createStatement();
-			statement.setQueryTimeout(30); 
+			statement.setQueryTimeout(0); 
 			
 			//convert filename into string for sending executeUpdate
-			String[] input = filename.split(",");
+			String[] temp = filename.split(",");
 			
+			temp[0]=temp[0].split("/")[0];
+			
+			String input[] = new String[temp.length-1];
+			
+			for(int i=0;i<temp.length-1;i++){
+				input[i]=temp[i];
+			}
 			
 			//creates mean table
 			StringBuilder sb = new StringBuilder();
