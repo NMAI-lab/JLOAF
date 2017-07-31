@@ -259,20 +259,20 @@ public class Statistics {
 		String[] labels = new String[numStats];
 		
 		stats[0] = this.getGlobalF1();
-		labels[0] = "Global F1";
+		labels[0] = "Global_F1";
 		stats[1] = this.getClassificationAccuracy();
-		labels[1] = "Classification Accuracy";
+		labels[1] = "Classification_Accuracy";
 		
 		int index = 2;
 		for(String nextAct: expected){
 			stats[index] = this.getF1(nextAct);
-			labels[index] = "F1 " + nextAct;
+			labels[index] = "F1_" + nextAct;
 			index++;
 			stats[index] = this.getPrecision(nextAct);
-			labels[index] = "Precision " + nextAct;
+			labels[index] = "Precision_" + nextAct;
 			index++;
 			stats[index] = this.getRecall(nextAct);
-			labels[index] = "Recall " + nextAct;
+			labels[index] = "Recall_" + nextAct;
 			index++;
 		}
 		
@@ -288,13 +288,13 @@ public class Statistics {
 		HashMap<String, Float> Allstats = new HashMap<String, Float>();
 		List<String> expected = new ArrayList<String>(this.confusion_matrix.keySet());
 		
-		Allstats.put("Global F1", this.getGlobalF1());
-		Allstats.put("Classification Accuracy", this.getClassificationAccuracy());
+		Allstats.put("Global_F1", this.getGlobalF1());
+		Allstats.put("Classification_Accuracy", this.getClassificationAccuracy());
 		
 		for(String nextAct: expected){
-			Allstats.put("F1 "+ nextAct, this.getF1(nextAct));
-			Allstats.put("Precision "+ nextAct, this.getPrecision(nextAct));
-			Allstats.put("Recall "+ nextAct, this.getRecall(nextAct));
+			Allstats.put("F1_"+ nextAct, this.getF1(nextAct));
+			Allstats.put("Precision_"+ nextAct, this.getPrecision(nextAct));
+			Allstats.put("Recall_"+ nextAct, this.getRecall(nextAct));
 		}
 	
 		return Allstats;

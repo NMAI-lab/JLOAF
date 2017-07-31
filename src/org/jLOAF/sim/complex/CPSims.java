@@ -12,7 +12,7 @@ import org.jLOAF.sim.StateBased.WeightedStateBasedSimilarity;
  *
  */
 public enum CPSims {
-	auctionSim(new  AuctionMaximalMatching()),greedy(new GreedyMunkrezMatching()),indexMatching(new OrderIndexMatchingAlgorithm("flags","flag_dir"));
+	auctionSim(new  AuctionMaximalMatching()),greedy(new GreedyMunkrezMatching()),indexMatching(new OrderIndexMatchingAlgorithm("flags","flag_dir")),none(null);
 	
 	private ComplexSimilarityMetricStrategy sim;
 
