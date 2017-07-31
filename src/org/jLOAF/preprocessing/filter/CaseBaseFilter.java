@@ -36,14 +36,25 @@ public abstract  class CaseBaseFilter {
 	
 	
 	public abstract CaseBase filter(CaseBase initial);
+	/**
+	 * sets the filter of this Filter
+	 * @param filter the filter to be set
+	 */
 	public void setFilter(CaseBaseFilter filter){
 		this.filter=filter;
 	}
-
+	/**
+	 * returns a Filter object that corresponds to the parameter 
+	 * @param string the name that corresponds to this filter
+	 * @return the filter object that has string as its name
+	 */
 	public static CaseBaseFilter getFilter(String string) {
 		return Filters.valueOf(string).getFilter();
 	}
-
+	/**
+	 * returns a new instance of the subclass calling this method
+	 * @return a new instance of the subclass calling this method
+	 */
 	public CaseBaseFilter getCopy() {
 		Class<? extends CaseBaseFilter> c=this.getClass();
 		Object [] paramValuesSub ={null};
