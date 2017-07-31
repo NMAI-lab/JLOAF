@@ -65,6 +65,9 @@ public class TestingConfig {
 			return CaseBaseFilter.getFilter(filters[i]);
 		}
 			f=CaseBaseFilter.getFilter(filters[i]);
+			if(f==null){
+				return null;
+			}
 			f.setFilter(returnFilters(i+1,filters));
 			return f;
 	}
