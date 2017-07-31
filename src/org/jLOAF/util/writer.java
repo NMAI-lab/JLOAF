@@ -15,11 +15,12 @@ public class writer {
 	String fileext = ".txt ";
 	String output_file = "";
 	String [] stsim = {"korderd", "ordered", "unordered","weighted"};
+	String [] cpsim = {"none"};
 	Boolean stateBased = true;
 	String [] reasoners = {"TB","weightedKNN"};
-	String [] cbf = {"fullclustering", "sampling", "","kclustering","underSampling", "actionClustering"};
+	String [] cbf = {"fullclustering", "sampling", "none","kclustering","underSampling", "actionClustering"};
 	//String [] cbf2 = {"", "hillclimbing", "geneticAlgorithm", "sequentialBackwardsAlgorithm", "weightsSeperator"};
-	String [] cbf2 = {""};
+	String [] cbf2 = {"none"};
 	String loc = "C:/Users/sachagunaratne/Documents/GitHub/batch_files/";
 	
 	public void writeReactive() {
@@ -51,7 +52,7 @@ public class writer {
 						fw.write(s2);
 					}
 					fw.write("files ");
-					fw.write("output " + "Results/"+reasoners[i]+"_"+agentName+"_"+cbf[k]+"_"+cbf2[l]+".csv" +" output ");
+					fw.write("output " + "Results/"+agentName+","+reasoners[i]+","+cbf[k]+","+cbf2[l]+",none,none,.csv" +" output ");
 					
 					//accounts for empty filter
 					if(cbf[k].equals("") & !cbf2[l].equals("")) {
@@ -117,6 +118,7 @@ public class writer {
 				for(int k = 0;k<cbf.length;k++) {
 					for(int l =0;l<cbf2.length;l++) {
 						for(int m=0;m<stsim.length;m++) {
+							for(int g=0;g<cpsim.length;g++){
 							if(count%4==0 && count!=0) {
 								fw.write(") | set /P  \"=\"");
 								fw.write("\r\n");
@@ -133,7 +135,7 @@ public class writer {
 								fw.write(s2);
 							}
 							fw.write("files ");
-							fw.write("output " + "Results/"+ reasoners[i]+"_"+agentName+"_"+cbf[k]+"_"+cbf2[l]+"_"+stsim[m]+".csv" +" output ");
+							fw.write("output " + "Results/"+ agentName+","+reasoners[i]+","+cbf[k]+","+cbf2[l]+","+stsim[m]+","+cpsim[g]+",.csv" +" output ");
 
 							//accounts for empty filter
 							if(cbf[k].equals("") & !cbf2[l].equals("")) {
@@ -149,9 +151,11 @@ public class writer {
 							//reasoner
 							fw.write("reas "+ reasoners[i] + " reas ");
 							//stsim
-							fw.write("stsim "+stsim[m]+" stsim");
+							fw.write("stsim "+stsim[m]+" stsim ");
+							fw.write("cpsim "+cpsim[m]+" cpsim");
 							fw.write("\r\n");
 							count++;
+							}
 						}
 					}
 				}
