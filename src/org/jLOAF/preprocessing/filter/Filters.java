@@ -35,7 +35,7 @@ public enum Filters {
 	 * @return the caseBase filter of this enumerated element
 	 */
 	public CaseBaseFilter getFilter(){
-		return fs;
+		return fs.getCopy();
 	}
 	
 }
