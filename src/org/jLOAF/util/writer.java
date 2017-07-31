@@ -152,7 +152,7 @@ public class writer {
 							fw.write("reas "+ reasoners[i] + " reas ");
 							//stsim
 							fw.write("stsim "+stsim[m]+" stsim ");
-							fw.write("cpsim "+cpsim[m]+" cpsim");
+							fw.write("cpsim "+cpsim[g]+" cpsim");
 							fw.write("\r\n");
 							count++;
 							}
