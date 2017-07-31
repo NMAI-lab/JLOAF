@@ -136,9 +136,6 @@ public abstract class PerformanceEvaluator {
 
 				System.out.println("performing Filtering on the casesbases");
 				long tempTime = System.currentTimeMillis();
-				if(ii==1){
-					System.out.println("Out");
-				}
 				cb=filter.filter(cb);
 				//remove tb filter
 				//tb = filter.filter(tb);
