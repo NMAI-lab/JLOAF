@@ -14,7 +14,7 @@ public class writer {
 	String [] traceNames = {"trace-m0-","trace-m1-","trace-m2-","trace-m3-","trace-m4-"};
 	String fileext = ".txt ";
 	String output_file = "";
-	String [] stsim = {"kordered", "ordered", "unordered","weighted"};
+	String [] stsim = {"kordered", "ordered", "unordered","weighted","kunordered"};
 	String [] cpsim = {"none"};
 	Boolean stateBased = true;
 	String [] reasoners = {"TB","weightedKNN"};
