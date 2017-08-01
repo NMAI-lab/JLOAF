@@ -61,32 +61,32 @@ public class DBWriter {
 			statement.executeUpdate("BEGIN IMMEDIATE; CREATE TABLE IF NOT EXISTS mean (Agent STRING, Reasoner STRING, Filter1 STRING, Filter2 STRING, stateBasedSim STRING, complexSim STRING,"+sb.toString()+"); END;");
 			statement.executeUpdate(sb2.toString());
 			
-//			//creates std table
-//			StringBuilder sb3 = new StringBuilder();
-//			for(String feature: mean.keySet()){
-//				sb3.append(feature+" STRING,");
-//			}
-//			sb3.deleteCharAt(sb3.length()-1);
-//			
-//			StringBuilder sb4 = new StringBuilder();
-//			sb4.append("INSERT INTO standard_dev values(");
-//			for (String s: input){
-//				sb4.append("'");
-//				sb4.append(s);
-//				sb4.append("'");
-//				sb4.append(",");
-//			}
-//			for(String feature: stdev.keySet()){
-//				sb4.append("'");
-//				sb4.append(stdev.get(feature));
-//				sb4.append("'");
-//				sb4.append(",");
-//			}
-//			sb4.deleteCharAt(sb4.length()-1);
-//			sb4.append(")");
-//			
-//			statement.executeUpdate("CREATE TABLE IF NOT EXISTS standard_dev (Agent STRING, Reasoner STRING, Filter1 STRING, Filter2 STRING, stateBasedSim STRING, complexSim STRING,"+sb3.toString()+")");
-//			statement.executeUpdate(sb4.toString());
+			//creates std table
+			StringBuilder sb3 = new StringBuilder();
+			for(String feature: mean.keySet()){
+				sb3.append(feature+" STRING,");
+			}
+			sb3.deleteCharAt(sb3.length()-1);
+			
+			StringBuilder sb4 = new StringBuilder();
+			sb4.append("BEGIN IMMEDIATE; INSERT INTO standard_dev values(");
+			for (String s: input){
+				sb4.append("'");
+				sb4.append(s);
+				sb4.append("'");
+				sb4.append(",");
+			}
+			for(String feature: stdev.keySet()){
+				sb4.append("'");
+				sb4.append(stdev.get(feature));
+				sb4.append("'");
+				sb4.append(",");
+			}
+			sb4.deleteCharAt(sb4.length()-1);
+			sb4.append("); END;");
+			
+			statement.executeUpdate("BEGIN IMMEDIATE; CREATE TABLE IF NOT EXISTS standard_dev (Agent STRING, Reasoner STRING, Filter1 STRING, Filter2 STRING, stateBasedSim STRING, complexSim STRING,"+sb3.toString()+"); END;");
+			statement.executeUpdate(sb4.toString());
 			
 			statement.close();
 			connection.close();
