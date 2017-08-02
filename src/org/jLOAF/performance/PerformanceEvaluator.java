@@ -188,13 +188,22 @@ public abstract class PerformanceEvaluator {
 		//writes calculated stats into a csv file
 		CsvWriter writer = new CsvWriter();
 		DBWriter writer2 = new DBWriter();
+		
 		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()), filterTime, testTime);
 		try {
-			writer2.writeToDB(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()));
+			writer2.writeToDB(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()),getMeanTime(filterTime),getMeanTime(testTime));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		System.out.println("Done");
+	}
+
+	private double getMeanTime(double[] array) {
+		double sum = 0;
+		for(int i=0;i<array.length;i++){
+			sum+=array[i];
+		}
+		return sum/array.length;
 	}
 
 	protected void SplitTrainTest(CaseBase casebase){ 
