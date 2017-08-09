@@ -1,6 +1,7 @@
 package org.jLOAF.casebase;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 import org.jLOAF.action.Action;
 import org.jLOAF.inputs.Input;
@@ -45,4 +46,5 @@ public class Case implements Serializable{
 		act =mostLikelyAction;
 		
 	}
+	
 }

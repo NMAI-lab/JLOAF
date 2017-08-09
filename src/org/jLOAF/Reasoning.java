@@ -1,5 +1,6 @@
 package org.jLOAF;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
@@ -8,6 +9,7 @@ import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.reasoning.Reasoners;
 import org.jLOAF.retrieve.Retrieval;
 /*
@@ -78,5 +80,7 @@ public abstract class Reasoning {
 			}
 		return Reasoners.valueOf(a).getR();
 	}
+	
+	
 	
 }

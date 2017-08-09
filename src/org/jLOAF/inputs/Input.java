@@ -7,7 +7,9 @@
 package org.jLOAF.inputs;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
+import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 /*
  * the input class is the parent of all input classes, it is an abstract class that defines some methods for its children.
@@ -62,4 +64,12 @@ public abstract class Input implements Serializable{
 	public SimilarityMetricStrategy getSimilarityMetricStrategy(){
 		return simStrategy;
 	}
+
+	public static double getFeature(Input input, String feature) {
+		
+			HashMap<String,Double> value = CaseBase.convert(((StateBasedInput)input).getInput());
+			
+			return value.get(feature);
+		}
+	
 }
