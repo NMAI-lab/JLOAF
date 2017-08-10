@@ -9,12 +9,12 @@ import java.util.List;
 
 public class writer {
 	HashMap <String, List<String>> container = new HashMap<String, List<String>>();
-	String [] agents = {"MultipleSequenceAgent", "WallFollowerAgent", "ZigZagAgent","PreviousThreeStatesDependentAgent","SmartSquareAgent"};
+	String [] agents = {"FixedSequenceAgent"};
 	String agentName = agents[0];
 	String [] traceNames = {"trace-m0-","trace-m1-","trace-m2-","trace-m3-","trace-m4-"};
 	String fileext = ".txt ";
 	String output_file = "";
-	String [] stsim = {"kordered", "ordered", "unordered","weighted","kunordered"};
+	String [] stsim = {"kordered", "ordered", "unordered","weighted","kunordered","kunorderd", "kunorderedaction"};
 	String [] cpsim = {"none"};
 	Boolean stateBased = true;
 	String [] reasoners = {"TB","weightedKNN"};
@@ -87,9 +87,9 @@ public class writer {
 	
 	public static void main(String []a) {
 		writer w = new writer();
-		for(int i=0;i<5;i++){
+		for(int i=0;i<1;i++){
 			w.setAgent(i);
-			if (i!=1) {
+			if (i!=0) {
 				w.stateBased = true;		
 				w.writeState();
 			}else {
