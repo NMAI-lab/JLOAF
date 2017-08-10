@@ -11,7 +11,10 @@ public class KUnorderedSimilarity extends StateBasedSimilarity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int k=11;
+	private int k;
+	public KUnorderedSimilarity(int k){
+		this.k=k;
+	}
 
 	@Override
 	public double similarity(Input i1, Input i2) {
@@ -82,7 +85,7 @@ public class KUnorderedSimilarity extends StateBasedSimilarity {
 			
 			}
 		}
-		return similarity/(2*i1Run.keySet().size()+i2Run.keySet().size()-2*count);
+		return similarity/(i1Run.keySet().size()+i2Run.keySet().size()-count);
 	}
 
 }

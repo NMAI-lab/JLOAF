@@ -5,17 +5,17 @@ import java.util.HashMap;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.sim.StateBasedSimilarity;
-/**
- * this class represents a similarity metric that compares two stateBased Inputs based on the actions and inputs of their traces, regardless of 
- * the order they are in.
- * @author Ibrahim Ali Fawaz
- */
-public class UnorderedSimilarity extends StateBasedSimilarity{
+
+public class KUnorderedActionSimilarity extends StateBasedSimilarity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int k;
+	public KUnorderedActionSimilarity(int k){
+		this.k=k;
+	}
 
 	@Override
 	public double similarity(Input i1, Input i2) {
@@ -45,7 +45,7 @@ public class UnorderedSimilarity extends StateBasedSimilarity{
 	 * @param st1 the stateBasedInput that holds the trace
 	 */
 	private void putInRun(int sizeSt1, HashMap<String, Integer> i1Run,StateBasedInput st1) {
-		for(int i=0;i<sizeSt1;i=i+2){
+		for(int i=0;i<Math.min(sizeSt1,k);i=i+2){
 			String a="";
 			if(i+1!=sizeSt1){
 			 a = st1.getAction(i+1).getName();
@@ -57,12 +57,7 @@ public class UnorderedSimilarity extends StateBasedSimilarity{
 			i1Run.put(a, i1Run.get(a)+1);
 			}
 			}
-			String in = st1.getInput(i).toString();
-			if(i1Run.get(in)==null){
-				i1Run.put(in,1);
-			}else{
-			i1Run.put(in, i1Run.get(in)+1);
-			}
+			
 		}
 		
 	}
@@ -88,5 +83,6 @@ public class UnorderedSimilarity extends StateBasedSimilarity{
 		}
 		return similarity/(i1Run.keySet().size()+i2Run.keySet().size()-count);
 	}
+
 
 }

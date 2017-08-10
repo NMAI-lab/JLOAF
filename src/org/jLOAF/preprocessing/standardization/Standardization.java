@@ -26,6 +26,10 @@ public class Standardization extends CaseBaseFilter {
 	SummaryStatistics ss = new SummaryStatistics();
 	
 	
+	public SummaryStatistics getSs() {
+		return ss;
+	}
+
 	public Standardization(CaseBaseFilter f) {
 		super(f);
 	}
@@ -122,7 +126,7 @@ public class Standardization extends CaseBaseFilter {
 	 * @return nothing
 	 * @author sachagunaratne
 	 * ***/
-	private void addValuestoSS(List<Double> list){
+	public void addValuestoSS(List<Double> list){
 		//add values to ss
 		for(double val:list){
 			ss.addValue(val);
@@ -136,7 +140,7 @@ public class Standardization extends CaseBaseFilter {
 	 * @return inputs A Map of the AtomicFeature name and the list of its feature values. 
 	 * @author sachagunaratne
 	 * ***/
-	private HashMap<String,List<Double>> getFeatures(CaseBase casebase){
+	public HashMap<String,List<Double>> getFeatures(CaseBase casebase){
 		HashMap<String, Double> input = new HashMap<String, Double>();
 		HashMap<String,List<Double>> inputs= new HashMap<String,List<Double>>();
 		int count=0;
