@@ -86,7 +86,7 @@ public class UnorderedSimilarity extends StateBasedSimilarity{
 			
 			}
 		}
-		return similarity/(i1Run.keySet().size()+i2Run.keySet().size()-count);
+		return similarity/(2*Math.min(i1Run.keySet().size(),i2Run.keySet().size())-count);
 	}
 
 }
