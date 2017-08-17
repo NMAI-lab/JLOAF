@@ -22,7 +22,7 @@ public class ComplexInput extends Input {
 	 * @param name the name of the input
 	 * @param sim the similarityMetricStrategy used by this input for comparison purposes.
 	 */
-	public ComplexInput(String name, SimilarityMetricStrategy sim) {
+	public ComplexInput(String name, ComplexSimilarityMetricStrategy sim) {
 		super(name);
 		super.setSimilarityMetric(sim);
 		collect = new HashMap<String,Input>();

@@ -4,6 +4,7 @@
  */
 package org.jLOAF.inputs;
 
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 /**
  * the atomicInput, is the atomic level of the input class, it only has one feature, and a name.
@@ -21,7 +22,7 @@ public class AtomicInput extends Input {
 	 * @param f the feature taken by this input
 	 * @param sim the similarityMetricStrategy used by this input for the comparison purposes.
 	 */
-	public AtomicInput(String name, Feature f, SimilarityMetricStrategy sim) {
+	public AtomicInput(String name, Feature f, AtomicSimilarityMetricStrategy sim) {
 		super(name);
 		super.setSimilarityMetric(sim);
 		this.feat = f;
