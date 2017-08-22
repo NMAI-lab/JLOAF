@@ -127,7 +127,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 					testCases.add(c);
 				i++;
 				}
-			
+			//
 			
 		}
 		 for(Case c:casebase.getCases()){
@@ -136,7 +136,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 			 	}
 			 
 		 }
-		a.train(trainCases);
+		a.train(trainCases,null);
 	}
 
 }

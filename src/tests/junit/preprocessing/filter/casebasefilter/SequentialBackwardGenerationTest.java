@@ -24,7 +24,7 @@ public class SequentialBackwardGenerationTest {
 		//here we have to assume that during the parser the similarity chosen was the weightedMean one.
 		CaseBase cb= CaseBase.load("cb1.cb");
 		Agent rc= new GenericAgent();
-		rc.train(cb);
+		rc.train(cb,null);
 		Statistics st = new Statistics(rc);
 			CaseBase testCases = new CaseBase();
 			int i=0;

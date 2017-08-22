@@ -1,6 +1,7 @@
 package org.jLOAF.agents;
 
 import org.jLOAF.Agent;
+import org.jLOAF.Reasoning;
 import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
@@ -23,7 +24,7 @@ public class GenericAgent extends Agent {
 	}
 
 	@Override
-	public void train(CaseBase casebase) {
+	public void train(CaseBase casebase,Reasoning r) {
 		this.cb = casebase;
 		this.r = new WeightedKNN(1,cb);
 		
