@@ -136,7 +136,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 			 	}
 			 
 		 }
-		a.train(trainCases);
+		a.train(trainCases,null);
 	}
 
 }
