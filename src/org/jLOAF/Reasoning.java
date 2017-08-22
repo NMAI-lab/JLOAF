@@ -9,6 +9,7 @@ import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.reasoning.Reasoners;
 import org.jLOAF.retrieve.Retrieval;
@@ -31,8 +32,10 @@ public abstract class Reasoning {
 		 * @return an action that is well suited for a given input, based on the retrival and the casebase.
 		 */
 	public Action selectAction(Input i) {
+		if(!(i instanceof StateBasedInput)){
+			throw new IllegalArgumentException("The input must be a state based input");
+		}
 		List<Case> nn = ret.retrieve(i);
-		
 		return mostLikelyAction(nn);
 	}
 	/**
