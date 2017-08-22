@@ -153,7 +153,7 @@ public abstract class PerformanceEvaluator {
 			//SplitTrainTest(cb);
 
 			agent.setR(Reasoning.getReasoner(r, cb));
-			agent.train(cb);
+			//agent.train(cb);
 			Statistics stats_module = new Statistics(agent);
 
 			//start testing 

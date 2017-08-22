@@ -4,6 +4,8 @@ import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.atomic.MatrixCell;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 
 public class Matrix extends ComplexInput {
@@ -13,7 +15,7 @@ public class Matrix extends ComplexInput {
 	private int rows = 0;
 	private int cols = 0;
 	
-	public Matrix(String name, double[][] matrix, SimilarityMetricStrategy sim, SimilarityMetricStrategy atomicSim) {
+	public Matrix(String name, double[][] matrix, ComplexSimilarityMetricStrategy sim, AtomicSimilarityMetricStrategy atomicSim) {
 		super(name,sim);
 		this.rows = matrix.length;
 		this.cols = matrix[0].length;

@@ -25,7 +25,7 @@ public class TestingConfig {
 		//create an array that has all the strings between the two words files.
 		System.out.println("got the files");
 		return returnStrings("files",args);
-	}
+	} 
 	//
 	/**
 	 * returns a string with the name of the output file

@@ -2,6 +2,7 @@ package tests.junit.sim.atomic;
 
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Feature;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.PercentDifference;
 import org.junit.Test;
@@ -9,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 public class PercentDifferenceTest {
 	
-	SimilarityMetricStrategy sim = new PercentDifference();
+	AtomicSimilarityMetricStrategy sim = new PercentDifference();
 	@Test
 	public void TestPDNotSame(){
 		

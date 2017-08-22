@@ -6,6 +6,7 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.StateBasedInput;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.sim.StateBased.KOrderedSimilarity;
@@ -21,7 +22,7 @@ public abstract class StateBasedSimilarityTest {
 	protected StateBasedSimilarity sim1 ;
 	protected Feature f1 ;
 	protected Feature f3 ;Feature f2; 
-	protected SimilarityMetricStrategy sim;
+	protected AtomicSimilarityMetricStrategy sim;
 	
 	
 	public void initialize(StateBasedSimilarity simst){

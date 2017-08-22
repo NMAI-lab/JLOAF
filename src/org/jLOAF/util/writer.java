@@ -14,11 +14,12 @@ public class writer {
 	String [] traceNames = {"trace-m0-","trace-m1-","trace-m2-","trace-m3-","trace-m4-"};
 	String fileext = ".txt ";
 	String output_file = "";
-	String [] stsim = {"kordered", "ordered", "unordered","weighted","kunordered","kunorderd", "kunorderedaction"};
+	String [] stsim = {"kordered", "ordered", "unordered","weighted","kunordered", "kunorderedaction"};
 	String [] cpsim = {"none"};
 	Boolean stateBased = true;
 	String [] reasoners = {"TB","weightedKNN"};
-	String [] cbf = {"fullclustering", "sampling", "none","kclustering","underSampling", "actionClustering"};
+	//String [] cbf = {"fullclustering", "sampling", "none","kclustering","underSampling", "actionClustering"};
+	String [] cbf = {"none"};
 	//String [] cbf2 = {"", "hillclimbing", "geneticAlgorithm", "sequentialBackwardsAlgorithm", "weightsSeperator"};
 	String [] cbf2 = {"none"};
 	String loc = "C:/Users/sachagunaratne/Documents/GitHub/batch_files/";
@@ -89,7 +90,7 @@ public class writer {
 		writer w = new writer();
 		for(int i=0;i<1;i++){
 			w.setAgent(i);
-			if (i!=0) {
+			if (i==0) {
 				w.stateBased = true;		
 				w.writeState();
 			}else {

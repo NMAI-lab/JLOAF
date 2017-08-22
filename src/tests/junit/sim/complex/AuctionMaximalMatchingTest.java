@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Feature;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.EuclideanDistance;
@@ -21,7 +22,7 @@ public class AuctionMaximalMatchingTest {
 	@Test
 	public void TestAMMSameSet(){
 		
-		SimilarityMetricStrategy sim = new EuclideanDistance();
+		AtomicSimilarityMetricStrategy sim = new EuclideanDistance();
 		AtomicInput dist1 = new AtomicInput("dist", new Feature(25.8), sim);
 		AtomicInput dist2 = new AtomicInput("dist", new Feature(83.9), sim);
 		AtomicInput dir1 = new AtomicInput("dir", new Feature(-8), sim);
@@ -130,7 +131,7 @@ public class AuctionMaximalMatchingTest {
 	 * ***/
 	@Test
 	public void TestAMMDifferentSet(){
-		SimilarityMetricStrategy sim = new EuclideanDistance();
+		AtomicSimilarityMetricStrategy sim = new EuclideanDistance();
 		AtomicInput dist1 = new AtomicInput("dist", new Feature(25.8), sim);
 		AtomicInput dist2 = new AtomicInput("dist", new Feature(83.9), sim);
 		AtomicInput dir1 = new AtomicInput("dir", new Feature(-8), sim);
@@ -181,7 +182,7 @@ public class AuctionMaximalMatchingTest {
 	 */
 	@Test
 	public void TestAMMDifferentSetDiffSize(){
-		SimilarityMetricStrategy sim = new EuclideanDistance();
+		AtomicSimilarityMetricStrategy sim = new EuclideanDistance();
 		AtomicInput dist1 = new AtomicInput("dist", new Feature(25.8), sim);
 		AtomicInput dist2 = new AtomicInput("dist", new Feature(83.9), sim);
 		AtomicInput dir1 = new AtomicInput("dir", new Feature(-8), sim);

@@ -14,6 +14,8 @@ import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.preprocessing.standardization.Standardization;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.sim.StateBased.KOrderedSimilarity;
@@ -25,11 +27,11 @@ import org.junit.Test;
 
 public class StandardizationTest {
 	
-	SimilarityMetricStrategy a_sim = new EuclideanDistance();
-	SimilarityMetricStrategy ballGoal_strat = new Mean();
+	AtomicSimilarityMetricStrategy a_sim = new EuclideanDistance();
+	ComplexSimilarityMetricStrategy ballGoal_strat = new Mean();
 	StateBasedSimilarity stateBasedSim = new KOrderedSimilarity(1);
 	SimilarityWeights sim_weights = new SimilarityWeights(); 
-	SimilarityMetricStrategy RoboCup_strat = new WeightedMean(sim_weights);
+	ComplexSimilarityMetricStrategy RoboCup_strat = new WeightedMean(sim_weights);
 	
 	/***
 	 * This method creates a casebase based on the following structure:

@@ -10,6 +10,7 @@ import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.reasoning.TBReasoning;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.Equality;
 import org.junit.Before;
@@ -18,7 +19,7 @@ import org.junit.Test;
 public class TBTesting {
 
 	CaseBase cb;
-	SimilarityMetricStrategy sim = new Equality();
+	AtomicSimilarityMetricStrategy sim = new Equality();
 	StateBasedInput si1;
 	StateBasedInput si2;
 	StateBasedInput si3;

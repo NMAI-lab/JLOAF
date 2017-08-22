@@ -15,6 +15,7 @@ import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.EuclideanDistance;
 
@@ -83,7 +84,7 @@ public class Standardization extends CaseBaseFilter {
 	 * @author sachagunaratne 
 	 * ***/
 	private void replaceAtomicInputs(Input input, HashMap<String,List<Double>> inputs, HashMap<String, Integer> counts){
-		SimilarityMetricStrategy Atomic_strat = new EuclideanDistance();
+		AtomicSimilarityMetricStrategy Atomic_strat = new EuclideanDistance();
 		
 		if (input instanceof ComplexInput){
 			Set<String> childNames = ((ComplexInput)input).getChildNames();

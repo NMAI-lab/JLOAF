@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Feature;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.EuclideanDistance;
@@ -23,7 +24,7 @@ public class GreedyMunkrezMatchingTest {
 	 * ****/
 	@Test
 	public void TestGMMSameSet(){
-		SimilarityMetricStrategy sim = new EuclideanDistance();
+		AtomicSimilarityMetricStrategy sim = new EuclideanDistance();
 		AtomicInput dist1 = new AtomicInput("dist", new Feature(25.8), sim);
 		AtomicInput dist2 = new AtomicInput("dist", new Feature(83.9), sim);
 		AtomicInput dir1 = new AtomicInput("dir", new Feature(-8), sim);
@@ -138,7 +139,7 @@ public class GreedyMunkrezMatchingTest {
 	 * @author sachagunaratne
 	 * ****/
 	public void TestGMMDifferentSet(){
-		SimilarityMetricStrategy sim = new EuclideanDistance();
+		AtomicSimilarityMetricStrategy sim = new EuclideanDistance();
 		AtomicInput dist1 = new AtomicInput("dist", new Feature(25.8), sim);
 		AtomicInput dist2 = new AtomicInput("dist", new Feature(83.9), sim);
 		AtomicInput dir1 = new AtomicInput("dir", new Feature(-8), sim);
@@ -187,7 +188,7 @@ public class GreedyMunkrezMatchingTest {
 	 * ***/
 	@Test
 	public void TestGMMDifferentSetDiffSize(){
-		SimilarityMetricStrategy sim = new EuclideanDistance();
+		AtomicSimilarityMetricStrategy sim = new EuclideanDistance();
 		AtomicInput dist1 = new AtomicInput("dist", new Feature(25.8), sim);
 		AtomicInput dist2 = new AtomicInput("dist", new Feature(83.9), sim);
 		AtomicInput dir1 = new AtomicInput("dir", new Feature(-8), sim);
