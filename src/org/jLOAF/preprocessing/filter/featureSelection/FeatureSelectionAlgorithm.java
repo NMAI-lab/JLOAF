@@ -10,6 +10,7 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.StateBasedInput;
 import org.jLOAF.performance.Statistics;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
+import org.jLOAF.reasoning.WeightedKNN;
 import org.jLOAF.weights.SimilarityWeights;
 import org.jLOAF.weights.Weights;
 import org.jLOAF.sim.complex.WeightedMean;
@@ -136,7 +137,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 			 	}
 			 
 		 }
-		a.train(trainCases,null);
+		a.train(new WeightedKNN(1,trainCases));
 	}
 
 }

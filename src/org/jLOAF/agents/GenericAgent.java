@@ -23,12 +23,7 @@ public class GenericAgent extends Agent {
 		return this.r.selectAction(i);
 	}
 
-	@Override
-	public void train(CaseBase casebase,Reasoning r) {
-		this.cb = casebase;
-		this.r = new WeightedKNN(1,cb);
-		
-	}
+
 	
 	
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class writer {
 	HashMap <String, List<String>> container = new HashMap<String, List<String>>();
-	String [] agents = {"FixedSequenceAgent"};
+	String [] agents = {"DirtWallAgent"};
 	String agentName = agents[0];
 	String [] traceNames = {"trace-m0-","trace-m1-","trace-m2-","trace-m3-","trace-m4-"};
 	String fileext = ".txt ";
