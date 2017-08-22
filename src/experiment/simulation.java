@@ -14,6 +14,7 @@ import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.reasoning.SimpleKNN;
 import org.jLOAF.reasoning.WeightedKNN;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.Equality;
 import org.jLOAF.sim.atomic.EuclideanDistance;
@@ -31,7 +32,7 @@ public class simulation {
 		Feature f3 = new Feature(3.0);
 		Feature f4 = new Feature(3.0);
 		Feature f5 = new Feature(8.0);
-		SimilarityMetricStrategy sim = new PercentDifference();
+		AtomicSimilarityMetricStrategy sim = new PercentDifference();
 		
 		Input i1 = new AtomicInput("1", f1,sim);
 		Input i2 = new AtomicInput("2", f2,sim);

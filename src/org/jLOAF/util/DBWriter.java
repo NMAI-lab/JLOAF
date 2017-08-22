@@ -16,7 +16,7 @@ public class DBWriter {
 		try
 		{
 			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\sachagunaratne-admin\\Documents\\batch_files\\database.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\sachagunaratne\\Documents\\GitHub\\batch_files\\database.db");
 
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(0); 

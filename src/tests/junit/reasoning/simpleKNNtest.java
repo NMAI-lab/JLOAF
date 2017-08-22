@@ -10,6 +10,7 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.inputs.Input;
 import org.jLOAF.reasoning.SimpleKNN;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.Equality;
 import org.jLOAF.sim.atomic.PercentDifference;
@@ -19,7 +20,7 @@ import org.junit.Test;
 public class simpleKNNtest {
 	
 	CaseBase cb;
-	SimilarityMetricStrategy sim = new Equality();
+	AtomicSimilarityMetricStrategy sim = new Equality();
 	
 	@Before
 	public void setup(){

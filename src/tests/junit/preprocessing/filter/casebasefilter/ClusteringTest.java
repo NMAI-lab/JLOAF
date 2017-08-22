@@ -10,6 +10,7 @@ import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.preprocessing.filter.casebasefilter.Clustering;
 import org.jLOAF.preprocessing.filter.casebasefilter.FullClustering;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
@@ -25,7 +26,7 @@ public class ClusteringTest {
 	private Case c1,c2,c3,c4,c5;
 	private Action a;
 	private Clustering clustering;
-	private SimilarityMetricStrategy  sim;
+	private AtomicSimilarityMetricStrategy  sim;
 	private CaseBase cb;
 	
 	@Before

@@ -5,6 +5,8 @@ import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Feature;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
+import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.sim.StateBased.KOrderedSimilarity;
@@ -38,9 +40,9 @@ public class FeatureSelectionTest {
 		Feature f4= new Feature(4);
 		sim2 = new SimilarityWeights();// if you want to use weighted mean strategy, you should always have a similarityWeight class .
 		//feature selection only works for weightedMean similarity, since it needs to have weights so it can select or evaluate features.
-		SimilarityMetricStrategy sim = new WeightedMean(sim2);
-		SimilarityMetricStrategy sim1 = new Mean();
-		SimilarityMetricStrategy sim3 = new Equality();
+		ComplexSimilarityMetricStrategy sim = new WeightedMean(sim2);
+		ComplexSimilarityMetricStrategy sim1 = new Mean();
+		AtomicSimilarityMetricStrategy sim3 = new Equality();
 		
 		AtomicInput i1 = new AtomicInput("a",f1,sim3);
 		AtomicInput i2 = new AtomicInput("a1",f1, sim3);

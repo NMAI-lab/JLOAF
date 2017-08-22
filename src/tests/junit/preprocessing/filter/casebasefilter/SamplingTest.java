@@ -9,6 +9,7 @@ import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.Feature;
 import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.preprocessing.filter.casebasefilter.Sampling;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.PercentDifference;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class SamplingTest {
 	 * ***/
 	@Test
 	public void TestSampling(){
-		SimilarityMetricStrategy sim = new PercentDifference();
+		AtomicSimilarityMetricStrategy sim = new PercentDifference();
 		
 		AtomicInput a1 = new AtomicInput("a1",new Feature(1.0),sim);
 		AtomicInput a2 = new AtomicInput("a2",new Feature(1.0),sim);
@@ -122,7 +123,7 @@ public class SamplingTest {
 	 * ***/
 	@Test
 	public void TestSamplingFailing(){
-		SimilarityMetricStrategy sim = new PercentDifference();
+		AtomicSimilarityMetricStrategy sim = new PercentDifference();
 		
 		AtomicInput a1 = new AtomicInput("a1",new Feature(1.0),sim);
 		AtomicInput a2 = new AtomicInput("a2",new Feature(1.0),sim);
@@ -156,7 +157,7 @@ public class SamplingTest {
 	 * ***/
 	@Test
 	public void TestSamplingWithRealInputs(){
-		SimilarityMetricStrategy sim = new PercentDifference();
+		AtomicSimilarityMetricStrategy sim = new PercentDifference();
 		
 		AtomicInput a1 = new AtomicInput("a1",new Feature(1.3),sim);
 		AtomicInput a2 = new AtomicInput("a2",new Feature(0.8),sim);

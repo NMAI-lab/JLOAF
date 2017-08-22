@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.jLOAF.inputs.AtomicInput;
 import org.jLOAF.inputs.ComplexInput;
 import org.jLOAF.inputs.Feature;
+import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
 import org.jLOAF.sim.atomic.EuclideanDistance;
@@ -20,7 +21,7 @@ public class OrderIndexMatchingAlgorithmTest {
 	private ComplexSimilarityMetricStrategy simMetric2; 
 	private ComplexInput flags;
 	private ComplexInput flags1 ;
-	private SimilarityMetricStrategy  sim;
+	private AtomicSimilarityMetricStrategy  sim;
 	
 	
 	@Before 
