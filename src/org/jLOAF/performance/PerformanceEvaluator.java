@@ -17,7 +17,7 @@ import org.jLOAF.util.CsvWriter;
 import org.jLOAF.util.DBWriter;
 /***
  * Abstract class that can be extended and used to test performance
- * @Steps
+ * 
  * Implement the abstract trainAgent method and make sure to change return type from Agent to the subclassed Agent type
  * A sample implementation is provided in the comments below it
  * @author sachagunaratne
@@ -153,7 +153,7 @@ public abstract class PerformanceEvaluator {
 			//SplitTrainTest(cb);
 
 			agent.setR(Reasoning.getReasoner(r, cb));
-			//agent.train(cb);
+
 			Statistics stats_module = new Statistics(agent);
 
 			//start testing 

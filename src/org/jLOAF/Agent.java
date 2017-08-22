@@ -52,6 +52,6 @@ public abstract class Agent {
 	 * trains the agent with a given casebase, a list of cases, so it can predict actions for given inputs using the reasoner.
 	 * @param casebase the casebase to be trained by the agent.
 	 */
-	public abstract void train(CaseBase casebase);
+	public abstract void train(CaseBase casebase,Reasoning r);
 
 }
