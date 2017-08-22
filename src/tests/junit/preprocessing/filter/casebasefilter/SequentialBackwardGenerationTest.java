@@ -8,6 +8,7 @@ import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.performance.Statistics;
 import org.jLOAF.preprocessing.filter.featureSelection.SequentialBackwardGeneration;
+import org.jLOAF.reasoning.WeightedKNN;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +25,7 @@ public class SequentialBackwardGenerationTest {
 		//here we have to assume that during the parser the similarity chosen was the weightedMean one.
 		CaseBase cb= CaseBase.load("cb1.cb");
 		Agent rc= new GenericAgent();
-		rc.train(cb,null);
+		rc.train(new WeightedKNN(1,cb));
 		Statistics st = new Statistics(rc);
 			CaseBase testCases = new CaseBase();
 			int i=0;
