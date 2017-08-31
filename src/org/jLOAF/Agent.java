@@ -4,6 +4,7 @@ import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.Input;
+import org.jLOAF.reasoning.BayesianReasoner;
 /*
  * this abstract class defines couple of methods for all the learning agents that extend it,
  * any domain that needs to use the jloaf framework, has to have an agent that extends this class.
@@ -53,6 +54,9 @@ public abstract class Agent {
 	 * @param casebase the casebase to be trained by the agent.
 	 */
 	public void train(Reasoning r){
+		if(r instanceof BayesianReasoner){
+			((BayesianReasoner) r).setTrain();
+		}
 		this.setR(r);
 	}
 

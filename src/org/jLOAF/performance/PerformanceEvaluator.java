@@ -138,7 +138,7 @@ public abstract class PerformanceEvaluator {
 				long tempTime = System.currentTimeMillis();
 				cb=filter.filter(cb);
 				//remove tb filter
-				//tb = filter.filter(tb);
+				tb = filter.filter(tb);
 
 				tempTime = System.currentTimeMillis() - tempTime;
 
@@ -152,9 +152,10 @@ public abstract class PerformanceEvaluator {
 			//add function to split casebase into cb and tb
 			//SplitTrainTest(cb);
 
-			agent.setR(Reasoning.getReasoner(r, cb));
+			agent.train(Reasoning.getReasoner(r, cb));
 
 			Statistics stats_module = new Statistics(agent);
+			
 
 			//start testing 
 			System.out.println("Cycle: "+ ignore + " - Starting testing...");
