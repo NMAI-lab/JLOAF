@@ -11,6 +11,8 @@ import org.jLOAF.preprocessing.filter.CaseBaseFilter;
 import org.jLOAF.preprocessing.filter.casebasefilter.Sampling;
 import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
+import org.jLOAF.sim.StateBasedSimilarity;
+import org.jLOAF.sim.StateBased.KOrderedSimilarity;
 import org.jLOAF.sim.atomic.PercentDifference;
 import org.junit.Test;
 
@@ -55,6 +57,7 @@ public class SamplingTest {
 	@Test
 	public void TestSampling(){
 		AtomicSimilarityMetricStrategy sim = new PercentDifference();
+		StateBasedSimilarity ssim = new KOrderedSimilarity(1);
 		
 		AtomicInput a1 = new AtomicInput("a1",new Feature(1.0),sim);
 		AtomicInput a2 = new AtomicInput("a2",new Feature(1.0),sim);
@@ -63,14 +66,9 @@ public class SamplingTest {
 		AtomicAction ac1 = new AtomicAction("Up");
 		AtomicAction ac2 = new AtomicAction("Up");
 		AtomicAction ac3 = new AtomicAction("Down");
-		
-		Case c1 = new Case(a1,ac1);
-		Case c2 = new Case(a2,ac2);
-		Case c3 = new Case(a3,ac3);
-		
 		CaseBase cb = new CaseBase();
 		
-		cb.add(c1);cb.add(c2);cb.add(c3);
+		cb.createThenAdd(a1,ac1,ssim);cb.createThenAdd(a2,ac2,ssim);cb.createThenAdd(a3,ac3,ssim);
 		
 		CaseBaseFilter filter = new Sampling(null);
 		
@@ -124,6 +122,7 @@ public class SamplingTest {
 	@Test
 	public void TestSamplingFailing(){
 		AtomicSimilarityMetricStrategy sim = new PercentDifference();
+		StateBasedSimilarity ssim = new KOrderedSimilarity(1);
 		
 		AtomicInput a1 = new AtomicInput("a1",new Feature(1.0),sim);
 		AtomicInput a2 = new AtomicInput("a2",new Feature(1.0),sim);
@@ -135,14 +134,10 @@ public class SamplingTest {
 		AtomicAction ac3 = new AtomicAction("Down");
 		AtomicAction ac4 = new AtomicAction("Down");
 		
-		Case c1 = new Case(a1,ac1);
-		Case c4 = new Case(a4,ac4);
-		Case c2 = new Case(a2,ac2);
-		Case c3 = new Case(a3,ac3);
 		
 		CaseBase cb = new CaseBase();
 		
-		cb.add(c1);cb.add(c4);cb.add(c2);cb.add(c3);
+		cb.createThenAdd(a1,ac1,ssim);cb.createThenAdd(a2,ac2,ssim);cb.createThenAdd(a4,ac4,ssim);cb.createThenAdd(a3,ac3,ssim);
 		
 		CaseBaseFilter filter = new Sampling(null);
 		
@@ -158,6 +153,7 @@ public class SamplingTest {
 	@Test
 	public void TestSamplingWithRealInputs(){
 		AtomicSimilarityMetricStrategy sim = new PercentDifference();
+		StateBasedSimilarity ssim = new KOrderedSimilarity(1);
 		
 		AtomicInput a1 = new AtomicInput("a1",new Feature(1.3),sim);
 		AtomicInput a2 = new AtomicInput("a2",new Feature(0.8),sim);
@@ -169,18 +165,13 @@ public class SamplingTest {
 		AtomicAction ac3 = new AtomicAction("Down");
 		AtomicAction ac4 = new AtomicAction("Down");
 		
-		Case c1 = new Case(a1,ac1);
-		Case c4 = new Case(a4,ac4);
-		Case c2 = new Case(a2,ac2);
-		Case c3 = new Case(a3,ac3);
-		
 		CaseBase cb = new CaseBase();
 		
-		cb.add(c1);cb.add(c4);cb.add(c2);cb.add(c3);
+		cb.createThenAdd(a1,ac1,ssim);cb.createThenAdd(a2,ac2,ssim);cb.createThenAdd(a4,ac4,ssim);cb.createThenAdd(a3,ac3,ssim);
 		
 		CaseBaseFilter filter = new Sampling(null);
 		
 		CaseBase preprocessed = filter.filter(cb);
-		assertEquals(preprocessed.getSize(),2);
+		assertEquals(preprocessed.getSize(),3);
 	}
 }

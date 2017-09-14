@@ -12,6 +12,8 @@ import org.jLOAF.inputs.Input;
 import org.jLOAF.reasoning.WeightedKNN;
 import org.jLOAF.sim.AtomicSimilarityMetricStrategy;
 import org.jLOAF.sim.SimilarityMetricStrategy;
+import org.jLOAF.sim.StateBasedSimilarity;
+import org.jLOAF.sim.StateBased.KOrderedSimilarity;
 import org.jLOAF.sim.atomic.PercentDifference;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +22,7 @@ public class weightedKNNtest {
 	
 	CaseBase cb;
 	AtomicSimilarityMetricStrategy sim = new PercentDifference();
+	StateBasedSimilarity ssim = new KOrderedSimilarity(1);
 	@Before
 	public void setup(){
 		
@@ -45,33 +48,28 @@ public class weightedKNNtest {
 		Action a3 = new Action("up");
 		Action a4 = new Action("up");
 		Action a5 = new Action("up");
-	
-		
-		Case c1 = new Case(i1, a1);
-		Case c2 = new Case(i2, a2);
-		Case c3 = new Case(i3, a3);
-		Case c4 = new Case(i4, a4);
-		Case c5 = new Case(i5, a5);
 		
 		cb = new CaseBase();
 		
-		cb.add(c1);
-		cb.add(c2);
-		cb.add(c3);
-		cb.add(c4);
-		cb.add(c5);
+		cb.createThenAdd(i1,a1,ssim);
+		cb.createThenAdd(i2,a2,ssim);
+		cb.createThenAdd(i3,a3,ssim);
+		cb.createThenAdd(i4,a4,ssim);
+		cb.createThenAdd(i5,a5,ssim);
 	}
 	
 	 @Test
 	    public void testWeightedKNN() {
 		 	int k = 5;
 	        Reasoning r = new WeightedKNN(k,cb);
+	        StateBasedSimilarity ssim = new KOrderedSimilarity(1);
 	        
 	        Input i6 = new AtomicInput("test", new Feature(1.5),sim);
 			Action a6 = new Action("down");
-			Case c6 = new Case(i6,a6);
-	        
-	        Action predicted = r.selectAction(c6.getInput());
+			CaseBase cb2 = new CaseBase();
+			cb2.createThenAdd(i6, a6, ssim);
+	        Case c = (Case) cb2.getCases().toArray()[0];
+	        Action predicted = r.selectAction(c.getInput());
 
 	        assertEquals(predicted.getName(), a6.getName());
 	    }
