@@ -41,9 +41,5 @@ public class SequentialBackwardGenerationTest {
 		System.out.println("Sd");
 		
 	}
-	@Test
-	public void testSomething(){
-	System.out.println("sd");	
-	}
 
 }
