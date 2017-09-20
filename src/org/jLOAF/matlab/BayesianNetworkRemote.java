@@ -34,7 +34,7 @@ public class BayesianNetworkRemote {
 		index = nextIndex++;
 		XSIZE = a_XSIZE;
 		YSIZE = a_YSIZE;
-		String matlabCommand = "[bnet" + index + ",bnetengine" + index + "] = learnBNetGMM([";
+		String matlabCommand = "[bnet" + index + ",bnetengine" + index + "] = learnBNetGMMPartialObserve([";
 		matlabCommand+="'" + trace + "';";
 
 		matlabCommand+="]," + XSIZE + "," + YSIZE + ");";
@@ -68,9 +68,9 @@ public class BayesianNetworkRemote {
 			proxy.eval("evidence = cell(1," + (XSIZE + YSIZE) + ");");
 
 			for(int i = 0;i<input.size();i++) {
-				if(input.get(i)!=placeholder){
+				//if(input.get(i)!=placeholder){
 					proxy.eval("evidence{" + (i+1) + "} = " + input.get(i) + ";");
-				}
+				//}
 			}
 			proxy.eval("[tmpeng, tmpll] = enter_evidence(bnetengine" + index + ", evidence);");
 			proxy.eval("tmp = [];\n");
