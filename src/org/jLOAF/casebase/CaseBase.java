@@ -245,8 +245,16 @@ public class CaseBase implements Serializable{
 				
 				count++;
 			}
+			
+			//make sure that all lists in inputs are the length of casebase by adding placeholder variables at the end
+			for(String key:inputs.keySet()){
+				List<Double> actual_list = inputs.get(key);
+				for(int ii=actual_list.size();ii<casebase.getSize();ii++){
+					actual_list.add(placeholder_val);
+				}
+			}
+			
 			//System.out.println("CaseBase size: "+ casebase.getSize());
-			boolean leave = false;
 			if(outputColumnNames){
 				for(String keys2: inputs.keySet()){
 					f1.write(keys2);
@@ -263,11 +271,6 @@ public class CaseBase implements Serializable{
 			for(int jj=0;jj<casebase.getSize();jj++){
 				for(String key3: inputs.keySet()){
 					List<Double> results = inputs.get(key3);
-					//System.out.println("Results size: "+ results.size());
-					if(jj==3428){
-						leave = true;
-						break;
-					}
 					double val = results.get(jj);
 					if(Double.isNaN(val)){
 						throw new ArithmeticException("There shouldn't be any NaN values - could be something wrong with the logFile2CaseBase.java ");
@@ -277,7 +280,6 @@ public class CaseBase implements Serializable{
 					f1.write(",");
 				}
 				
-				if(leave){break;}
 				f1.write(String.valueOf(actions_container.get(jj)));
 				
 				f1.write("\n");
