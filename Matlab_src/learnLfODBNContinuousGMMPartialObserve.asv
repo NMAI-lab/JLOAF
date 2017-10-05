@@ -50,21 +50,17 @@ for i = 1:VARS-1
 end
 
 intra = zeros(VARS,VARS);			% we will have VARS variables
+% C depends on X:
 %goalSeenR
-intra(4,8)=1;intra(4,10)=1;
+intra(3,7)=1;intra(3,9)=1;
 %goalSeenL
-intra(6,2)=1;intra(6,5)=1;
+intra(5,1)=1;intra(5,4)=1;
 %BallSeen
-intra(7,3)=1;intra(7,9)=1;
-%Action - connecting the action to each cts node and connecting the state
-%to each cts node
-%start the index at 2 because we dont want to encounter the state
-for index=2:XSIZE+1
+intra(6,2)=1;intra(6,8)=1;
+%Action - connecting the action to each cts node
+for index=1:XSIZE
     if ~ismember(index,discrete)
-        %action is at postion VARS
         intra(VARS,index)=1;
-        %C is the state and is at position 1.
-        intra(1,index)=1;
     end
 end
 
