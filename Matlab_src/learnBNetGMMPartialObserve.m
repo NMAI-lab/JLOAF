@@ -64,6 +64,11 @@ for i = 1:VARS
 	end
 end
 
+%setting the angle data to vonMises d
+bnet.CPD{2} = vonMises_CPD(bnet, 2);
+bnet.CPD{4} = vonMises_CPD(bnet, 4);
+bnet.CPD{9} = vonMises_CPD(bnet, 9);
+
 bnet = learn_params(bnet, cases);
 engine = jtree_inf_engine(bnet);
 

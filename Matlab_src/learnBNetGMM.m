@@ -57,6 +57,10 @@ for i = 1:VARS
 	end
 end
 
+%setting the directions to the correct distribution
+%bnet.CPD{1} = vonMises_CPD(bnet,1);
+%bnet.CPD{2} = vonMises_CPD(bnet,2);
+
 %removes the missing values from the cases
 for i = 1:length(cases)*VARS
     if cases{i}==7.6
