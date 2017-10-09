@@ -1,4 +1,4 @@
-function [ newState ] = getNewState(input, state, action, dbn)
+function [ newState ] = getNewState(input, state, action, dbn, engine)
 %Get new state given past action, past state and current observation
 %   The input contains all the information required to perform inference
 
@@ -14,8 +14,12 @@ evidence{1} = state; % add state
 evidence{2+length(input)} = action; % add action
 
 pos = length(input)+3; % position of new State
-TnewState = convert_to_table(dbn.CPD{pos}, family(dbn.dag,pos), evidence);
-[~, newState] = max(TnewState);
+%TnewState = convert_to_table(dbn.CPD{pos}, family(dbn.dag,pos), evidence);
+%[~, newState] = max(TnewState);
+
+engine = enter_evidence(engine,evidence);
+marg = marginal_nodes(engine,pos);
+newState = max(marg);
 
 end
 

@@ -18,7 +18,7 @@ import matlabcontrol.MatlabProxyFactoryOptions;
 public class DynamicBayesianNetworkRemote {
 	
 	public static MatlabProxy proxy = null;    
-	static int STATES = 4;
+	static int STATES = 2;
 	/**
 	 * This function proxyes Matlab and calls learnLfODBNContinuousGMM() which creates and trains a DBN using the provided trace data.
 	 * @param trace the name of the tracefile
@@ -59,7 +59,7 @@ public class DynamicBayesianNetworkRemote {
 	 * ***/
 	public int getInitialState(List<Double> x) {
 		try {
-			proxy.eval("initialState = getInitialState(" + x + ", dbn);");
+			proxy.eval("initialState = getInitialState(" + x + ", dbn , bnetengine);");
 			double [] s = (double []) proxy.returningEval("initialState", 1)[0];
 			return (int) s[0];
 			
@@ -80,7 +80,7 @@ public class DynamicBayesianNetworkRemote {
 	public int getNewState(List<Double> x, int action, int state) {
 		try {
 			action +=1;
-			proxy.eval("newState = getNewState("+x+","+state+","+action+",dbn);");
+			proxy.eval("newState = getNewState("+x+","+state+","+action+",dbn,bnetengine);");
 			double[] s = (double[]) proxy.returningEval("newState", 1)[0];	
 			return (int) s[0];
 		}catch (MatlabInvocationException ex) {
@@ -99,7 +99,7 @@ public class DynamicBayesianNetworkRemote {
 	 * ***/
 	public int getAction(List<Double> input) {
 		try {
-			proxy.eval("action = getAction("+input+",dbn);");
+			proxy.eval("action = getAction("+input+",dbn,bnetengine);");
 			double[] s = (double[]) proxy.returningEval("action", 1)[0];	
 			return (int) s[0];
 		}catch (MatlabInvocationException ex) {
