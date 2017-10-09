@@ -26,7 +26,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 	List<Action> actions;
 	List<String> feature_names;
 	int EmIter = 10;
-	double placeholder = 6.6;
+	double placeholder = 7.6;
 	CaseBase cb;
 	String output_filename;
 	boolean train = true;
