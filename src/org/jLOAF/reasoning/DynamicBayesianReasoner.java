@@ -31,9 +31,9 @@ public class DynamicBayesianReasoner extends Reasoning {
 	String output_filename;
 	boolean train = true;
 	
-	int state = 0;//initial state variable
-	int new_state =0;//new state variable
-	int action = 0;//action variable
+	int state = 1;//initial state variable
+	int new_state =1;//new state variable
+	int action = 1;//action variable
 	int timestep = 0;
 	
 	public DynamicBayesianReasoner(CaseBase cb, String output_filename) {
