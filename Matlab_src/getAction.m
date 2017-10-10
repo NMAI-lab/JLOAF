@@ -14,7 +14,7 @@ pos = length(input)+1;
 %[~, action] = max(Taction);
 
 engine = enter_evidence(engine,evidence);
-marg = marginal_nodes(engine,pos);
+marg = marginal_nodes(engine,pos,1);
 action = max(marg);
 
 end

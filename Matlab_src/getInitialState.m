@@ -12,7 +12,7 @@ end
 %Tstate = convert_to_table(dbn.CPD{1}, family(dbn.dag,1), evidence);
 %[~, state] = max(Tstate);
 engine = enter_evidence(engine,evidence);
-marg = marginal_nodes(engine,1);
+marg = marginal_nodes(engine,1,1);
 state = max(marg);
 end
 
