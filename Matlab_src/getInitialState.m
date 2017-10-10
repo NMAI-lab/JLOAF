@@ -13,6 +13,6 @@ end
 %[~, state] = max(Tstate);
 engine = enter_evidence(engine,evidence);
 marg = marginal_nodes(engine,1);
-state = max(marg);
+state = max(marg.T);
 end
 

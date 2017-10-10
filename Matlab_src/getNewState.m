@@ -11,15 +11,15 @@ for i = 1:length(input)
 end
 
 evidence{1} = state; % add state 
-evidence{1+length(input)} = action; % add action
+evidence{2+length(input)} = action; % add action
 
-pos = length(input)+2; % position of new State
+pos = length(input)+3; % position of new State
 %TnewState = convert_to_table(dbn.CPD{pos}, family(dbn.dag,pos), evidence);
 %[~, newState] = max(TnewState);
 
 engine = enter_evidence(engine,evidence);
 marg = marginal_nodes(engine,pos);
-newState = max(marg);
+newState = max(marg.T);
 
 end
 
