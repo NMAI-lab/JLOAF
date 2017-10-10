@@ -134,6 +134,7 @@ disp('Learning... LFODBN');
 bnet = convert_to_static_bnet(dbn);
 
 engine = jtree_inf_engine(bnet);
+end
 %engine = jtree_unrolled_dbn_inf_engine(bnet, 5);
 %engine = smoother_engine(jtree_2TBN_inf_engine(bnet));
 
