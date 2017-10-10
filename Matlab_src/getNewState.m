@@ -19,7 +19,7 @@ pos = length(input)+3; % position of new State
 
 engine = enter_evidence(engine,evidence);
 marg = marginal_nodes(engine,pos);
-newState = max(marg.T);
+[~, newState] = max(marg.T);
 
 end
 
