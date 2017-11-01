@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 /**
  * Creates a writer instance
  * @author sachagunaratne
@@ -72,31 +74,29 @@ public class CsvWriter {
 		}
 	}
 	/**
-	 * Writes the Raw stats to a CSV File.
-	 * @param filename
-	 * @param labels
-	 * @param stats
+	 * Writes the Raw statistics of each cv fold to a CSV File.
+	 * @param AllStats
 	 */
-	public void writeRawStats(String filename, String [] labels, float[][] stats){
+	public void writeRawStats(List<HashMap<String, Float>> AllStats, String filename){
 		try {
 			FileWriter fw = new FileWriter(filename);
 			PrintWriter out = new PrintWriter(fw);
-			out.print("Performance Measure");
-			for(int ii=0;ii<stats[0].length;ii++){
-				out.print(",");
-				out.print(ii);
-			}
-			out.println();
-			
-			for(int i=0;i<labels.length;i++){
-				out.print(labels[i]);
-				out.print(",");
-				for(int j =0;j<stats[0].length;j++){	
-					out.print(stats[i][j]);
-					out.print(",");
+			StringBuilder sb = new StringBuilder();
+			sb.append("Performance Measure");
+			sb.append(",");
+			sb.append("Result");
+			sb.append("\n");
+			for(HashMap<String, Float> stats: AllStats){
+				Set<String> keys = stats.keySet();
+				for(String s:keys){
+					sb.append(s);
+					sb.append(",");
+					sb.append(stats.get(s));
+					sb.append("\n");
 				}
-				out.println();
+				
 			}
+			out.write(sb.toString());
 			
 			out.close();
 			fw.close();

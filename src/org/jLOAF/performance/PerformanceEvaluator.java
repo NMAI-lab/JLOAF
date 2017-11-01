@@ -191,6 +191,7 @@ public abstract class PerformanceEvaluator {
 		DBWriter writer2 = new DBWriter();
 		
 		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()), filterTime, testTime);
+		writer.writeRawStats(AllStats, "RawStats.txt");
 		try {
 			writer2.writeToDB(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()),getMeanTime(filterTime),getMeanTime(testTime));
 		} catch (ClassNotFoundException e) {
