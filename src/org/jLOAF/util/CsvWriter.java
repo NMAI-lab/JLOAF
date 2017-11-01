@@ -83,19 +83,24 @@ public class CsvWriter {
 			PrintWriter out = new PrintWriter(fw);
 			StringBuilder sb = new StringBuilder();
 			sb.append("Performance Measure");
-			sb.append(",");
-			sb.append("Result");
+			
+			for(int i=0;i<AllStats.size();i++){
+				sb.append(",");
+				sb.append("Cycle"+i);
+			}
+			
 			sb.append("\n");
-			for(HashMap<String, Float> stats: AllStats){
-				Set<String> keys = stats.keySet();
-				for(String s:keys){
-					sb.append(s);
+			
+			Set<String> keys = AllStats.get(0).keySet();
+			for(String s:keys){
+				sb.append(s);
+				for(HashMap<String, Float> stats: AllStats){
 					sb.append(",");
 					sb.append(stats.get(s));
-					sb.append("\n");
 				}
-				
-			}
+				sb.append("\n");		
+			}		
+			
 			out.write(sb.toString());
 			
 			out.close();
