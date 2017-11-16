@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.jLOAF.Reasoning;
 import org.jLOAF.action.Action;
+import org.jLOAF.action.AtomicAction;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.AtomicInput;
@@ -45,11 +46,11 @@ public class simpleKNNtest {
 		Input i5 = new AtomicInput("5", f5,sim);
 	
 			
-		Action a1 = new Action("down");
-		Action a2 = new Action("down");
-		Action a3 = new Action("up");
-		Action a4 = new Action("up");
-		Action a5 = new Action("up");
+		Action a1 = new AtomicAction("down");
+		Action a2 = new AtomicAction("down");
+		Action a3 = new AtomicAction("up");
+		Action a4 = new AtomicAction("up");
+		Action a5 = new AtomicAction("up");
 	
 		
 		Case c1 = new Case(i1, a1);
@@ -73,7 +74,7 @@ public class simpleKNNtest {
 	        Reasoning r = new SimpleKNN(k,cb);
 	       
 	        Input i6 = new AtomicInput("test", new Feature(1.5), sim);
-			Action a6 = new Action("down");
+			Action a6 = new AtomicAction("down");
 			CaseBase cb2 = new CaseBase();
 			cb2.createThenAdd(i6, a6, ssim);
 	        Case c = (Case) cb2.getCases().toArray()[0];
@@ -88,7 +89,7 @@ public class simpleKNNtest {
 	        Reasoning r = new SimpleKNN(k,cb);
 	        
 	        Input i6 = new AtomicInput("test", new Feature(1.5),sim);
-			Action a6 = new Action("down");
+			Action a6 = new AtomicAction("down");
 			CaseBase cb2 = new CaseBase();
 			cb2.createThenAdd(i6, a6, ssim);
 	        Case c = (Case) cb2.getCases().toArray()[0];

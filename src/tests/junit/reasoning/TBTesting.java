@@ -3,6 +3,7 @@ package tests.junit.reasoning;
 import static org.junit.Assert.*;
 
 import org.jLOAF.action.Action;
+import org.jLOAF.action.AtomicAction;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.AtomicInput;
@@ -56,11 +57,11 @@ public class TBTesting {
 		Input i5 = new AtomicInput("4", f5,sim);
 	
 			
-		 a1 = new Action("down");
-		 a2 = new Action("right");
-		 a3 = new Action("up");
-		 a4 = new Action("still");
-		 a5 = new Action("left");
+		 a1 = new AtomicAction("down");
+		 a2 = new AtomicAction("right");
+		 a3 = new AtomicAction("up");
+		 a4 = new AtomicAction("still");
+		 a5 = new AtomicAction("left");
 		
 		//here is how we create stateBased inputs.
 		 si1 = new StateBasedInput("si1",null);

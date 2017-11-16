@@ -3,6 +3,7 @@ package tests.junit.preprocessing.filter.casebasefilter;
 import static org.junit.Assert.assertEquals;
 
 import org.jLOAF.action.Action;
+import org.jLOAF.action.AtomicAction;
 import org.jLOAF.casebase.Case;
 import org.jLOAF.casebase.CaseBase;
 import org.jLOAF.inputs.AtomicInput;
@@ -37,7 +38,7 @@ public class ClusteringTest {
 		i3=new AtomicInput("A",new Feature(10.0),sim);
 		i4=new AtomicInput("A",new Feature(10.0),sim);
 		i5=new AtomicInput("A",new Feature(10.0),sim);
-		a= new Action("hello");
+		a= new AtomicAction("hello");
 		cb=new CaseBase();
 		StateBasedSimilarity sim1 = new  KOrderedSimilarity(1);
 		cb.createThenAdd(i1, a,sim1 );
