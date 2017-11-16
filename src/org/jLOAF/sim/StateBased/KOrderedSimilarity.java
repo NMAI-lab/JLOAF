@@ -16,7 +16,7 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 	private static final long serialVersionUID = 1L;
 		//k is how many steps you want to go back in the trace
 		private int k;
-		int bla=0;
+
 		public KOrderedSimilarity(int k){
 			this.k=k;
 		}
@@ -34,43 +34,19 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 				StateBasedInput st2 = (StateBasedInput)i2;
 				int sizeSt1 = st1.getSize();
 				int sizeSt2=st2.getSize();
-				int penalty =0;
-				bla++;
-				penalty =Math.abs(sizeSt1-sizeSt2);
-				if(k>Math.min(sizeSt2, sizeSt1)+5){
-				 
-				 if(penalty>5){
-					 return 0;
-				 }
-				}else if (k>Math.min(sizeSt2, sizeSt1)){
-					
-					if(penalty>5){
-						penalty = k-Math.min(sizeSt2, sizeSt1);
-					}
-				}else {
-					penalty=0;
-				}
-				
+				int minSize = Math.min(sizeSt1,sizeSt2); 
 				double similarity = 0;
-				for(int i=0;i<k;i=i+2){
-					if(i>sizeSt1 ||i>sizeSt2){
-						break;
-					}
-					try{
-					similarity+=st1.getInput(i).similarity(st2.getInput(i));
-					}catch(NullPointerException e){
-						System.out.print(e);
-					}
-					if(i+1 <Math.min(sizeSt1, sizeSt2) && i+1 <k){
+				for(int i=0;i<Math.min(k,minSize);i++){
+					
+					
+					
 						
-						similarity+=st1.getAction(i+1).similarity(st2.getAction(i+1));}
+						similarity+=st1.getElement(i).similarity(st2.getElement(i));
+						
 				}
 				
 				
-				similarity=(similarity-((similarity*penalty)/10));
-					if(similarity<0){
-						return 0;
-					}
+				
 					
 				return similarity/k;
 	}
