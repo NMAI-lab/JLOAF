@@ -166,6 +166,12 @@ public class StateBasedInput extends Input {
 		return newOne;
 			
 	}
+	public Element getElement(int i){
+		if(i%2==0){
+			return getInput(i);
+		}
+		return getAction(i);
+	}
 	
 	
 	

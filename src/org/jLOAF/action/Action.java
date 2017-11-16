@@ -1,11 +1,14 @@
 package org.jLOAF.action;
 
 import java.io.Serializable;
+
+import org.jLOAF.inputs.Element;
+import org.jLOAF.inputs.Input;
 /**
  * this Action class follows the composite pattern, where it has two children, an atomicAction and a complexAction.
  * the Action is considered an output of a given input.
  */
-public class Action implements Serializable{
+public abstract class Action extends Element implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -35,5 +38,10 @@ public class Action implements Serializable{
 		}
 		return 1;
 	}
+	
+	public  double similarity(Element e){
+		return this.similarity((Action)e);
+	}
+	
 
 }

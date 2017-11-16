@@ -16,7 +16,7 @@ import org.jLOAF.sim.SimilarityMetricStrategy;
  * an input is usually the state of an environment, or a trace of the environment states and actions.
  * Also the input class follows the composite pattern.
  */
-public abstract class Input implements Serializable{
+public abstract class Input extends Element implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -43,12 +43,13 @@ public abstract class Input implements Serializable{
 	 * @param i the input to be compared with this input
 	 * @return a double that represents the similarity between the two inputs.
 	 */
-	public double similarity(Input i){
+	public double similarity(Element i){
 		if(!this.getClass().equals(i.getClass())){
 			throw new IllegalArgumentException("Inputs not of the same class");
 		}
-		return simStrategy.similarity(this, i);
+		return simStrategy.similarity(this, (Input)i);
 	}
+	
 	
 	/**
 	 * sets the similarity Strategy used by this input
