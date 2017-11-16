@@ -33,21 +33,15 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 				StateBasedInput st1 = (StateBasedInput)i1;
 				StateBasedInput st2 = (StateBasedInput)i2;
 				int sizeSt1 = st1.getSize();
-				int sizeSt2=st2.getSize();
+				int sizeSt2 = st2.getSize();
+				
 				int minSize = Math.min(sizeSt1,sizeSt2); 
+				
 				double similarity = 0;
 				for(int i=0;i<Math.min(k,minSize);i++){
-					
-					
-					
-						
-						similarity+=st1.getElement(i).similarity(st2.getElement(i));
-						
+					similarity+=st1.getElement(i).similarity(st2.getElement(i));		
 				}
-				
-				
-				
-					
+	
 				return similarity/k;
 	}
 

@@ -28,23 +28,14 @@ public class OrderedSimilarity extends StateBasedSimilarity {
 				StateBasedInput st1 = (StateBasedInput)i1;
 				StateBasedInput st2 = (StateBasedInput)i2;
 				int sizeSt1 = st1.getSize();
-				int sizeSt2=st2.getSize();
-				int penalty =Math.abs(sizeSt1-sizeSt2);
-				if(penalty > 5){
-					return 0;
-				}
+				int sizeSt2 = st2.getSize();
+				
 				double similarity = 0;
-				for(int i=0;i<Math.min(sizeSt1, sizeSt2);i=i+2){
-					similarity+=st1.getInput(i).similarity(st2.getInput(i));
-					if(i+1 !=Math.min(sizeSt1, sizeSt2)){
-						
-						similarity+=st1.getAction(i+1).similarity(st2.getAction(i+1));}
+				
+				for(int i=0;i<Math.min(sizeSt1, sizeSt2);i++){
+					similarity+=st1.getElement(i).similarity(st2.getElement(i));
 				}
-				double k=(similarity-(similarity*penalty/10));
-				if(k<0){
-					k=0;
-				}
-				return k/(Math.min(sizeSt1, sizeSt2));
+				return similarity/(Math.max(sizeSt1, sizeSt2));
 	}
 
 }
