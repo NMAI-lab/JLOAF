@@ -81,9 +81,11 @@ public class CsvWriter {
 		try {
 			
 			String[] temp = filename.split(",");
-			temp[0]=temp[0].split("/")[1];
+			String agentName=temp[0].split("/")[1];
+			String reasoner = temp[1];
 			
-			FileWriter fw = new FileWriter("Raw_stats/"+temp[0]+"-rawStats.csv");
+			FileWriter fw = new FileWriter("Results/"+agentName+reasoner+temp[4]+"-rawStats.csv");
+			//FileWriter fw = new FileWriter("rawStats"+filename);
 			PrintWriter out = new PrintWriter(fw);
 			StringBuilder sb = new StringBuilder();
 			sb.append("Performance Measure");
