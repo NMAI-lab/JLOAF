@@ -190,12 +190,12 @@ public abstract class PerformanceEvaluator {
 		CsvWriter writer = new CsvWriter();
 		DBWriter writer2 = new DBWriter();
 		
-		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()), filterTime, testTime);
+		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(), filterTime, testTime);
 		
 		
 		writer.writeRawStats(AllStats, output_stats);
 		try {
-			writer2.writeToDB(output_stats, pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()),getMeanTime(filterTime),getMeanTime(testTime));
+			writer2.writeToDB(output_stats, pmc.calcMean(), pmc.calcStDev(),getMeanTime(filterTime),getMeanTime(testTime));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
