@@ -129,6 +129,7 @@ end
 %     end
 % end
 
+
 engine = smoother_engine(jtree_2TBN_inf_engine(bnet));
 %engine = jtree_dbn_inf_engine(bnet);
 %engine = jtree_unrolled_dbn_inf_engine(bnet, 5);
@@ -137,16 +138,24 @@ disp('Learning... LFODBN');
 %bnet = learn_params_em(engine, cases, 'max_iter', EMIterations);
 [bnet, LLtrace] = learn_params_dbn_em(engine, cases, 'max_iter', EMIterations);
 %bnet = renormalizeDBNdistributions(bnet);
-%engine = jtree_dbn_inf_engine(bnet);
-%engine = jtree_unrolled_dbn_inf_engine(bnet, 5);
-engine = smoother_engine(jtree_2TBN_inf_engine(bnet));
 
-function[data] = mynormalize(data)
-%normalizes the data to zero mean and unit variance
-means = mean(data);
-stds = std(data);
-data1 = (data-repmat(means,length(data),1));
-for i=1:size(data,2)
-    data(:,i) = data1(:,i)/stds(i);
+%converts to a static bnet
+bnet = convert_to_static_bnet(bnet);
+
+engine = jtree_inf_engine(bnet);
+%engine = jtree_unrolled_dbn_inf_engine(bnet, 5);
+%engine = smoother_engine(jtree_2TBN_inf_engine(bnet));
+%engine = jtree_2TBN_inf_engine(bnet);
+end
+
+function[bnet] = convert_to_static_bnet(dbn)
+    %converts the 2tdbn into a static bnet
+    num_nodes = length(dbn.CPD);
+    dsc_nodes = dbn.dnodes;
+    dsc_nodes = dsc_nodes(dsc_nodes<=num_nodes);
+    bnet = mk_bnet(dbn.dag([1:num_nodes],[1:num_nodes]),dbn.node_sizes(1:num_nodes), dsc_nodes);
+    for i=1:num_nodes
+        bnet.CPD{i}=dbn.CPD{i};
+    end
 end
 
