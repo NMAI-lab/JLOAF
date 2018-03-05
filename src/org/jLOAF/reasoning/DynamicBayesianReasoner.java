@@ -75,7 +75,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 		for(String key: temp.keySet()){
 			int index = feature_names.indexOf(key);
 			X.remove(index);
-			X.add(index, temp.get(key)+1.0);	
+			X.add(index, temp.get(key));	
 		}
 		
 		List<Double> input = new ArrayList<Double>();
