@@ -56,6 +56,7 @@ public class TBReasoning extends Reasoning {
 					threshold = PPT;
 				}else{
 					sim=i.getAction(time).similarity(((StateBasedInput) train.getInput()).getAction(time));
+					threshold = CPT;
 				}
 				
 				if(sim > bestSim){
