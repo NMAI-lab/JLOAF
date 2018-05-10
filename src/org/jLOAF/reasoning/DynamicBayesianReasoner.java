@@ -25,7 +25,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 	DynamicBayesianNetworkRemote bnet = null;
 	List<Action> actions;
 	List<String> feature_names;
-	int EmIter = 10;
+	int EmIter = 1;
 	double placeholder = 7.6;
 	CaseBase cb;
 	String output_filename;
@@ -35,6 +35,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 	int new_state =1;//new state variable
 	int action = 1;//action variable
 	int timestep = 0;
+	List<Double> previous_input = new ArrayList<Double>();
 	
 	public DynamicBayesianReasoner(CaseBase cb, String output_filename) {
 		super(null);
@@ -83,8 +84,9 @@ public class DynamicBayesianReasoner extends Reasoning {
 		if (timestep ==0){
 			state = bnet.getInitialState(X); //get initial state
 			input.add((double) state); //add to the list of perceptions as evidence
+			previous_input = X;
 		}else{
-			new_state = bnet.getNewState(X, action, state);// get new state based on past action, new perception and past state
+			new_state = bnet.getNewState(previous_input, action, state);// get new state based on past action, new perception and past state
 			input.add((double) new_state);// to the list of perceptions as evidence
 		}
 		
@@ -96,6 +98,7 @@ public class DynamicBayesianReasoner extends Reasoning {
 
 		if(timestep >0){
 			state = new_state;//update the state
+			previous_input = X;
 		}
 		
 		timestep++;

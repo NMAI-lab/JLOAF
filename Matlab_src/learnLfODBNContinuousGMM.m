@@ -156,6 +156,6 @@ function[bnet] = convert_to_static_bnet(dbn)
     bnet = mk_bnet(dbn.dag([1:num_nodes],[1:num_nodes]),dbn.node_sizes(1:num_nodes), dsc_nodes);
     for i=1:num_nodes
         bnet.CPD{i}=dbn.CPD{i};
-    end
+    end 
 end
 
