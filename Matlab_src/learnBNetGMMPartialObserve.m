@@ -42,11 +42,11 @@ end
 % DEFINED BY SACHA (Requires hardcoding for now)
 
 %goalSeenR
-dag(3,7)=1;dag(3,9)=1;
+dag(3,7)=1;dag(3,9)=1;dag(10,3)=1;
 %goalSeenL
-dag(5,1)=1;dag(5,4)=1;
+dag(5,1)=1;dag(5,4)=1;dag(10,5)=1;
 %BallSeen
-dag(6,2)=1;dag(6,8)=1;
+dag(6,2)=1;dag(6,8)=1;dag(10,6)=1;
 %Action - connecting the action to each cts node
 for index=1:XSIZE
     if ~ismember(index,discrete)
@@ -65,9 +65,9 @@ for i = 1:VARS
 end
 
 %setting the angle data to vonMises d
-bnet.CPD{2} = vonMises_CPD(bnet, 2);
-bnet.CPD{4} = vonMises_CPD(bnet, 4);
-bnet.CPD{9} = vonMises_CPD(bnet, 9);
+%bnet.CPD{2} = vonMises_CPD(bnet, 2);
+%bnet.CPD{4} = vonMises_CPD(bnet, 4);
+%bnet.CPD{9} = vonMises_CPD(bnet, 9);
 
 bnet = learn_params(bnet, cases);
 engine = jtree_inf_engine(bnet);

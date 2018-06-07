@@ -99,7 +99,7 @@ public abstract class PerformanceEvaluator {
 
 		//loop over all casebases
 		long totalTime = System.currentTimeMillis();
-		for(int ii=0;ii<listOfCaseBases.size();ii++){
+		for(int ii=0;ii<1;ii++){
 			//temp list
 			tempList.clear();
 			tempList.addAll(listOfCaseBases);

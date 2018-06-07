@@ -43,5 +43,11 @@ public abstract class Action extends Element implements Serializable{
 		return this.similarity((Action)e);
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		return false;
+		
+	}
+	
 
 }

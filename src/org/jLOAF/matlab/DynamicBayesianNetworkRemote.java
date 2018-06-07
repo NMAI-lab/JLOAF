@@ -27,7 +27,7 @@ public class DynamicBayesianNetworkRemote {
 	 */
 	public DynamicBayesianNetworkRemote(String trace, int a_XSIZE, int Em_iter){
 		
-		String matlabCommand = "[dbn,bnetengine] = learnLfODBNContinuousGMMPartialObserve([";
+		String matlabCommand = "[dbn,bnetengine] = learnLfODBNContinuousGMM([";
 		matlabCommand+="'" + trace + "';";
 		matlabCommand+="], " + Em_iter + " ," + STATES + "," + a_XSIZE + "," + 1 + ");"; //changed 20 size of array to 10 to reflect the change in perception size
 

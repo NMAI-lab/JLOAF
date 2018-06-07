@@ -71,7 +71,9 @@ end
 engine = jtree_inf_engine(bnet);
 %engine = likelihood_weighting_inf_engine(bnet); %use if chnodes->dnodes exist
 %engine = var_elim_inf_engine(bnet);
-[bnet,~, engine] = learn_params_em(engine, cases, 20, 1e-4);
+%[bnet,~, engine] = learn_params_em(engine, cases, 20, 1e-4);
+bnet = learn_params(bnet,cases);
+engine = jtree_inf_engine(bnet);
 %bnet = renormalizeDBNdistributions(bnet);
 %engine = jtree_inf_engine(bnet);
 %engine = likelihood_weighting_inf_engine(bnet);

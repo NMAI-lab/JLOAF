@@ -76,6 +76,15 @@ public class AtomicAction extends Action {
 		return v;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+	        return false;
+	    }
+		AtomicAction a = (AtomicAction) obj;
+		return (this.name.equals(a.name));
+	}
+	
 	
 	
 }
