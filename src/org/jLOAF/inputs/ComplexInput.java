@@ -2,6 +2,7 @@ package org.jLOAF.inputs;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Set;
 
 import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
@@ -25,7 +26,7 @@ public class ComplexInput extends Input {
 	public ComplexInput(String name, ComplexSimilarityMetricStrategy sim) {
 		super(name);
 		super.setSimilarityMetric(sim);
-		collect = new HashMap<String,Input>();
+		collect = new LinkedHashMap<String,Input>();
 	}
 	/**
 	 * adds an input to the collection of inputs this complexInput has
