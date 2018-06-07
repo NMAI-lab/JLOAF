@@ -99,7 +99,7 @@ public abstract class PerformanceEvaluator {
 
 		//loop over all casebases
 		long totalTime = System.currentTimeMillis();
-		for(int ii=0;ii<1;ii++){
+		for(int ii=0;ii<listOfCaseBases.size();ii++){
 			//temp list
 			tempList.clear();
 			tempList.addAll(listOfCaseBases);
@@ -154,7 +154,7 @@ public abstract class PerformanceEvaluator {
 
 			agent.train(Reasoning.getReasoner(r, cb));
 
-			Statistics stats_module = new Statistics(agent);
+			Statistics stats_module = new Statistics(agent, ii);
 			
 
 			//start testing 

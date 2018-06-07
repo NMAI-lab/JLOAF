@@ -36,7 +36,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 	public FeatureSelectionAlgorithm(CaseBaseFilter fs){
 		super(fs);
 		a = new GenericAgent();
-		st=new Statistics(a);
+		st=new Statistics(a, 0);
 		open = new ArrayList<FeatureNode>();
 		testCases = new CaseBase();
 		trainCases= new CaseBase();
@@ -59,7 +59,7 @@ public abstract class FeatureSelectionAlgorithm extends CaseBaseFilter {
 		}
 	allIn.setM_statsBest(st.getStatisticsBundle());
 	allIn.setEvaluateNumber(st.getStatisticsBundle().getPrimaryStatistic());
-	st= new Statistics(st.getAgent());
+	st= new Statistics(st.getAgent(), 0);
 	}
 	/**
 	 * places a given node in its right place in the open list,
