@@ -49,7 +49,7 @@ public class BayesianNetworkRemote {
 		}
 		try {
 			if (proxy==null) proxy = factory.getProxy();
-			proxy.eval(matlabCommand);
+			//proxy.eval(matlabCommand);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

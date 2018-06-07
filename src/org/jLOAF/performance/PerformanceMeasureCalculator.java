@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
 import org.jLOAF.util.CsvWriter;
 /**
  * This class calculates the Mean and Standard Deviation of multiple test set results.
@@ -29,8 +30,7 @@ public class PerformanceMeasureCalculator {
 	 */
 	public void CalculateAllStats(){
 		HashMap<String, Float> mean = calcMean();
-		HashMap<String, HashMap<String, Float>> matrix = calcMatrix();
-		HashMap<String, Float> sumdeviationquared = calcStDev(mean,matrix);
+		HashMap<String, Float> sumdeviationquared = calcStDev();
 		
 		System.out.format("%45s \n", "_________________________________________________");
 		System.out.format("|%25s|%10s|%10s| \n", "Performance Measure","Mean","St.Dev" );
@@ -70,19 +70,6 @@ public class PerformanceMeasureCalculator {
 		return mean;
 	}
 	
-	/**
-	 * Puts the list of HashMaps into HashMap
-	 * @return A HashMap containing all the HashMaps containing Statistics
-	 */
-	public HashMap<String, HashMap<String, Float>> calcMatrix(){
-		HashMap<String, HashMap<String, Float>> matrix = new HashMap<String, HashMap<String, Float>>();
-		int count = 0;
-		for(HashMap<String, Float> stats: AllStats){
-				matrix.put(String.valueOf(count),stats);
-				count++;
-		}
-		return matrix;
-	}
 	
 	/**
 	 * Calculates the Standard deviation for each statstic and returns it in a HashMap
@@ -90,41 +77,30 @@ public class PerformanceMeasureCalculator {
 	 * @param matrix HashMap of statistics
 	 * @return HashMap with Standard Deviations for each Statistic
 	 */
-	public HashMap<String, Float> calcStDev(HashMap<String, Float> mean, HashMap<String, HashMap<String, Float>> matrix){
-		HashMap<String, Float> tempfeatures = new HashMap<String, Float>();
-		HashMap<String, HashMap<String, Float>> indexnum = new HashMap<String, HashMap<String, Float>>();
-		
-		//calculate deviationsquared
-		for(String index: matrix.keySet()){
-			for(String feature: matrix.get(index).keySet()){
-				float val = (matrix.get(index).get(feature).floatValue()-mean.get(feature).floatValue())*(matrix.get(index).get(feature).floatValue()-mean.get(feature).floatValue());
-				tempfeatures.put(feature, val);
-			}
-			indexnum.put(index, tempfeatures);
-		}
+	public HashMap<String, Float> calcStDev(){
 		
 		HashMap<String, Float> tempfeatures2 = new HashMap<String, Float>();
 		
-		//calculate sumdeviationsquared
-		for(String index:indexnum.keySet()){
-			for(String feature: indexnum.get(index).keySet()){		
-				if(!tempfeatures.containsKey(feature)){tempfeatures.put(feature,0.0f);}
-				float val = tempfeatures.get(feature).floatValue()+indexnum.get(index).get(feature).floatValue();
-				tempfeatures2.put(feature, val);
+		HashMap<String, SummaryStatistics> mean = new HashMap<String, SummaryStatistics>();
+		for(HashMap<String, Float> stats: AllStats){
+			Set<String> keys = stats.keySet();
+			for(String s:keys){
+				if(!mean.containsKey(s)){
+					mean.put(s,new SummaryStatistics());
+				}
+				SummaryStatistics ss = mean.get(s);
+				ss.addValue(stats.get(s).doubleValue());
+				mean.put(s,ss);
 			}
 		}
 		
-		//calculate division
-		for(String feature:tempfeatures2.keySet()){
-			float val = tempfeatures2.get(feature).floatValue()/(float) (numMaps);
-			tempfeatures2.put(feature, val);
+		Set<String> measures = mean.keySet();
+		
+		for(String s: measures){
+			SummaryStatistics ss = mean.get(s);
+			tempfeatures2.put(s, (float) ss.getStandardDeviation());
 		}
 		
-		//calculate sqrt
-		for(String feature:tempfeatures2.keySet()){
-			float val = (float) Math.pow(tempfeatures.get(feature).doubleValue(), 0.5);
-			tempfeatures2.put(feature, val);
-		}
 		
 		return tempfeatures2;
 	}
@@ -152,7 +128,7 @@ public class PerformanceMeasureCalculator {
 		pmc.CalculateAllStats();
 		
 		CsvWriter writer = new CsvWriter();
-		writer.writeCalculatedStats("Sample.csv", pmc.calcMean(), pmc.calcStDev(pmc.calcMean(), pmc.calcMatrix()), null, null);
+		writer.writeCalculatedStats("Sample.csv", pmc.calcMean(), pmc.calcStDev(), null, null);
 	//	writer.writeRawStats("rawStats.csv", pmc.labels, pmc.calcMatrix());
 		
 	}

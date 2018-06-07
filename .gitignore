@@ -1,14 +1,3 @@
-*.classpath
-.classpath
-*.classpath
-*.classpath
-.classpath
-
-.classpath
-*.class
-.classpath
-*.class
-.classpath
 src/org/jLOAF/casebase/Node.java
 src/org/jLOAF/casebase/Graph.java
 *.class

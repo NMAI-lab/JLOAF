@@ -280,7 +280,7 @@ public class CaseBase implements Serializable{
 					f1.write(",");
 				}
 				
-				f1.write(String.valueOf(actions_container.get(jj)));
+				f1.write(String.valueOf((actions_container.get(jj).intValue())));
 				
 				f1.write("\n");
 				

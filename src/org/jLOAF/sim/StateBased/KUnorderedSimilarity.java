@@ -85,7 +85,7 @@ public class KUnorderedSimilarity extends StateBasedSimilarity {
 			
 			}
 		}
-		return similarity/(i1Run.keySet().size()+i2Run.keySet().size()-count);
+		return similarity/(i1Run.keySet().size());
 	}
 
 }

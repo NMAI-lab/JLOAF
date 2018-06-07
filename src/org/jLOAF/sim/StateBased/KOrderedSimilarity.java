@@ -42,7 +42,8 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 					similarity+=st1.getElement(i).similarity(st2.getElement(i));		
 				}
 	
-				return similarity/k;
+				return similarity/Math.min(sizeSt1,k);
+
 	}
 
 }

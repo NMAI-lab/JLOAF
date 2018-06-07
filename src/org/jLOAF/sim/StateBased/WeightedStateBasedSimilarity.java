@@ -50,6 +50,6 @@ public class WeightedStateBasedSimilarity extends StateBasedSimilarity
 						similarity+=st1.getAction(i+1).similarity(st2.getAction(i+1))*multiplyer;}
 				}
 				
-				return similarity/count;
+				return similarity/sizeSt1;
 	}
 }
