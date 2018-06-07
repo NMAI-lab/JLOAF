@@ -62,9 +62,9 @@ public class Statistics {
 	public void createPredictedTrace(Action predictedAction, Input input) {
 		try {
 			File file = new File("PredictedTraceFile"+cross_validation_fold+".txt");
-			if(!file.exists()){
-		    	   file.createNewFile();
-		    }
+			
+			file.createNewFile();
+		    
 			HashMap<String, Double> result = CaseBase.convert(input);
 			
 			FileWriter fw = new FileWriter(file, true);
