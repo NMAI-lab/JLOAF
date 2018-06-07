@@ -46,11 +46,13 @@ var_size = [1   1    2     2     1     2     2     1    1     1    3];
 %ballclose
 dag(3,11)=1;
 %goalSeenR
+
 dag(4,8)=1;dag(4,10)=1;dag(4,11)=1;
 %goalSeenL
 dag(6,1)=1;dag(6,5)=1;dag(6,11)=1;
 %BallSeen
 dag(7,2)=1;dag(7,9)=1;dag(7,11)=1;
+
 %Action - connecting the action to each cts node
 for index=1:XSIZE
     if ~ismember(index,discrete)
@@ -68,11 +70,18 @@ for i = 1:VARS
 	end
 end
 
+
+%setting the angle data to vonMises d
+%bnet.CPD{2} = vonMises_CPD(bnet, 2);
+%bnet.CPD{4} = vonMises_CPD(bnet, 4);
+%bnet.CPD{9} = vonMises_CPD(bnet, 9);
+
 % for i = 1:length(cases)*VARS
 %     if cases{i}==6.6
 %         cases{i}=[];
 %     end
 % end
+
 
 %setting the angle data to vonMises d
 % bnet.CPD{2} = vonMises_CPD(bnet, 2);

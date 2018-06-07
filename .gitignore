@@ -3,4 +3,3 @@ src/org/jLOAF/casebase/Graph.java
 *.class
 *.classpath
 *.pydevproject
-*.classpath

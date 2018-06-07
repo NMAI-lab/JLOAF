@@ -18,6 +18,7 @@ import org.jLOAF.inputs.StateBasedInput;
 public class TBReasoning extends Reasoning {
 	
 	private CaseBase cb;
+
 	double PPT=0.99;
 	double ST=0.99;
 	double CPT=0.99;
@@ -53,6 +54,7 @@ public class TBReasoning extends Reasoning {
 			}else{
 				if(time%2==0){
 					sim=i.getInput(time).similarity(((StateBasedInput) train.getInput()).getInput(time));
+
 					if(time>0){
 						threshold = PPT;
 					}

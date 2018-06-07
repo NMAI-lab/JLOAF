@@ -43,6 +43,7 @@ public class KOrderedSimilarity extends StateBasedSimilarity  {
 				}
 	
 				return similarity/Math.min(sizeSt1,k);
+
 	}
 
 }
