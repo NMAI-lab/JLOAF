@@ -1,5 +1,8 @@
 package org.jLOAF.performance;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +15,9 @@ import org.jLOAF.reasoning.NeuralNetworkOrderKReasoner;
 import org.jLOAF.Agent;
 import org.jLOAF.action.Action;
 import org.jLOAF.casebase.Case;
+import org.jLOAF.casebase.CaseBase;
+import org.jLOAF.inputs.Input;
+import org.jLOAF.inputs.StateBasedInput;
 /**
  * Creates statistics for testing performance of imitating agents
  * @author sachagunaratne
@@ -20,15 +26,18 @@ import org.jLOAF.casebase.Case;
 public class Statistics {
 	
 	private Agent agent;
-	private HashMap  <String, HashMap<String, Integer>> confusion_matrix;
+	private HashMap <String, HashMap<String, Integer>> confusion_matrix;
+	private int cross_validation_fold;
+	
 	
 	/***
 	 * Creates a statistics object with an agent, and initializes a confusion matrix
 	 * @param An Agent
 	 * ***/
-	public Statistics(Agent agent){
+	public Statistics(Agent agent, int cv_fold){
 		this.agent = agent;
 		this.confusion_matrix= new HashMap  <String, HashMap<String, Integer>>();
+		this.cross_validation_fold = cv_fold;
 	}
 	
 	/***
@@ -43,6 +52,32 @@ public class Statistics {
 		if(agent.getR() instanceof DynamicBayesianReasoner){ ((DynamicBayesianReasoner) agent.getR()).replaceLastAction(correctAction.getName());}
 		if(agent.getR() instanceof NeuralNetworkOrderKReasoner){ ((NeuralNetworkOrderKReasoner) agent.getR()).replaceLastAction(correctAction.getName());}
 		addPair2ConfusionMatrix(correctAction.getName(),predictedAction.getName());
+		createPredictedTrace(predictedAction, ((StateBasedInput)input.getInput()).getInput());
+	}
+	/***
+	 * Writes an predicted Action and input to a file.
+	 * @param predictedAction
+	 * @param input
+	 */
+	public void createPredictedTrace(Action predictedAction, Input input) {
+		try {
+			File file = new File("PredictedTraceFile"+cross_validation_fold+".txt");
+			if(!file.exists()){
+		    	   file.createNewFile();
+		    }
+			HashMap<String, Double> result = CaseBase.convert(input);
+			
+			FileWriter fw = new FileWriter(file, true);
+			for(String key:result.keySet()) {
+				fw.append((result.get(key).toString())+ ' ');
+			}
+			fw.append(predictedAction.getName()+'\n');
+			fw.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	/***

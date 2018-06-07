@@ -26,7 +26,7 @@ public class SequentialBackwardGenerationTest {
 		CaseBase cb= CaseBase.load("cb1.cb");
 		Agent rc= new GenericAgent();
 		rc.train(new WeightedKNN(1,cb));
-		Statistics st = new Statistics(rc);
+		Statistics st = new Statistics(rc, 0);
 			CaseBase testCases = new CaseBase();
 			int i=0;
 			for(Case c:cb.getCases()){
