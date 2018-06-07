@@ -18,9 +18,9 @@ import org.jLOAF.inputs.StateBasedInput;
 public class TBReasoning extends Reasoning {
 	
 	private CaseBase cb;
-	double CPT=0.99;
 	double PPT=0.99;
-	double PAT=0;
+	double ST=0.99;
+	double CPT=0.99;
 	public TBReasoning(CaseBase cb) {
 		super(null);
 		this.cb=cb;
@@ -36,7 +36,7 @@ public class TBReasoning extends Reasoning {
 	 * @return Action The most likely action
 	 */
 	public Action retrieve(StateBasedInput i, ArrayList<Case> nn, int time) {
-		double threshold = PAT;
+		double threshold = CPT;
 		
 		ArrayList <Case> possible = new ArrayList<Case>();
 		ArrayList <Action> nnactions = new ArrayList<Action>();
@@ -53,9 +53,12 @@ public class TBReasoning extends Reasoning {
 			}else{
 				if(time%2==0){
 					sim=i.getInput(time).similarity(((StateBasedInput) train.getInput()).getInput(time));
-					threshold = PPT;
+					if(time>0){
+						threshold = PPT;
+					}
 				}else{
 					sim=i.getAction(time).similarity(((StateBasedInput) train.getInput()).getAction(time));
+					threshold = ST;
 				}
 				
 				if(sim > bestSim){

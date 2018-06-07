@@ -85,7 +85,7 @@ public class BayesianReasoner extends Reasoning {
 		for(String key: temp.keySet()){
 			int index = feature_names.indexOf(key);
 			input.remove(index);
-			input.add(index, temp.get(key)+1.0);	
+			input.add(index, temp.get(key));	
 		}
 		
 		List<Double> output = bnet.run(input);
