@@ -28,6 +28,7 @@ public class Statistics {
 	private Agent agent;
 	private HashMap <String, HashMap<String, Integer>> confusion_matrix;
 	private int cross_validation_fold;
+	private File file;
 	
 	
 	/***
@@ -38,6 +39,16 @@ public class Statistics {
 		this.agent = agent;
 		this.confusion_matrix= new HashMap  <String, HashMap<String, Integer>>();
 		this.cross_validation_fold = cv_fold;
+		this.file = new File("PredictedTraceFile"+cross_validation_fold+".txt");
+		try {
+			if(file.exists()) {
+				file.delete();
+			}
+			file.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	/***
@@ -61,9 +72,6 @@ public class Statistics {
 	 */
 	public void createPredictedTrace(Action predictedAction, Input input) {
 		try {
-			File file = new File("PredictedTraceFile"+cross_validation_fold+".txt");
-			
-			file.createNewFile();
 		    
 			HashMap<String, Double> result = CaseBase.convert(input);
 			
