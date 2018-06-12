@@ -70,7 +70,7 @@ public class Statistics {
 		try {
 			File file = new File("Statistics/PredictedTraceFile - "+ descriptor + cross_validation_fold + ".txt");
 			file.createNewFile();
-		    
+			
 			HashMap<String, Double> result = CaseBase.convert(input);
 			
 			FileWriter fw = new FileWriter(file, true); 
