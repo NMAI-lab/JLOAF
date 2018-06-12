@@ -29,7 +29,6 @@ public class Statistics {
 	private HashMap <String, HashMap<String, Integer>> confusion_matrix;
 	private int cross_validation_fold;
 	private String descriptor;
-	
 	/***
 	 * Creates a statistics object with an agent, and initializes a confusion matrix
 	 * @param An Agent
@@ -70,7 +69,7 @@ public class Statistics {
 		try {
 			File file = new File("Statistics/PredictedTraceFile - "+ descriptor + cross_validation_fold + ".txt");
 			file.createNewFile();
-		    
+			
 			HashMap<String, Double> result = CaseBase.convert(input);
 			
 			FileWriter fw = new FileWriter(file, true); 

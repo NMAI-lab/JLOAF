@@ -61,13 +61,20 @@ public abstract class PerformanceEvaluator {
 	 * 
 	 * @param filenames An array of the logfile names
 	 * @param filter A CaseBaseFilter 
-	 * @param output_stats the location and name of the output statistics file
+	 * @param descriptor the location and name of the output statistics file
 	 * @param r reasoner name
 	 * @param st a stateBasedSimilarityMetricStrategy name  
 	 * @param cp a complexSimilarityMetricStrategy name
+	 * @param int[] (optional), output stats file will output 2 files. thus to differentiate the two files, the two ints in this array will be used (default 0, 1)
 	 * @throws IOException
 	 */
-	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String descriptor,String r,String st,String cp) throws IOException{
+	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String descriptor,String r,String st,String cp, int ... names) throws IOException{
+		
+		//set the names if required
+		if (names.length == 0) {
+			names = new int[]{0, 1};
+		}
+		
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
@@ -145,7 +152,7 @@ public abstract class PerformanceEvaluator {
 				filterTime[ii]= tempTime/1000.0;
 				System.out.println("time Taken to Filter is " + tempTime/1000.0 +" seconds");
 			}
-			//before here where the txt file is printed
+			
 			System.out.println("CaseBase size: " + cb.getSize());
 			System.out.println("TestBase size: " + tb.getSize());
 
@@ -154,7 +161,7 @@ public abstract class PerformanceEvaluator {
 			
 			agent.train(Reasoning.getReasoner(r, cb));
 
-			Statistics stats_module = new Statistics(agent, descriptor, ii);
+			Statistics stats_module = new Statistics(agent, descriptor, names[ii]);
 			
 
 			//start testing 
