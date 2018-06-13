@@ -29,6 +29,7 @@ public class Statistics {
 	private HashMap <String, HashMap<String, Integer>> confusion_matrix;
 	private int cross_validation_fold;
 	private String descriptor;
+
 	/***
 	 * Creates a statistics object with an agent, and initializes a confusion matrix
 	 * @param An Agent
