@@ -28,27 +28,23 @@ public class Statistics {
 	private Agent agent;
 	private HashMap <String, HashMap<String, Integer>> confusion_matrix;
 	private int cross_validation_fold;
-	private File file;
-	
-	
+	private String descriptor;
+
 	/***
 	 * Creates a statistics object with an agent, and initializes a confusion matrix
 	 * @param An Agent
 	 * ***/
-	public Statistics(Agent agent, int cv_fold){
+	public Statistics(Agent agent, String descriptor, int cv_fold){
 		this.agent = agent;
 		this.confusion_matrix= new HashMap  <String, HashMap<String, Integer>>();
+		this.descriptor = descriptor;
 		this.cross_validation_fold = cv_fold;
-		this.file = new File("PredictedTraceFile"+cross_validation_fold+".txt");
-		try {
-			if(file.exists()) {
-				file.delete();
-			}
-			file.createNewFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		File file = new File("Statistics/PredictedTraceFile - "+ descriptor + cross_validation_fold + ".txt");
+		file.delete();//delete file if exists
+	}
+	
+	public Statistics(Agent agent, int cv_fold){
+		this(agent, "", cv_fold);
 	}
 	
 	/***
@@ -72,10 +68,12 @@ public class Statistics {
 	 */
 	public void createPredictedTrace(Action predictedAction, Input input) {
 		try {
-		    
+			File file = new File("Statistics/PredictedTraceFile - "+ descriptor + cross_validation_fold + ".txt");
+			file.createNewFile();
+			
 			HashMap<String, Double> result = CaseBase.convert(input);
 			
-			FileWriter fw = new FileWriter(file, true);
+			FileWriter fw = new FileWriter(file, true); 
 			for(String key:result.keySet()) {
 				fw.append((result.get(key).toString())+ ' ');
 			}

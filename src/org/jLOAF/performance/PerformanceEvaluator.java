@@ -15,7 +15,7 @@ import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.util.CsvWriter;
 import org.jLOAF.util.DBWriter;
-/***
+/**
  * Abstract class that can be extended and used to test performance
  * 
  * Implement the abstract trainAgent method and make sure to change return type from Agent to the subclassed Agent type
@@ -31,7 +31,7 @@ public abstract class PerformanceEvaluator {
 	 * After converting each log into casebase using LogFile2CaseBase methods
 	 * @param filenames An array containing the logfile names
 	 * @return An array with the CaseBase names
-	 * @throws IOException 
+	 * @throws IOException
 	 * ***/
 	public abstract String[] createArrayOfCasebaseNames(String [] filenames) throws IOException;
 
@@ -61,13 +61,20 @@ public abstract class PerformanceEvaluator {
 	 * 
 	 * @param filenames An array of the logfile names
 	 * @param filter A CaseBaseFilter 
-	 * @param output_stats the location and name of the output statistics file
+	 * @param descriptor the location and name of the output statistics file
 	 * @param r reasoner name
 	 * @param st a stateBasedSimilarityMetricStrategy name  
 	 * @param cp a complexSimilarityMetricStrategy name
+	 * @param int[] (optional), output stats file will output 2 files. thus to differentiate the two files, the two ints in this array will be used (default 0, 1)
 	 * @throws IOException
 	 */
-	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String output_stats,String r,String st,String cp) throws IOException{
+	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String descriptor,String r,String st,String cp, int ... names) throws IOException{
+		
+		//set the names if required
+		if (names.length == 0) {
+			names = new int[]{0, 1};
+		}
+		
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
 		int ignore =0;
@@ -151,10 +158,10 @@ public abstract class PerformanceEvaluator {
 
 			//add function to split casebase into cb and tb
 			//SplitTrainTest(cb);
-
+			
 			agent.train(Reasoning.getReasoner(r, cb));
 
-			Statistics stats_module = new Statistics(agent, ii);
+			Statistics stats_module = new Statistics(agent, descriptor, names[ii]);
 			
 
 			//start testing 
@@ -162,6 +169,7 @@ public abstract class PerformanceEvaluator {
 			startTime = System.currentTimeMillis();
 
 			for(Case test: tb.getCases()){
+				//creates predicted trace file
 				stats_module.predictedCorrectActionName(test);
 			}
 
@@ -190,6 +198,7 @@ public abstract class PerformanceEvaluator {
 		CsvWriter writer = new CsvWriter();
 		DBWriter writer2 = new DBWriter();
 		
+		String output_stats = "Results/" + descriptor + ".csv";
 		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(), filterTime, testTime);
 		
 		
