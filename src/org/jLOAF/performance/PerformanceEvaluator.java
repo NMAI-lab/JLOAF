@@ -161,7 +161,7 @@ public abstract class PerformanceEvaluator {
 			
 			agent.train(Reasoning.getReasoner(r, cb));
 
-			Statistics stats_module = new Statistics(agent, descriptor, names[ii]);
+			Statistics stats_module = new Statistics(agent, descriptor + " - m", names[ii]);
 			
 
 			//start testing 
