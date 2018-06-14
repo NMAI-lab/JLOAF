@@ -15,7 +15,7 @@ import org.jLOAF.sim.ComplexSimilarityMetricStrategy;
 import org.jLOAF.sim.StateBasedSimilarity;
 import org.jLOAF.util.CsvWriter;
 import org.jLOAF.util.DBWriter;
-/***s
+/**
  * Abstract class that can be extended and used to test performance
  * 
  * Implement the abstract trainAgent method and make sure to change return type from Agent to the subclassed Agent type
@@ -31,7 +31,7 @@ public abstract class PerformanceEvaluator {
 	 * After converting each log into casebase using LogFile2CaseBase methods
 	 * @param filenames An array containing the logfile names
 	 * @return An array with the CaseBase names
-	 * @throws IOException ls
+	 * @throws IOException
 	 * ***/
 	public abstract String[] createArrayOfCasebaseNames(String [] filenames) throws IOException;
 
