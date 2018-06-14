@@ -80,11 +80,7 @@ public class CsvWriter {
 	public void writeRawStats(List<HashMap<String, Float>> AllStats, String filename){
 		try {
 			
-			String[] temp = filename.split(",");
-			String agentName=temp[0].split("/")[1];
-			String reasoner = temp[1];
-			
-			FileWriter fw = new FileWriter("Results/"+agentName+reasoner+temp[4]+"-rawStats.csv");
+			FileWriter fw = new FileWriter(filename);
 			//FileWriter fw = new FileWriter("rawStats"+filename);
 			PrintWriter out = new PrintWriter(fw);
 			StringBuilder sb = new StringBuilder();

@@ -202,7 +202,7 @@ public abstract class PerformanceEvaluator {
 		writer.writeCalculatedStats(output_stats, pmc.calcMean(), pmc.calcStDev(), filterTime, testTime);
 		
 		
-		writer.writeRawStats(AllStats, output_stats);
+		writer.writeRawStats(AllStats, "Results/" + descriptor + "-RawStats.csv");
 		try {
 			writer2.writeToDB(output_stats, pmc.calcMean(), pmc.calcStDev(),getMeanTime(filterTime),getMeanTime(testTime));
 		} catch (ClassNotFoundException e) {
