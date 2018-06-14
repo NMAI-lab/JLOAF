@@ -40,6 +40,7 @@ public class Statistics {
 		this.descriptor = descriptor;
 		this.cross_validation_fold = cv_fold;
 		File file = new File("Statistics/PredictedTraceFile - "+ descriptor + cross_validation_fold + ".txt");
+		System.out.println("Your statistic File name is: " + file.getName());
 		file.delete();//delete file if exists
 	}
 	
