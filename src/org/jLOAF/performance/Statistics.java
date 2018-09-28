@@ -60,7 +60,7 @@ public class Statistics {
 		if(agent.getR() instanceof DynamicBayesianReasoner){ ((DynamicBayesianReasoner) agent.getR()).replaceLastAction(correctAction.getName());}
 		if(agent.getR() instanceof NeuralNetworkOrderKReasoner){ ((NeuralNetworkOrderKReasoner) agent.getR()).replaceLastAction(correctAction.getName());}
 		addPair2ConfusionMatrix(correctAction.getName(),predictedAction.getName());
-		createPredictedTrace(predictedAction, ((StateBasedInput)input.getInput()).getInput());
+		//createPredictedTrace(predictedAction, ((StateBasedInput)input.getInput()).getInput());
 	}
 	/***
 	 * Writes an predicted Action and input to a file.

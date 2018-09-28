@@ -68,12 +68,8 @@ public abstract class PerformanceEvaluator {
 	 * @param int[] (optional), output stats file will output 2 files. thus to differentiate the two files, the two ints in this array will be used (default 0, 1)
 	 * @throws IOException
 	 */
-	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String descriptor,String r,String st,String cp, int ... names) throws IOException{
+	public void PerformanceEvaluatorMethod(String []filenames,CaseBaseFilter filter, String descriptor,String r,String st,String cp) throws IOException{
 		
-		//set the names if required
-		if (names.length == 0) {
-			names = new int[]{0, 1};
-		}
 		
 		ArrayList<CaseBase> listOfCaseBases=new ArrayList<CaseBase>();
 		ArrayList<CaseBase> tempList = new ArrayList<CaseBase>();
@@ -161,7 +157,7 @@ public abstract class PerformanceEvaluator {
 			
 			agent.train(Reasoning.getReasoner(r, cb));
 
-			Statistics stats_module = new Statistics(agent, descriptor + " - m", names[ii]);
+			Statistics stats_module = new Statistics(agent, descriptor + " - m", ii);
 			
 
 			//start testing 
